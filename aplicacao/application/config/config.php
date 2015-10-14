@@ -70,7 +70,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'portuguese';
 
 /*
 |--------------------------------------------------------------------------
@@ -308,7 +308,7 @@ $config['cache_query_string'] = FALSE;
 | http://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 's0VkWaT1lRBPvS7cBD9iAyUd9Uj9rDsT';
 
 /*
 |--------------------------------------------------------------------------
