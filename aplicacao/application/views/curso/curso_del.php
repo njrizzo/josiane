@@ -11,7 +11,7 @@ echo form_open("curso/deletar/$id");
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 			
             
-            <h1 align="center" >Deletar curso  </h1>
+            <h1 align="center" ><font color="#00009C">Deletar curso </font>  </h1>
 
 <table class="table table-striped" width="472" border="0" id="logon">
   <tr>
@@ -64,7 +64,7 @@ echo form_open("curso/deletar/$id");
     <td>Estado:</td>
     <td>
 		
-    <input type="text" name="estado" id="estado" value="<?php echo set_value('estado',$query->estado); ?>"  />
+    <input type="text" name="estado" id="estado" value="<?php echo set_value('estado',$query->estado); ?>"  disabled />
        
       </td>
   </tr>
@@ -76,7 +76,7 @@ echo form_open("curso/deletar/$id");
     <td>
       
     </td>
-    <td align="right"><input name="proximo" type="submit" class="input_bt" id="proximo" value="Deletar" /></td>
+    <td align="right"><input name="Deletar" type="submit" class="input_bt" id="Deletar" value="Deletar" /></td>
   </tr>
 </table>
 

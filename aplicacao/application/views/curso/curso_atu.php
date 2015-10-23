@@ -12,8 +12,12 @@ echo form_open("curso/editar/$id");
 ?>
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 			
-            
-            <h1 align="center" >Alterar curso  </h1>
+            <?php	
+            if($this->session->flashdata('editarok')):
+echo'<p>'.$this->session->flashdata('editarok').'</p>';
+endif
+?>
+            <h1 align="center" ><font color="#00009C">Alterar curso</font>   </h1>
 
 <table class="table table-striped" width="472" border="0" id="logon">
   <tr>
@@ -66,7 +70,12 @@ echo form_open("curso/editar/$id");
     <td>Estado:</td>
     <td>
 		<?php echo form_error('estado'); ?>
-    <input type="text" name="estado" id="estado" value="<?php echo set_value('estado',$query->estado); ?>">
+		<select name="estado" id="estado" >
+        <option value="<?=$query->estado?>" <?php echo set_select('estado','$query->estado'); ?>><?=$query->estado?></option>
+        <option value="ativo" <?php echo set_select('estado','ativo'); ?>>ativo</option>
+        <option value="inativo" <?php echo set_select('estado','inativo'); ?>>inativo</option>
+      </select><br />
+    
        
       </td>
   </tr>

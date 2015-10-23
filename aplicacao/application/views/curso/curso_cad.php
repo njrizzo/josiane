@@ -3,15 +3,16 @@ $this->load->view('template/cabecalho');
 $this->load->view('template/menucurso'); 
 //echo validation_errors();
 echo form_open('curso/cadastrar');
-if($this->session->flashdata('cadastrook')):
-echo'<p>'.$this->session->flashdata('cadastrook').'</p>';
-endif
+
 //echo form_close();
 ?>
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
-			
-            
-            <h1 align="center" >Cadastrar novo curso   </h1>
+		<?php	
+            if($this->session->flashdata('cadastrook')):
+echo'<p>'.$this->session->flashdata('cadastrook').'</p>';
+endif
+?>
+            <h1 align="center" ><font color="#00009C">Cadastrar novo curso </font>   </h1>
 
 <table width="472" border="0" id="logon">
   <tr>
@@ -65,7 +66,7 @@ endif
     <td>
 		<?php echo form_error('estado'); ?>
       <select name="estado" id="estado" >
-        <option >--selecione--</option>
+       
         <option value="ativo" <?php echo set_select('estado','ativo'); ?>>ativo</option>
         <option value="inativo" <?php echo set_select('estado','inativo'); ?>>inativo</option>
       </select><br />
@@ -79,7 +80,7 @@ endif
     <td>
       
     </td>
-    <td align="right"><input name="proximo" type="submit" class="input_bt" id="proximo" value="Cadastrar" /></td>
+    <td align="right"><input name="cadastrar" type="submit" class="input_bt" id="cadastrar" value="Cadastrar" /></td>
   </tr>
 </table>
 

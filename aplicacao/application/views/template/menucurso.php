@@ -13,7 +13,7 @@
                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"> <?php echo anchor('curso/cadastrar','<font  size="-1" color="#FFFFFF">CADASTRAR</font>')?></th>
               </tr>
               <tr>
-                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('curso','<font  size="-1" color="#FFFFFF">CONSULTAR</font>')?></th>
+                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('curso/gerarel','<font  size="-1" color="#FFFFFF">RELATÓRIO</font>')?></th>
               </tr>
               <tr>
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('curso/editar','<font  size="-1" color="#FFFFFF">ALTERAR</font>')?> </th>
@@ -22,10 +22,10 @@
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('curso','<font  size="-1" color="#FFFFFF">EXCLUIR</font>')?> </th>
               </tr>
               <tr>
-                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('curso','<font size="-1" color="#FFFFFF">IN&Iacute;CIO</font>')?> </th>
+                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('home','<font size="-1" color="#FFFFFF">IN&Iacute;CIO</font>')?> </th>
               </tr>
               <tr>
-                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('curso','<font size="-1" color="#FFFFFF">SAIR</font>')?> </th>
+                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('home/logout','<font size="-1" color="#FFFFFF">SAIR</font>')?> </th>
               </tr>
             
               <tr>

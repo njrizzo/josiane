@@ -22,23 +22,18 @@ class Curso extends CI_Controller {
 	public function __construct() {
         parent::__construct();
  $this->load->model('curso_m');
-
+  $this->load->model('user','',TRUE);
+   $this->user->logged();
+ 
 }
+ 
 	
 	
 	public function index()
 	
 	{
-		 //$dados = array(
-	//'cadastros' => $this->curso_m->selecionar()->result(),
-	//);
-		//$this->load->library('image_lib');
-		
-$data['cursos'] = $this->curso_m->selecionar();
-// $this->load->vars($data);
-
-	$this->load->view('curso/curso_v',$data);
-	//$this->load->view('curso/curso_v',$dados);
+	$datas['query2'] = $this->curso_m->do_pesquisa();
+$this->load->view('curso/curso_v', $datas);
 	}
 	public function cadastrar()
 	
@@ -46,7 +41,7 @@ $data['cursos'] = $this->curso_m->selecionar();
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('modulo','Modulo','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('descricao','Descrição','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|max_length[100]');
+	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|alpha_numeric');
 	$this -> form_validation ->set_rules('areatema','Área temática','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('competencia','Competência','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('estado','Estado','required');
@@ -78,7 +73,7 @@ $data['cursos'] = $this->curso_m->selecionar();
 	{
 		$data['cursos'] = $this->curso_m->selecionar();
 
-        $this->load->view('curso/curso_v', $data);	
+        $this->load->view('curso/curso_pes', $data);	
 
 
 	
@@ -89,7 +84,7 @@ $data['cursos'] = $this->curso_m->selecionar();
 		$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('modulo','Modulo','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('descricao','Descrição','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|max_length[100]');
+	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|numeric');
 	$this -> form_validation ->set_rules('areatema','Área temática','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('competencia','Competência','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('estado','Estado','required');
@@ -129,18 +124,13 @@ $data['cursos'] = $this->curso_m->selecionar();
 
 
 
-/*
- 	public function consultar()
-	{
-		  $dados = array(
-	'cadastros' => $this->curso_m->selecionar()->result(),
-	);
-	$this->load->view('curso/curso_v',$dados);
-	
-		}
 
+ public function pesquisar()
+{
+$datas['query2'] = $this->curso_m->do_pesquisa();
+$this->load->view('curso/curso_v', $datas);
+}
 
-*/
 
 
 	

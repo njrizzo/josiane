@@ -81,9 +81,11 @@ public function atualizar($codcurso=NULL)
       //$this->db->order_by('codcurso', 'ASC');
       $this->db->limit(1);
       return $this->db->get('curso');
+      
       else:
       
       return FALSE;
+     
       endif; 
     }
 
@@ -94,6 +96,9 @@ public function atualizar_do($dados=NULL,$condicao=NULL)
       if($dados!=NULL && $condicao!=NULL):
 		
 		$this->db->update('curso',$dados,$condicao);
+		
+		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
+		//redirect("curso/editar/$id");
 		redirect(current_url());
 		endif;
     }
@@ -103,10 +108,38 @@ public function deletar_do($condicao=NULL)
     {
       if($condicao!=NULL):
 		$this->db->delete('curso',$condicao);
-		redirect('curso/consultar');
+		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
+		
+		redirect('curso/pesquisar');
 		endif;
     }
 
+	
+	
+public function do_pesquisa() {
+  $match = $this->input->post('pesquisar');
+  $this->db->order_by('codcurso', 'ASC');
+  $this->db->like('nome',$match);
+  $this->db->or_like('modulo',$match);
+  $this->db->or_like('descricao',$match);
+   $this->db->or_like('areatema',$match);
+   $this->db->or_like('competencia',$match);
+   $this->db->or_like('estado',$match);
+   $query2 = $this->db->get('curso');
+   if ($query2->num_rows() > 0)
+        {
+            return $query2->result();
+        }
+        else
+        {
+            return false;
+        }
+}
+	
+	
+	
+	
+	
 	
 }
 

@@ -4,24 +4,6 @@ $this->load->view('template/menucurso');
 
 
 
-/*
-echo '<td width="553" align="left" valign="top" bgcolor="#FFFFFF">';
-$template = array(
-          'table_open'            => '<table border="1" cellpadding="4" cellspacing="0" class="table"  cols="45" rows="5" maxlength = "100" size = "50" >'
-
-       
-);
-
-$this->table->set_template($template);
-
-echo '<h2>Lista de cursos   </h2>';
-foreach($cadastros as $linha):
-$this->table->add_row($linha->codcurso,$linha->nome,$linha->modulo,$linha->descricao,$linha->cargahr,$linha->areatema,$linha->competencia,$linha->estado);
-echo $this->table->generate();
-endforeach;
-
-*/
-
 
 ?>
 
@@ -29,11 +11,15 @@ endforeach;
 <style type="text/css">
 	<!--
 tbody > tr:nth-of-type(odd) {
-  background-color: gray;
+  background-color: lightgray;
 }
 table, th, td {
   border: 1px solid black;
   
+}
+input{
+
+color:#00009C;
 }
 -->
 </style>
@@ -42,8 +28,27 @@ table, th, td {
 </head>
 <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 
+            <?php	
+            if($this->session->flashdata('excluirok')):
+echo'<p>'.$this->session->flashdata('excluirok').'</p>';
+endif
+?>
+    
 
+<?=form_open('curso/pesquisar');?>
+<?php $pesquisar = array('name'=>'pesquisar','id'=>'pesquisar','value'=>'' );?>
+<table align="right">
+
+<tr>
+	<td colspan="2" align="center"><font color="#00009C">Pesquisar </font> </td>
+<td><?=form_input($pesquisar);?></td>
+<td><input type=submit  value='Ir' /></td>
+</tr></table>
+
+<?=form_close();?>
+<br><br><br>
 <h2 align="center" ><font color="#00009C">Lista de cursos </font>  </h2>
+
 <table border="1" >
     <thead>
         <tr >
@@ -75,14 +80,17 @@ table, th, td {
             </th>
              
             
-            <th>
-                Ações
+            <th width="668" colspan="2" >
+				 Ações
+				
+				
+               
             </th>
         </tr>
     </thead>
     <tbody>
-        <?php if ($cursos != false): ?>
-        <?php foreach ($cursos as $linha): ?>
+        <?php if ($query2 != false): ?>
+        <?php foreach ($query2 as $linha): ?>
             <tr>
             <td>
                 <?=$linha->codcurso ?>
@@ -110,12 +118,14 @@ table, th, td {
             </td>
               
             
-            
-             <th  >
-               <?= anchor("curso/editar/$linha->codcurso",'editar')?>
-                <?= anchor("curso/deletar/$linha->codcurso",'__X__')?>
-            </th>
-            
+          
+             <td background="figuras/editar.jpeg" > 
+				 <?= anchor("curso/editar/$linha->codcurso",'<img src="figuras/editar.jpg" alt="editar" alt="Smiley face" />')?>
+               <td>    
+                <?php echo anchor("curso/deletar/$linha->codcurso",'<img src="figuras/ex2.jpg" alt="editar" name="cadastro" />')?>
+                  
+           
+          
             
             
             
