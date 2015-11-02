@@ -1,0 +1,52 @@
+body {
+	background-image:  url('figuras/back2.jpg');
+	background-repeat: repeat-y;
+	background-position: center center;
+}
+div.whatever{
+	background: url('figuras/logon.gif') no-repeat top left;
+	margin:0;
+	padding:15px 0 0 15px;
+}
+table#logon{
+	font-size:10pt;
+	font:Verdana, Geneva, sans-serif;
+	}
+#logon .input_text{
+	margin:0;
+	padding:1px;
+	border:1px solid #666;
+	width:70%;
+	}
+	#logon .input_bt{
+	margin:0;
+	padding:1px;
+	border:1px solid #666;
+	background-color:#FFF;
+	margin-right:8px;
+	color: #666;
+	}
+	
+
+.menu {
+	display: inline; 
+	float: center;
+	position: relative; 
+	background-image: url('figuras/tmenu.gif');
+	width: 5000px; 
+
+	text-align: left; 
+	font-weight: bold;
+	
+	}
+	
+a, u {
+    text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+   
+}
+
+
