@@ -32,16 +32,16 @@ class Curso extends CI_Controller {
 	public function index()
 	
 	{
-	$datas['query2'] = $this->curso_m->do_pesquisa();
-$this->load->view('curso/curso_v', $datas);
+	redirect('curso/listar');
 	}
 	public function cadastrar()
 	
 	{
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('modulo','Modulo','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('descricao','Descrição','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|alpha_numeric');
+	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|numeric');
 	$this -> form_validation ->set_rules('areatema','Área temática','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('competencia','Competência','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('estado','Estado','required');
@@ -81,7 +81,8 @@ $this->load->view('curso/curso_v', $datas);
 
 	public function editar()
 	{
-		$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('modulo','Modulo','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('descricao','Descrição','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|numeric');
@@ -118,6 +119,7 @@ $this->load->view('curso/curso_v', $datas);
 	 $this->curso_m->deletar_do(array('codcurso' => $this->input->post('$idcurso')));
 	 	// else:
 	 	 //$this->curso_m->deletar_do(array('codcurso' => $this->input->post('$idcurso')));
+	 	
 	 endif;
 	  
 		}
@@ -125,14 +127,32 @@ $this->load->view('curso/curso_v', $datas);
 
 
 
- public function pesquisar()
-{
-$datas['query2'] = $this->curso_m->do_pesquisa();
-$this->load->view('curso/curso_v', $datas);
-}
 
 
 
+public function listar(){
+			
+			
+			 $this->load->library('pagination');
+	$maximo = 4;
+	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
+	$config['base_url'] = base_url('index.php/curso/listar');
+	$config['total_rows'] =$this->curso_m->contaRegistros();
+	$config['per_page'] =  $maximo;
+	$config['first_link'] = 'Primeiro';
+	$config['last_link'] = 'Último';
+	$config['next_link'] = 'Próximo';
+	$config['prev_link'] = 'Anterior';
+	$this->pagination->initialize($config);
 	
-}
+	$datas['page'] = $this->pagination->create_links();
+	$datas['query2'] = $this->curso_m->do_pesquisa($maximo, $inicio);
+					
+	$this->load->view('curso/curso_v', $datas);
+	
+			
+			
+			}//endfuncao
+	
+}//endcontroler
 

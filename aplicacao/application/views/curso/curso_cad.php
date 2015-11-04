@@ -12,64 +12,73 @@ echo form_open('curso/cadastrar');
 echo'<p>'.$this->session->flashdata('cadastrook').'</p>';
 endif
 ?>
-            <h1 align="center" ><font color="#00009C">Cadastrar novo curso </font>   </h1>
+          
+
+  <h1 align="center" ><font color="#00009C">Cadastrar novo curso </font>   </h1>
 
 <table width="472" border="0" id="logon">
   <tr>
 	  
-    <td width="101">Nome:</td>
-    <td width="361">
-		<?php echo form_error('nome'); ?>
-        <input name="nome" type="text" value="<?php echo set_value('nome'); ?>" class="input_text" id="nome" />
-        
+    <td >Nome: </td>
+    
+    <td >
+		
+        <input type="text" name="nome"  value="<?php echo set_value('nome'); ?>"  id="nome" />
+        <?php echo form_error('nome'); ?>
+     
     </td>
   </tr>
   <tr>
     <td>M&oacute;dulo:</td>
     <td>
-		<?php echo form_error('modulo'); ?>
-      <input name="modulo" type="text" value="<?php echo set_value('modulo'); ?>" class="input_text" id="modulo" />
+		
+      <input type="text" name="modulo"  value="<?php echo set_value('modulo'); ?>"  id="modulo" />
+      <?php echo form_error('modulo'); ?>
      </td>
   </tr>
   <tr>
     <td>Descri&ccedil;&atilde;o:</td>
     <td>
-		<?php echo form_error('descricao'); ?>
+		
       <textarea name="descricao" value="<?php echo set_value('descricao'); ?>" cols="45" rows="5" id="descricao"></textarea>
-      <br />
+				<br><?php echo form_error('descricao'); ?>
+      
       
   </tr>
   <tr>
     <td>Carga hor&aacute;ria:</td>
     <td>
-		<?php echo form_error('cargahr'); ?>
+		
     <input type="text" name="cargahr" value="<?php echo set_value('cargahr'); ?>" id="cargahr" size="5"/>
+    <?php echo form_error('cargahr'); ?>
     <br />
    <span>*Digite somente n&uacute;meros.</span></td>
   </tr>
   <tr>
     <td>&Aacute;rea tem&aacute;tica:</td>
     <td>
-		<?php echo form_error('areatema'); ?>
-      <input name="areatema" type="text" value="<?php echo set_value('areatema'); ?>" class="input_text" id="areatema" />
+		
+      <input name="areatema" type="text" value="<?php echo set_value('areatema'); ?>"  id="areatema" />
+      <?php echo form_error('areatema'); ?>
       </td>
   </tr>
   <tr>
     <td>Compet&ecirc;ncia:</td>
     <td>
-		<?php echo form_error('competencia'); ?>
-      <textarea name="competencia" value="<?php echo set_value('competencia'); ?>" id="competencia" cols="45" rows="5"></textarea><br />
+		
+      <textarea name="competencia" value="<?php echo set_value('competencia'); ?>" id="competencia" cols="45" rows="5"></textarea>
+      <br><?php echo form_error('competencia'); ?>
      </td>
   </tr>
   <tr>
     <td>Estado:</td>
     <td>
-		<?php echo form_error('estado'); ?>
+		
       <select name="estado" id="estado" >
-       
+        <option value=''>----selecione----</option>
         <option value="ativo" <?php echo set_select('estado','ativo'); ?>>ativo</option>
         <option value="inativo" <?php echo set_select('estado','inativo'); ?>>inativo</option>
-      </select><br />
+      </select><?php echo form_error('estado'); ?><br />
       </td>
   </tr>
   <tr>
@@ -83,8 +92,7 @@ endif
     <td align="right"><input name="cadastrar" type="submit" class="input_bt" id="cadastrar" value="Cadastrar" /></td>
   </tr>
 </table>
-
-				
+		
 				</td>
 
            

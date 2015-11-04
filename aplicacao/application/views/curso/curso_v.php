@@ -21,6 +21,10 @@ input{
 
 color:#00009C;
 }
+thead{
+background-color:#00009C;
+color:#FFFFFF
+}
 -->
 </style>
 
@@ -28,14 +32,10 @@ color:#00009C;
 </head>
 <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 
-            <?php	
-            if($this->session->flashdata('excluirok')):
-echo'<p>'.$this->session->flashdata('excluirok').'</p>';
-endif
-?>
+          
     
 
-<?=form_open('curso/pesquisar');?>
+<?=form_open('curso/listar');?>
 <?php $pesquisar = array('name'=>'pesquisar','id'=>'pesquisar','value'=>'' );?>
 <table align="right">
 
@@ -46,15 +46,20 @@ endif
 </tr></table>
 
 <?=form_close();?>
+  <?php	
+            if($this->session->flashdata('excluirok')):
+echo'<p>'.$this->session->flashdata('excluirok').'</p>';
+
+endif;
+
+?>
 <br><br><br>
 <h2 align="center" ><font color="#00009C">Lista de cursos </font>  </h2>
 
 <table border="1" >
     <thead>
         <tr >
-        <th>
-                ld
-            </th>
+        
             
             <th>
                 Nome
@@ -80,7 +85,7 @@ endif
             </th>
              
             
-            <th width="668" colspan="2" >
+            <th  colspan="2" >
 				 Ações
 				
 				
@@ -92,9 +97,7 @@ endif
         <?php if ($query2 != false): ?>
         <?php foreach ($query2 as $linha): ?>
             <tr>
-            <td>
-                <?=$linha->codcurso ?>
-            </td>
+            
             <td>
                 <?=$linha->nome ?>
             </td>
@@ -145,6 +148,6 @@ endif
 
 
 <?php
-
+echo $page;
 $this->load->view('template/rodape');
 ?>

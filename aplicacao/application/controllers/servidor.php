@@ -21,9 +21,10 @@
 		
 		public function __construct() {
 	        parent::__construct();
+	       
 	 $this->load->model('serv_m');
-	  $this->load->model('user','',TRUE);
-	   $this->user->logged();
+	 $this->load->model('user','',TRUE);
+	 $this->user->logged();
 	 
 	}
 	 
@@ -32,19 +33,20 @@
 		public function index()
 		
 		{
-			$datas['query2'] = $this->serv_m->do_pesquisa();
-$this->load->view('servidor/serv_v', $datas);
+		
+redirect('servidor/listar');
 		
 	
 		}
 		public function cadastrar()
 		
 		{
+			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 		$this -> form_validation ->set_rules('nomeserv','NOME','required|max_length[100]');
 		$this -> form_validation ->set_rules('sexo','sexo','required|max_length[100]');
 		$this -> form_validation ->set_rules('dltnasc','Data de nascimento','required');
-		$this -> form_validation ->set_rules('rgl','Identidade','required|numeric');
-		$this -> form_validation ->set_rules('cpfl','CPF','required|numeric');
+		$this -> form_validation ->set_rules('rgl','Identidade','required|numeric|max_length[9]');
+		$this -> form_validation ->set_rules('cpfl','CPF','required|numeric|max_length[11]');
 		$this -> form_validation ->set_rules('siape','SIAPE','required|numeric');
 		$this -> form_validation ->set_rules('nacilonalidade','Nacilonalidade ','required');
 		$this -> form_validation ->set_rules('naturalidade','Naturalidade ','required');
@@ -65,6 +67,7 @@ $this->load->view('servidor/serv_v', $datas);
 		$this -> form_validation ->set_rules('nomechefe','Nome do chefe','required');
 		$this -> form_validation ->set_rules('emailchefe','Email do chefe','required|valid_email');
 		$this -> form_validation ->set_rules('telchefe','Telefone do chefe','required');
+		$this -> form_validation ->set_rules('ensino','Forma&ccedil;&atilde;o','required');
 		if ($this->form_validation->run() == FALSE)
 	                {
 	                        $this->load->view('servidor/serv_cad');
@@ -73,12 +76,10 @@ $this->load->view('servidor/serv_v', $datas);
 	                {
 	                  
 	                  $dadoserv=elements(array('nomeserv','sexo','dltnasc','rgl','cpfl','siape','nacilonalidade','naturalidade','estcivil','endereco','numcasa','bairro','cidade','complemento','estado','cep','email','telcontato','unidade','setor','funcao','cargo','nomechefe','emailchefe','telchefe','ensino'),$this->input->post());
-	                  //$dadoserv['dltnasc'] = date('Y-m-d', strtotime($dadoserv['dltnasc']));
+	                 
 	                
 	                   $this->serv_m->inserir($dadoserv);
-	                    //echo "'.$dadoserv.'";
-	             //echo "foi doutor";
-	            // echo random_element($dadoserv);
+	                  
 	                
 			$this->load->view('servidor/serv_cad');
 	
@@ -94,6 +95,7 @@ $this->load->view('servidor/serv_v', $datas);
 	
 		public function editar()
 		{
+			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 			$this -> form_validation ->set_rules('nomeserv','NOME','required|max_length[100]');
 		$this -> form_validation ->set_rules('sexo','sexo','required|max_length[100]');
 		$this -> form_validation ->set_rules('dltnasc','Data de nascimento','required');
@@ -146,24 +148,36 @@ $this->load->view('servidor/serv_v', $datas);
 			if($this->input->post('$idserv')>0):
 	
 		 $this->serv_m->deletar_do(array('codserv' => $this->input->post('$idserv')));
-		 	// else:
-		 	 //$this->curso_m->deletar_do(array('codcurso' => $this->input->post('$idcurso')));
+		 	
 		 endif;
 		  
 			}
 	
 	
+		public function listar(){
+			
+			
+			 $this->load->library('pagination');
+	$maximo = 5;
+	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
+	$config['base_url'] = base_url('index.php/servidor/listar');
+	$config['total_rows'] =$this->serv_m->contaRegistros();
+	$config['per_page'] =  $maximo;
+	//$config['first_link'] = 'Primeiro';
+	//$config['last_link'] = 'Último';
+	$config['next_link'] = 'Próximo';
+	$config['prev_link'] = 'Anterior';
+	$this->pagination->initialize($config);
 	
-		
-	
-	 public function pesquisar()
-	{
-	$datas['query2'] = $this->serv_m->do_pesquisa();
+	$datas['page'] = $this->pagination->create_links();
+	$datas['query2'] = $this->serv_m->retornaServ($maximo, $inicio);
+					
 	$this->load->view('servidor/serv_v', $datas);
-	}
 	
+			
+			
+			}//fimfuncao
 	
-	
-	}
+	}//endcontroler
 	
 	

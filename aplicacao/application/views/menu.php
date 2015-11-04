@@ -62,7 +62,7 @@ table#logon{
 		
         <table width="200" border="0" align="center">
           <tr>
-            <th scope="col" colspan="2"><?php echo anchor('servidor','<img src="figuras/btnc.gif" name="curso" width="117" height="111" border="0" id="curso" />')?>
+            <th scope="col" colspan="2"><?php echo anchor('servidor/listar','<img src="figuras/btnc.gif" name="curso" width="117" height="111" border="0" id="curso" />')?>
             Painel</th>
             <th scope="col" colspan="2"><?php echo anchor('curso',' <img src="figuras/btnrr.gif" name="cadastro" width="117" height="111" border="0" id="cadastro" />')?>
             Administrador</th>
@@ -72,7 +72,7 @@ table#logon{
           <tr>
              <th scope="col" colspan="2"><?php echo anchor('curso','<img src="figuras/btni.gif" name="matricula" width="117" height="111" border="0" id="matricula" />')?>
             Certificados</th>
-            <th scope="col" colspan="2"><?php echo anchor('curso',' <img src="figuras/btnii.gif" name="relatorio" width="117" height="111" border="0" id="relatorio" />')?>
+            <th scope="col" colspan="2"><?php echo anchor('relatorio',' <img src="figuras/btnii.gif" name="relatorio" width="117" height="111" border="0" id="relatorio" />')?>
             Relatórios</th>
             <th scope="col" colspan="2"><?php echo anchor('home/logout','<img src="figuras/btnd.gif" alt="Sair do Sistema" name="sair" width="117" height="111" border="0" id="sair" />')?>
             Sair</th>
