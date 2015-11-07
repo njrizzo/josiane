@@ -5,7 +5,7 @@ $id = $this->uri->segment(3);
 if ($id==NULL) redirect('servidor/index'); 
 $query = $this ->serv_m->atualizar($id)->row();
 
-
+echo validation_errors();
 echo form_open("servidor/editar/$id");
 
 //echo form_close();
@@ -25,7 +25,7 @@ endif
     <td width="101" >Nome:</td>
     <td width="361"colspan="3">
 		<?php echo form_error('nomeserv'); ?>
-        <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv',$query->nomeserv); ?>" class="input_text" id="nomeserv" />
+        <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv',$query->nomeserv); ?>"  id="nomeserv" />
         
     </td>
   </tr>
@@ -35,11 +35,10 @@ endif
 		
     <td>
 		
-		<input type="radio" name="sexo" value="<?=$query->sexo ?>" <?php echo  set_radio('sexo', '$query->sexo',TRUE,$query->sexo); ?> /><?=$query->sexo ?>
-		<br>
-<input type="radio" name="sexo" value="Feminino" <?php echo  set_radio('sexo', 'Feminino',$query->sexo); ?> />Feminino
-<input type="radio" name="sexo" value="Masculino" <?php echo  set_radio('sexo', 'Masculino'); ?> />Masculino
-   
+		<input type="radio" name="sexo" value="masculino" <?= $query->sexo=='masculino'? set_radio('sexo', '$query->sexo',TRUE,$query->sexo):'';?> <?php echo set_radio('sexo', 'masculino'); ?> />Masculino
+   <br>
+<input type="radio" name="sexo" value="feminino" <?= $query->sexo=='feminino'?   set_radio('sexo', '$query->sexo',TRUE,$query->sexo):'';?> <?php echo set_radio('sexo', 'feminino'); ?> />Feminino
+
     
      </td>
  
@@ -85,28 +84,29 @@ endif
 		<?php echo form_error('estcivil'); ?>
 		<select id="estcivil" name="estcivil">
 	
-	<option value="<?=$query->estcivil ?>" <?php echo set_select('estcivil','$query->estcivil',$query->estcivil); ?>><?=$query->estcivil ?></option>
-    <option value="Solteiro(a)" <?php echo set_select('estcivil','Solteiro(a)',$query->estcivil); ?>>Solteiro(a)</option>
-      <option value="Casado(a)" <?php echo set_select('estcivil','Casado(a)',$query->estcivil); ?> >Casado(a)</option>
-      <option value="Divorciado(a)" <?php echo set_select('estcivil','Divorciado(a)',$query->estcivil); ?>>Divorciado(a)</option>
-      <option value="Vi&uacute;vo(a)" <?php echo set_select('estcivil','Vi&uacute;vo(a)',$query->estcivil); ?>>Vi&uacute;vo(a)</option>
+	
+    <option value="solteiro(a)" <?= $query->estcivil=='solteiro(a)'? 'selected':'';?> >Solteiro(a)</option>
+      <option value="casado(a)" <?= $query->estcivil=='casado(a)'? 'selected':'';?>  >Casado(a)</option>
+      <option value="divorciado(a)" <?= $query->estcivil=='divorciado(a)'? 'selected':'';?> >Divorciado(a)</option>
+      <option value="vi&uacute;vo(a)" <?= $query->estcivil=='viúvo(a)'? 'selected':'';?> >Vi&uacute;vo(a)</option>
     </select>
      </td>
      <td  >Forma&ccedil;&atilde;o:</td>
    
  <td>
+	 
 	 <?php echo form_error('ensino'); ?>
              <select id="ensino" name="ensino">
-				 <option value="<?=$query->ensino ?>" <?php echo set_select('ensino','<?=$query->ensino ?>'); ?>><?=$query->ensino ?></option>
-             <option value="Ensino M&eacute;dio Completo" <?php echo set_select('ensino','Ensino M&eacute;dio Completo'); ?>>Ensino M&eacute;dio Completo</option>
-             <option value="Ensino M&eacute;dio Incompleto"<?php echo set_select('ensino','Ensino M&eacute;dio Incompleto'); ?>>Ensino M&eacute;dio Incompleto</option>
-             <option value="Ensino Fundamental Incompleto" <?php echo set_select('ensino','Ensino Fundamental Incompleto'); ?>>Ensino Fundamental Incompleto</option>
-             <option value="Ensino Fundamental completo" <?php echo set_select('ensino','Ensino Fundamental completo'); ?>>Ensino Fundamental completo</option>
-             <option value="Ensino Superior Incompleto"<?php echo set_select('ensino','Ensino Superior Incompleto'); ?>>Ensino Superior Incompleto</option>
-             <option value="Ensino Superior Completo"<?php echo set_select('ensino','Ensino Superior Completo'); ?>>Ensino Superior Completo</option>
-             <option value="P&oacute;s-Gradua&ccedil;&atilde;o"<?php echo set_select('ensino','P&oacute;s-Gradua&ccedil;&atilde;o'); ?>>P&oacute;s-Gradua&ccedil;&atilde;o</option>
-             <option value="Mestrado" <?php echo set_select('ensino','Mestrado'); ?>>Mestrado</option>
-             <option value="Doutorado" <?php echo set_select('ensino','Doutorado'); ?>>Doutorado</option>
+				
+             <option value="Ensino M&eacute;dio Completo" <?=  (strcasecmp(trim($query->ensino), 'Ensino Médio Completo')==0)? 'selected':'';?> >Ensino M&eacute;dio Completo</option>
+             <option value="Ensino M&eacute;dio Incompleto" <?= (strcasecmp(trim($query->ensino), 'Ensino Médio Incompleto')==0)? 'selected':'';?> >Ensino M&eacute;dio Incompleto</option>
+             <option value="Ensino Fundamental Incompleto" <?= (strcasecmp(trim($query->ensino), 'Ensino Fundamental Incompleto')==0)? 'selected':'';?> >Ensino Fundamental Incompleto</option>
+             <option value="Ensino Fundamental completo" <?= (strcasecmp(trim($query->ensino), 'Ensino Fundamental completo')==0)? 'selected':'';?> >Ensino Fundamental completo</option>
+             <option value="Ensino Superior Incompleto"<?= (strcasecmp(trim($query->ensino), 'Ensino Superior Incompleto')==0)? 'selected':'';?>>Ensino Superior Incompleto</option>
+             <option value="Ensino Superior Completo" <?= (strcasecmp(trim($query->ensino), 'Ensino Superior Completo')==0)? 'selected':'';?> >Ensino Superior Completo</option>
+             <option value="P&oacute;s-Gradua&ccedil;&atilde;o" <?= (strcasecmp(trim($query->ensino), 'Pós-Graduação')==0)? 'selected':'';?> >P&oacute;s-Gradua&ccedil;&atilde;o</option>
+             <option value="Mestrado" <?= (strcasecmp(trim($query->ensino), 'Mestrado')==0)? 'selected':'';?> >Mestrado</option>
+             <option value="Doutorado" <?= (strcasecmp(trim($query->ensino), 'Doutorado')==0)? 'selected':'';?> >Doutorado</option>
              </select>
              </td>
      
@@ -160,35 +160,35 @@ endif
 		<?php echo form_error('estado'); ?>
         <select name="estado">
 						
-<option value="<?=$query->estado ?>" <?php echo set_select('estado','$query->estado',$query->estado); ?> ><?=$query->estado ?></option>
 
-<option value="RJ" <?php echo set_select('estado','RJ'); ?> >RJ</option>
-<option value="AC" <?php echo set_select('estado','AC'); ?>>AC</option>
-<option value="AL" <?php echo set_select('estado','AL'); ?>>AL</option>
-<option value="AM" <?php echo set_select('estado','AM');  ?>>AM</option>
-<option value="AP" <?php echo set_select('estado','AP'); ?>>AP</option>
-<option value="BA" <?php echo set_select('estado','BA'); ?>>BA</option>
-<option value="CE" <?php echo set_select('estado','CE'); ?>>CE</option>
-<option value="DF" <?php echo set_select('estado','DF'); ?>>DF</option>
-<option value="ES" <?php echo set_select('estado','ES'); ?>>ES</option>
-<option value="GO" <?php echo set_select('estado','GO'); ?>>GO</option>
-<option value="MA" <?php echo set_select('estado','MA'); ?> >MA</option>
-<option value="MG" <?php echo set_select('estado','MG'); ?> >MG</option>
-<option value="MS" <?php echo set_select('estado','MS'); ?> >MS</option>
-<option value="MT" <?php echo set_select('estado','MT'); ?> >MT</option>
-<option value="PA" <?php echo set_select('estado','PA'); ?>>PA</option>
-<option value="PB" <?php echo set_select('estado','PB'); ?> >PB</option>
-<option value="PE" <?php echo set_select('estado','PE'); ?>>PE</option>
-<option value="PI" <?php echo set_select('estado','PI'); ?> >PI</option>
-<option value="PR" <?php echo set_select('estado','PR'); ?> >PR</option>
-<option value="RN" <?php echo set_select('estado','RN'); ?>>RN</option>
-<option value="RO" <?php echo set_select('estado','RO'); ?> >RO</option>
-<option value="RR" <?php echo set_select('estado','RR'); ?>>RR</option>
-<option value="RS" <?php echo set_select('estado','RS'); ?>>RS</option>
-<option value="SC" <?php echo set_select('estado','SC'); ?> >SC</option>
-<option value="SE" <?php echo set_select('estado','SE'); ?>>SE</option>
-<option value="SP" <?php echo set_select('estado','SP'); ?>>SP</option>
-<option value="TO" <?php echo set_select('estado','TO'); ?>>TO</option>
+
+<option value="RJ" <?= $query->estado=='RJ'? 'selected':'';?><?php echo set_select('estado','RJ'); ?> >RJ</option>
+<option value="AC" <?= $query->estado=='AC'? 'selected':'';?><?php echo set_select('estado','AC'); ?>>AC</option>
+<option value="AL" <?= $query->estado=='AL'? 'selected':'';?><?php echo set_select('estado','AL'); ?>>AL</option>
+<option value="AM" <?= $query->estado=='AM'? 'selected':'';?><?php echo set_select('estado','AM');  ?>>AM</option>
+<option value="AP" <?= $query->estado=='AP'? 'selected':'';?><?php echo set_select('estado','AP'); ?>>AP</option>
+<option value="BA" <?= $query->estado=='BA'? 'selected':'';?><?php echo set_select('estado','BA'); ?>>BA</option>
+<option value="CE" <?= $query->estado=='CE'? 'selected':'';?><?php echo set_select('estado','CE'); ?>>CE</option>
+<option value="DF" <?= $query->estado=='DF'? 'selected':'';?><?php echo set_select('estado','DF'); ?>>DF</option>
+<option value="ES" <?= $query->estado=='ES'? 'selected':'';?><?php echo set_select('estado','ES'); ?>>ES</option>
+<option value="GO" <?= $query->estado=='GO'? 'selected':'';?><?php echo set_select('estado','GO'); ?>>GO</option>
+<option value="MA" <?= $query->estado=='MA'? 'selected':'';?><?php echo set_select('estado','MA'); ?> >MA</option>
+<option value="MG" <?= $query->estado=='MG'? 'selected':'';?><?php echo set_select('estado','MG'); ?> >MG</option>
+<option value="MS" <?= $query->estado=='MS'? 'selected':'';?><?php echo set_select('estado','MS'); ?> >MS</option>
+<option value="MT" <?= $query->estado=='MT'? 'selected':'';?><?php echo set_select('estado','MT'); ?> >MT</option>
+<option value="PA" <?= $query->estado=='PA'? 'selected':'';?><?php echo set_select('estado','PA'); ?>>PA</option>
+<option value="PB" <?= $query->estado=='PB'? 'selected':'';?><?php echo set_select('estado','PB'); ?> >PB</option>
+<option value="PE" <?= $query->estado=='PE'? 'selected':'';?><?php echo set_select('estado','PE'); ?>>PE</option>
+<option value="PI" <?= $query->estado=='PI'? 'selected':'';?><?php echo set_select('estado','PI'); ?> >PI</option>
+<option value="PR" <?= $query->estado=='PR'? 'selected':'';?><?php echo set_select('estado','PR'); ?> >PR</option>
+<option value="RN" <?= $query->estado=='RN'? 'selected':'';?><?php echo set_select('estado','RN'); ?>>RN</option>
+<option value="RO" <?= $query->estado=='RO'? 'selected':'';?><?php echo set_select('estado','RO'); ?> >RO</option>
+<option value="RR" <?= $query->estado=='RR'? 'selected':'';?><?php echo set_select('estado','RR'); ?>>RR</option>
+<option value="RS" <?= $query->estado=='RS'? 'selected':'';?><?php echo set_select('estado','RS'); ?>>RS</option>
+<option value="SC" <?= $query->estado=='SC'? 'selected':'';?><?php echo set_select('estado','SC'); ?> >SC</option>
+<option value="SE" <?= $query->estado=='SE'? 'selected':'';?><?php echo set_select('estado','SE'); ?>>SE</option>
+<option value="SP" <?= $query->estado=='SP'? 'selected':'';?><?php echo set_select('estado','SP'); ?>>SP</option>
+<option value="TO" <?= $query->estado=='TO'? 'selected':'';?><?php echo set_select('estado','TO'); ?>>TO</option>
 </select>
     </td>
   </tr>
@@ -284,10 +284,24 @@ endif
         <input name="telchefe" type="text" value="<?php echo set_value('telchefe',$query->telchefe); ?>"  id="telchefe" size="10" />
         
     </td>
-     <td >  </td>
-     <td> <span>*Digite somente n&uacute;meros.</span>  </td>
+   
+    <td ><font color="red">*</font> Siape do Chefe: </td>
+     <td> <?php echo form_error('siapechefe'); ?>
+        <input name="siapechefe" type="text" value="<?php echo set_value('siapechefe',$query->siapechefe); ?>"  id="siapechefe" size="6" /></td>
+       
   </tr>
-  
+   <tr>
+	  
+    <td width="101" >Senha:</td>
+    <td width="361" >
+		<?php echo form_error('senha'); ?>
+        <input name="senha" type="password" value="<?php echo set_value('senha',$query->senha); ?>"  id="senha" size="10" disabled/>
+        
+    </td>
+     
+     <td colspan="2"><span><font color="red">*</font>Digite somente n&uacute;meros.</span> </td>
+     <td>   </td>
+  </tr>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;  </td>

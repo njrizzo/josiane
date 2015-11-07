@@ -1,26 +1,35 @@
-<?php
-$this->load->view('template/cabecalho');  
-$this->load->view('template/menuins'); 
-//echo validation_errors();
-echo form_open('inscricao/cadastrar');
-
-?>
-    <head>
+<html lang="en">
+<head>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script > 
 	
 	function busca_turma(codigo){
      
-      document.location=('index.php/inscricao/cadastrar/'+codigo ); 
+      document.location=('cadastrar/'+codigo ); 
  
 //alert(codigo);
 }
 	
 	
 	</script>
-
+	<meta charset="utf-8">
+	<title>Welcome to CodeIgniter</title>
+	
 </head>
-            <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
+<body>
+ 
+<div id="container">
+	<h1>Enviar e-mail com CodeIgniter</h1>
+ 
+	<div id="body"> 
+ 
+		<?php
+
+echo form_open('testemail/cadastrar');
+
+?>
+   
+           
 		<?php	
             if($this->session->flashdata('cadastrook')):
 echo'<p>'.$this->session->flashdata('cadastrook').'</p>';
@@ -58,7 +67,7 @@ foreach ($cursos as $i => $nome)
     <td>Turma:</td>
     <td>
 		
-		     <select name="codturma" id="codturma" onfocus="this.style.backgroundColor='#FFFFCC'; this.style.border='2px solid #FF9933'" onblur="this.style.backgroundColor='#CCCCCC'; this.style.border='2px solid #000000'">
+		     <select name="codturma" id="codturma" >
 				 <option value=''>----selecione----</option>
 <?php
 foreach ($turmas as $i => $nome)
@@ -123,5 +132,13 @@ foreach ($servs as $i => $nome)
            
           <?php
          echo form_close();
-$this->load->view('template/rodape');
+
 ?>
+
+ 
+	</div>
+ 
+</div>
+ 
+</body>
+</html>

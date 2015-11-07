@@ -51,7 +51,7 @@ color:#FFFFFF
 echo'<p>'.$this->session->flashdata('excluirok').'</p>';
 endif
 ?>
-
+<br>
 <h2 align="center" ><font color="#00009C">Lista de turmas</font>  </h2>
 
 <table border="1" >
@@ -60,6 +60,9 @@ endif
        
              <th>
              Curso
+            </th>
+            <th>
+             Módulo
             </th>
             <th>
                 Nome
@@ -98,7 +101,9 @@ endif
              <td>
                 <?=$linha->nome?>
             </td>
-              
+              <td>
+                <?=$linha->modulo?>
+            </td>
             <td>
                 <?=$linha->nometurma ?>
             </td>

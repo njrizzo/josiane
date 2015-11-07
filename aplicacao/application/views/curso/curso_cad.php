@@ -4,7 +4,7 @@ $this->load->view('template/menucurso');
 //echo validation_errors();
 echo form_open('curso/cadastrar');
 
-//echo form_close();
+
 ?>
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 		<?php	

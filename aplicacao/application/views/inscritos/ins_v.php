@@ -53,7 +53,7 @@ echo'<p>'.$this->session->flashdata('excluirok').'</p>';
 endif;
 
 ?>
-
+<br>
 <h2 align="center" ><font color="#00009C">Lista de inscri&ccedil;&otilde;es </font>  </h2>
 
 <table border="1" align="center" >
@@ -62,7 +62,9 @@ endif;
         <th>
                 Curso
             </th>
-            
+            <th>
+                Módulo
+            </th>
             <th>
                Data
             </th>
@@ -99,6 +101,9 @@ endif;
             <tr>
             <td>
                 <?=$linha->nome ?>
+            </td>
+            <td>
+                <?=$linha->modulo ?>
             </td>
             <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datains)) ?> 

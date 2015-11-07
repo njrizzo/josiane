@@ -71,9 +71,10 @@ endif
     <td>
 		<?php echo form_error('estado'); ?>
 		<select name="estado" id="estado" >
-        <option value="<?=$query->estado?>" <?php echo set_select('estado','$query->estado'); ?>><?=$query->estado?></option>
-        <option value="ativo" <?php echo set_select('estado','ativo'); ?>>ativo</option>
-        <option value="inativo" <?php echo set_select('estado','inativo'); ?>>inativo</option>
+			
+       
+        <option value="ativo" <?= $query->estado=='ativo'? 'selected':'';?> >ativo</option>
+        <option value="inativo" <?= $query->estado=='inativo'? 'selected':'';?>>inativo</option>
       </select><br />
     
        

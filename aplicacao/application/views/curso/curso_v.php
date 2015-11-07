@@ -53,7 +53,7 @@ echo'<p>'.$this->session->flashdata('excluirok').'</p>';
 endif;
 
 ?>
-<br><br><br>
+<br>
 <h2 align="center" ><font color="#00009C">Lista de cursos </font>  </h2>
 
 <table border="1" >

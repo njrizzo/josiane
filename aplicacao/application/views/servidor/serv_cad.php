@@ -18,9 +18,9 @@ endif
   <tr>
 	
     <td width="101" >Nome:</td>
-    <td width="361"colspan="3">
+    <td width="361" colspan="3">
 		<?php echo form_error('nomeserv'); ?>
-        <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv'); ?>" class="input_text" id="nomeserv" />
+        <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv'); ?>"  id="nomeserv" size="55"/>
         
     </td>
   </tr>
@@ -30,9 +30,9 @@ endif
 		
     <td>
 		<?php echo form_error('sexo'); ?>
-		<input type="radio" name="sexo" value="masculino" />Masculino
+		<input type="radio" name="sexo" value="masculino" <?php echo set_radio('sexo', 'masculino'); ?>/>Masculino
 		<br>
-<input type="radio" name="sexo" value="feminino"  />Feminino
+<input type="radio" name="sexo" value="feminino" <?php echo set_radio('sexo', 'feminino'); ?> />Feminino
   
     
      </td>
@@ -45,14 +45,14 @@ endif
       
   </tr>
   <tr>
-	 <td>*Identidade:  </td>
+	 <td><font color="red">*</font>Identidade:  </td>
     <td>
 		
 		<?php echo form_error('rgl'); ?>
     <input name="rgl" type="text" value="<?php echo set_value('rgl'); ?>" id="rgl" size="10"/>
    
    </td>
- <td>*CPF:</td>
+ <td><font color="red">*</font>CPF:</td>
     <td>
 		<?php echo form_error('cpfl'); ?>
       <input name="cpfl" type="text" value="<?php echo set_value('cpfl'); ?>"  id="cpfl" size="10"/>
@@ -77,12 +77,12 @@ endif
     <td>Estado Civil:</td>
     <td>
 		<?php echo form_error('estcivil'); ?>
-		<select id="estcivil" name="estcivil">
+		<select id="estcivil" name="estcivil" >
 		<option value=''>----selecione----</option>
-	  <option value="solteiro(a)" <?php echo set_select('estcivil','Solteiro(a)'); ?>>Solteiro(a)</option>
-      <option value="sasado(a)" <?php echo set_select('estcivil','Casado(a)'); ?> >Casado(a)</option>
-      <option value="divorciado(a)" <?php echo set_select('estcivil','Divorciado(a)'); ?>>Divorciado(a)</option>
-      <option value="vi&uacute;vo(a)" <?php echo set_select('estcivil','Vi&uacute;vo(a)'); ?>>Vi&uacute;vo(a)</option>
+	  <option value="solteiro(a)" <?php echo set_select('estcivil','solteiro(a)'); ?>>Solteiro(a)</option>
+      <option value="sasado(a)" <?php echo set_select('estcivil','casado(a)'); ?> >Casado(a)</option>
+      <option value="divorciado(a)" <?php echo set_select('estcivil','divorciado(a)'); ?>>Divorciado(a)</option>
+      <option value="vi&uacute;vo(a)" <?php echo set_select('estcivil','viúfcv vo(a)'); ?>>Vi&uacute;vo(a)</option>
     </select>
      </td>
      
@@ -91,7 +91,7 @@ endif
  <td>
 	 <?php echo form_error('ensino'); ?>
              <select id="ensino" name="ensino">
-			 <option value=''>----selecione----</option>
+			 <option value=''>------------selecione------------</option>
              <option value="Ensino M&eacute;dio Completo" <?php echo set_select('ensino','Ensino M&eacute;dio Completo'); ?>>Ensino M&eacute;dio Completo</option>
              <option value="Ensino M&eacute;dio Incompleto"<?php echo set_select('ensino','Ensino M&eacute;dio Incompleto'); ?>>Ensino M&eacute;dio Incompleto</option>
              <option value="Ensino Fundamental Incompleto" <?php echo set_select('ensino','Ensino Fundamental Incompleto'); ?>>Ensino Fundamental Incompleto</option>
@@ -186,7 +186,7 @@ endif
   </tr>
    <tr>
 	  
-    <td width="101">CEP:</td>
+    <td width="101"><font color="red">*</font>CEP:</td>
     <td width="361">
 		<?php echo form_error('cep'); ?>
         <input name="cep" type="text" value="<?php echo set_value('cep'); ?>"  id="cep" size="10" />
@@ -203,14 +203,14 @@ endif
   </tr>
    <tr>
 	  
-    <td width="101">Telefone:</td>
+    <td width="101"><font color="red">*</font>Telefone:</td>
     <td width="361">
 		<?php echo form_error('telcontato'); ?>
         <input name="telcontato" type="text" value="<?php echo set_value('telcontato'); ?>"  id="telcontato" size="10" />
         
     </td>
     
-    <td>*SIAPE:</td>
+    <td><font color="red">*</font>SIAPE:</td>
     <td>
 		<?php echo form_error('siape'); ?>
        <input name="siape" type="text" value="<?php echo set_value('siape'); ?>" id="siape" size="10" >
@@ -270,16 +270,40 @@ endif
     
     <tr>
 	  
-    <td width="101">Telefone do chefe:</td>
+    <td width="101"><font color="red">*</font>Telefone do chefe:</td>
     <td width="361">
 		<?php echo form_error('telchefe'); ?>
-        <input name="telchefe" type="text" value="<?php echo set_value('telchefe'); ?>"  id="telchefe" size="10" />
+        <input name="telchefe" type="text" value="<?php echo set_value('telchefe'); ?>"  id="telchefe" size="6" />
         
     </td>
-     <td >  </td>
-     <td> <span>*Digite somente n&uacute;meros.</span>  </td>
+     <td ><font color="red">*</font> Siape do Chefe: </td>
+     <td> <?php echo form_error('siapechefe'); ?>
+        <input name="siapechefe" type="text" value="<?php echo set_value('siapechefe'); ?>"  id="siapechefe" size="6" /></td>
   </tr>
-  
+   <tr>
+	  
+    <td width="101">Senha:</td>
+    <td width="361">
+		<?php echo form_error('senha'); ?>
+        <input name="senha" type="password" value="<?php echo set_value('senha'); ?>"  id="senha" size="10" />
+        
+    </td>
+     <td > Repita a senha: </td>
+     <td> <?php echo form_error('repetesenha'); ?>
+        <input name="repetesenha" type="password" value="<?php echo set_value('repetesenha'); ?>"  id="repetesenha" size="10" /></td>
+  </tr>
+  <tr>
+	  <tr>
+	  
+    <td width="101">Lembrete de Senha:</td>
+    <td width="361" colspan="2">
+		<?php echo form_error('lembrasenha'); ?>
+        <input name="lembrasenha" type="text" value="<?php echo set_value('lembrasenha'); ?>"  id="lembrasenha"  />
+        
+    </td>
+     <td ><span><font color="red">*</font>Digite somente n&uacute;meros.</span> </td>
+     <td>   </td>
+  </tr>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;  </td>

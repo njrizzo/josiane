@@ -38,7 +38,7 @@ foreach ($cursos as $i => $nome)
     <td width="101">Nome:</td>
     <td width="361">
 		<?php echo form_error('nometurma'); ?>
-        <input name="nometurma" type="text" value="<?php echo set_value('nometurma'); ?>" class="input_text" id="nometurma" />
+        <input name="nometurma" type="text" value="<?php echo set_value('nometurma'); ?>"  id="nometurma" />
         
     </td>
   </tr>
@@ -48,12 +48,12 @@ foreach ($cursos as $i => $nome)
     <td>
 		
 	
-<input type="checkbox" name="diasemana[]" value="segunda"   />Segunda
-<input type="checkbox" name="diasemana[]" value="ser&ccedil;a"/>Ter&ccedil;a
-<input type="checkbox" name="diasemana[]" value="quarta"  />Quarta
-<input type="checkbox" name="diasemana[]" value="quinta"  />Quinta
-<input type="checkbox" name="diasemana[]" value="sexta"  />Sexta<br>
-<input type="checkbox" name="diasemana[]" value="s&aacute;bado" />S&aacute;bado
+<input type="checkbox" name="diasemana[]" value="segunda"  <?php echo set_checkbox('diasemana[]', 'segunda'); ?> />Segunda
+<input type="checkbox" name="diasemana[]" value="ter&ccedil;a" <?php echo set_checkbox('diasemana[]', 'terça'); ?> />Ter&ccedil;a
+<input type="checkbox" name="diasemana[]" value="quarta" <?php echo set_checkbox('diasemana[]', 'quarta'); ?> />Quarta
+<input type="checkbox" name="diasemana[]" value="quinta" <?php echo set_checkbox('diasemana[]', 'quinta'); ?> />Quinta
+<input type="checkbox" name="diasemana[]" value="sexta" <?php echo set_checkbox('diasemana[]', 'sexta'); ?>/>Sexta<br>
+<input type="checkbox" name="diasemana[]" value="s&aacute;bado" <?php echo set_checkbox('diasemana[]', 'sábado'); ?>/>S&aacute;bado
 <?php echo form_error('diasemana[]'); ?>
      </td>
   </tr>

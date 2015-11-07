@@ -4,9 +4,11 @@ $this->load->view('template/menumatri');
 //echo validation_errors();
 echo form_open('matricula/cadastrar');
 
-//echo form_close();
 ?>
+
+
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
+	
 		<?php	
             if($this->session->flashdata('cadastrook')):
 echo'<p>'.$this->session->flashdata('cadastrook').'</p>';
@@ -28,7 +30,7 @@ endif
   <tr>
     <td>Servidor:</td>
     <td>
-		<select name="codserv" id="codserv">
+		<select name="codserv" id="codserv" class="input_text">
 				 <option value='' >----selecione----</option>
 <?php
 foreach ($servs as $i => $nome)
@@ -41,7 +43,7 @@ foreach ($servs as $i => $nome)
   <tr>
     <td>Turma:</td>
     <td>
-		<select name="codturma" id="codturma">
+		<select name="codturma" id="codturma" class="input_text">
 				 <option value=''>----selecione----</option>
 <?php
 foreach ($turmas as $i => $nome)
@@ -57,7 +59,7 @@ foreach ($turmas as $i => $nome)
     <td>Estado:</td>
     <td>
 		
-      <select name="situacao" id="situacao" >
+      <select name="situacao" id="situacao" class="input_text" >
 		<option value=''>----selecione----</option>
         <option value="cursando" <?php echo set_select('situacao','cursando'); ?>>Cursando</option>
         <option value="aprovado" <?php echo set_select('situacao','aprovado'); ?>>Aprovado</option>

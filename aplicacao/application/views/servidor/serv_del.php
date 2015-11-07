@@ -19,7 +19,7 @@ echo form_open("servidor/deletar/$id");
     <td width="101" >Nome:</td>
     <td width="361"colspan="3">
 		
-        <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv',$query->nomeserv); ?>" class="input_text" id="nomeserv" disabled />
+        <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv',$query->nomeserv); ?>"  id="nomeserv" disabled />
         
     </td>
   </tr>
