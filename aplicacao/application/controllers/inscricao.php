@@ -48,11 +48,11 @@ redirect('inscricao/listar');
 	
 	{
 	$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
-	$this -> form_validation ->set_rules('datains','DATA','required');
-	$this -> form_validation ->set_rules('situacao','Estado','required');
-	$this -> form_validation ->set_rules('codserv','Servidor','required');
-	$this -> form_validation ->set_rules('codturma','Turma','required');
-	$this -> form_validation ->set_rules('situacao','Estado','required');
+	$this -> form_validation ->set_rules('datains','DATA','trim|required');
+	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
+	$this -> form_validation ->set_rules('codserv','Servidor','trim|required');
+	$this -> form_validation ->set_rules('codturma','Turma','trim|required');
+	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 	    if ($this->form_validation->run() == FALSE)
                 { 			
 					
@@ -92,8 +92,8 @@ redirect('inscricao/listar');
 	public function editar()
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
-$this -> form_validation ->set_rules('datains','DATA','required');
-	$this -> form_validation ->set_rules('situacao','Estado','required');
+$this -> form_validation ->set_rules('datains','DATA','trim|required');
+	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 
 	    if ($this->form_validation->run() == FALSE)
                 {

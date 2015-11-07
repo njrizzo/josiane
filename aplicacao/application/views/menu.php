@@ -66,7 +66,7 @@ table#logon{
             Painel</th>
             <th scope="col" colspan="2"><?php echo anchor('curso',' <img src="figuras/btnrr.gif" name="cadastro" width="117" height="111" border="0" id="cadastro" />')?>
             Administrador</th>
-            <th width="58" colspan="2" scope="col"><?php echo anchor('curso','<img src="figuras/btnca.gif" name="inscricao" width="117" height="111" border="0" id="inscricao" />')?>
+            <th width="58" colspan="2" scope="col"><?php echo anchor('home/creditos','<img src="figuras/btnca.gif" name="inscricao" width="117" height="111" border="0" id="inscricao" />')?>
             Créditos</th>
           </tr>
           <tr>

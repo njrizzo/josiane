@@ -68,10 +68,10 @@ endif
     <td>
 		<?php echo form_error('situacao'); ?>
       <select name="situacao" id="situacao" >
-		   <option value="<?=$query->situacao?>" <?php echo set_select('situacao','$query->situacao'); ?>><?=$query->situacao?></option>
-           <option value="pendente" <?php echo set_select('situacao','pendente'); ?>>Pendente</option>
-        <option value="autorizado" <?php echo set_select('situacao','autorizado'); ?>>Autorizado</option>
-        <option value="negado" <?php echo set_select('situacao','negado'); ?>>Negado</option>
+		  
+           <option value="pendente"  <?= $query->situacao=='pendente'? 'selected':'';?><?php echo set_select('situacao','pendente'); ?>>Pendente</option>
+        <option value="autorizado" <?= $query->situacao=='autorizado'? 'selected':'';?>  <?php echo set_select('situacao','autorizado'); ?>>Autorizado</option>
+        <option value="negado" <?= $query->situacao=='negado'? 'selected':'';?><?php echo set_select('situacao','negado'); ?>>Negado</option>
       </select><br />
       </td>
   </tr>

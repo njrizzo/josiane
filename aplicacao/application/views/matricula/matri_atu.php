@@ -60,11 +60,11 @@ endif
     <td>
 		<?php echo form_error('situacao'); ?>
       <select name="situacao" id="situacao" >
-			<option value="<?=$query->situacao?>" <?php echo set_select('situacao','$query->situacao'); ?>><?=$query->situacao?></option>
-			<option value="cursando" <?php echo set_select('situacao','cursando'); ?>>Cursando</option>
-			<option value="aprovado" <?php echo set_select('situacao','aprovado'); ?>>Aprovado</option>
-			<option value="insuficiente" <?php echo set_select('situacao','insuficiente'); ?>>Insuficiente</option>
-			<option value="desistente" <?php echo set_select('situacao','desistente'); ?>>Desistente</option>
+			
+			<option value="cursando" <?= $query->situacao=='cursando'? 'selected':'';?> <?php echo set_select('situacao','cursando'); ?>>Cursando</option>
+			<option value="aprovado" <?= $query->situacao=='aprovado'? 'selected':'';?><?php echo set_select('situacao','aprovado'); ?>>Aprovado</option>
+			<option value="insuficiente" <?= $query->situacao=='insuficiente'? 'selected':'';?><?php echo set_select('situacao','insuficiente'); ?>>Insuficiente</option>
+			<option value="desistente" <?= $query->situacao=='desistente'? 'selected':'';?><?php echo set_select('situacao','desistente'); ?>>Desistente</option>
       </select><br />
       </select><br />
       </td>

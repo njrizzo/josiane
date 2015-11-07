@@ -21,7 +21,7 @@
                  <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('inscricao','<font  size="-1" color="#FFFFFF">ADMINISTRADOR</font>')?> </th>
               </tr>
               <tr>
-                 <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('home','<font size="-1" color="#FFFFFF">CR&Eacute;DITOS</font>')?> </th>
+                 <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('home/creditos','<font size="-1" color="#FFFFFF">CR&Eacute;DITOS</font>')?> </th>
               </tr>
               <tr>
                  <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('home','<font size="-1" color="#FFFFFF">IN&Iacute;CIO</font>')?> </th>

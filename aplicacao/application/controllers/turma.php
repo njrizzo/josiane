@@ -43,12 +43,12 @@ redirect('turma/listar');
 	$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('codcurso','Curso','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('nometurma','NOME','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('diasemana[]','Dias da semana','required');
+	$this -> form_validation ->set_rules('diasemana[]','Dias da semana','trim|required');
 	$this -> form_validation ->set_rules('datainicio','Data de início','trim|required');
 	$this -> form_validation ->set_rules('datafim','Data do fim','trim|required');
 	$this -> form_validation ->set_rules('horainicio','Hora de início','trim|required');
 	$this -> form_validation ->set_rules('horafim','Hora do Fim','trim|required');
-	$this -> form_validation ->set_rules('codcurso','Curso','required');
+	$this -> form_validation ->set_rules('codcurso','Curso','trim|required');
 	    if ($this->form_validation->run() == FALSE)
                 {
                         	$data['cursos'] = $this->turma_m->retorna_curso();
@@ -87,7 +87,7 @@ $this->load->view('turma/turma_cad', $data);
 	$this -> form_validation ->set_rules('datafim','Data do fim','trim|required');
 	$this -> form_validation ->set_rules('horainicio','Hora de início','trim|required');
 	$this -> form_validation ->set_rules('horafim','Hora do Fim','trim|required');
-	$this -> form_validation ->set_rules('codcurso','Curso','required');
+	$this -> form_validation ->set_rules('codcurso','Curso','trim|required');
 	    if ($this->form_validation->run() == FALSE)
                 {
 					$data['cursos'] = $this->turma_m->retorna_curso_all();

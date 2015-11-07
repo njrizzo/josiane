@@ -44,7 +44,7 @@ class Curso extends CI_Controller {
 	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|numeric');
 	$this -> form_validation ->set_rules('areatema','Área temática','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('competencia','Competência','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('estado','Estado','required');
+	$this -> form_validation ->set_rules('estado','Estado','trim|required');
 	    if ($this->form_validation->run() == FALSE)
                 {
                         $this->load->view('curso/curso_cad');
@@ -88,7 +88,7 @@ class Curso extends CI_Controller {
 	$this -> form_validation ->set_rules('cargahr','Carga horária','trim|required|numeric');
 	$this -> form_validation ->set_rules('areatema','Área temática','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('competencia','Competência','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('estado','Estado','required');
+	$this -> form_validation ->set_rules('estado','Estado','trim|required');
 	    if ($this->form_validation->run() == FALSE)
                 {
                         $this->load->view('curso/curso_atu');

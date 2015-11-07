@@ -25,9 +25,12 @@ class Home extends CI_Controller {
    redirect('login', 'refresh');
  }
  
-}
 
 
+public function creditos(){
+	$this->load->view('creditos_view');
+	
+	}
 
- 
+ }//fimcontroler
 ?>
