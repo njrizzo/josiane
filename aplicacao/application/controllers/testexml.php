@@ -16,12 +16,12 @@ class Testexml extends CI_Controller {
  function index()
  {//load our new PHPExcel library
 
-   $this->load->model('curso_m');
-
-  $data = $this->curso_m->selecionar();
+   //$this->load->model('curso_m');
+ $this->load->model('inscricao_m');
+  //$data = $this->curso_m->selecionar();
  
- 
-   
+ $dados = $this->inscricao_m->retorna_last_inscricao();
+		
    
    
 $html = '';
@@ -39,8 +39,28 @@ $html = '';
   $html .=      "<td><strong>estado</strong></td>";
 
   $html .=    "</tr>";
- 
-
+ foreach ($dados as $linha){
+			// $linha->nomeserv;
+			//$linha->nome;
+			//$nmodulo=$linha->modulo;
+			//$linha->nometurma;
+			//$tdias=$linha->diasemana;
+			//$hrin=$linha->horainicio;
+			//$hrfim=$linha->horafim;
+			//$datain=$linha->datainicio;
+			//$dataf=$linha->datafim;
+			//$emailserv=$linha->email;
+			//$chefemail=$linha->emailchefe;
+   $html .=   "<tr>";
+              $html .=  "<td>  $linha->nomeserv;</td>";
+            $html .=   "<td>$linha->nomeserv;</td>";
+          $html .=   "<td> $linha->nomeserv;</td>";
+        $html .=     "<td>$linha->nome; </td>";
+         $html .= "<td> $linha->nome;</td>";
+          $html .=    "<td> $linha->nometurma;</td>";
+         $html .=    " <td> $linha->nometurma;</td>";
+        $html .=       "<td>$linha->nometurma;</td>";
+/*
     foreach ($data as $linha){
             $html .=   "<tr>";
               $html .=  "<td>   $linha->codcurso </td>";
@@ -52,8 +72,9 @@ $html = '';
          $html .=    " <td> $linha->competencia</td>";
         $html .=       "<td>$linha->estado</td>";
 }              
-            
-          
+   */         
+      
+  }    
     $html .=  "</table>";       
    
 

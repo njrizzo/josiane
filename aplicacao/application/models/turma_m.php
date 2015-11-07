@@ -119,7 +119,7 @@ public function deletar_do($condicao=NULL)
 		$this->db->delete('turma',$condicao);
 		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
 		
-		redirect('turma/pesquisar');
+		redirect('turma/listar');
 		endif;
     }
 

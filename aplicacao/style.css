@@ -17,6 +17,7 @@ table#logon{
 	margin:0;
 	padding:1px;
 	border:1px solid #666;
+	background-color: #FFFFCC;
 	width:70%;
 	}
 	#logon .input_bt{
@@ -50,4 +51,18 @@ table {
    
 }
 
-	
+	input{
+
+color:#000000;
+}
+input:focus { 
+    background-color: #FFFFCC;
+    border:2px solid #FF9933; 
+}
+
+input:onblur { 
+    background-color: #CCCCCC;
+    border:2px solid #000000;
+    
+   
+}

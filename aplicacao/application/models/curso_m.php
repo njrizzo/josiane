@@ -80,7 +80,11 @@ public function atualizar($codcurso=NULL)
       $this->db->where('codcurso',$codcurso);
       //$this->db->order_by('codcurso', 'ASC');
       $this->db->limit(1);
-      return $this->db->get('curso');
+      // $data['testecurso'] = $this->db->get('curso');
+      return   $this->db->get('curso');
+      
+      
+     
       
       else:
       
@@ -113,7 +117,7 @@ public function deletar_do($condicao=NULL)
 		redirect('curso/pesquisar');
 		else:
 		$this->session->set_flashdata('excluirfail','Registro tente excluir as dependncias');
-		redirect('curso/pesquisar');
+		redirect('curso/listar');
 		endif;
     }
 

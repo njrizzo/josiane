@@ -5,7 +5,7 @@ class Inscricao_m extends CI_Model {
         public function __construct()
         {
                 parent::__construct();
-                //$this->load->helper('date');
+              
         }
 
 //função que retorna os servidores
@@ -31,7 +31,7 @@ htmlspecialchars($row->nomeserv, ENT_QUOTES);
         }
 
 }
-public function retorna_curso()
+public function retorna_curso()//retorna os cursos ativos
 {
 
  $this->db->order_by('codcurso', 'ASC');
@@ -54,7 +54,7 @@ htmlspecialchars($row->nome, ENT_QUOTES);
         }
 	}
 
-public function retorna_turma($essa) //funcão usada na hora de cadastrar novas turmas, apenas as turmas que ainda não começaram
+public function retorna_turma($essa) //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
 {
 
  $this->db->order_by('codturma', 'ASC');
@@ -121,7 +121,9 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
 		$this->db->insert('inscricao',$dados);
 	
 		$this->session->set_flashdata('cadastrook','Cadastro efetuado com sucesso');
-		redirect('inscricao/cadastrar');
+		redirect('inscricao/send_mail');
+		//redirect('inscricao/cadastrar');
+		
 		endif;
 		
 echo $this->db->affected_rows();
@@ -129,7 +131,28 @@ echo $this->db->affected_rows();
 		
 		}
 
-
+function retorna_last_inscricao()//funcao que retorna a ultima inscricao e envia email para o servidor e para o chefe
+{
+	
+	$this->db->order_by('codinscricao', 'DESC'); 
+ $this->db->select('*');
+$this->db->from('inscricao');
+$this->db->join('turma', ' turma.codturma = inscricao.codturma');
+$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
+$this->db->join('curso', ' curso.codcurso = turma.codcurso');
+	$this->db->limit(1);
+ //return $this->db->get();
+ $query2 = $this->db->get();
+ 
+   if ($query2->num_rows() > 0)
+        {
+            return $query2->result();
+        }
+        else
+        {
+            return false;
+        }
+}
 
 
 	
@@ -183,6 +206,11 @@ public function deletar_do($condicao=NULL)
  return $this->db->count_all_results('inscricao');
 }
 	
+	
+	
+	
+	
+	
 public function do_pesquisa($maximo, $inicio) {
   $match = $this->input->post('pesquisar');
   
@@ -206,7 +234,7 @@ public function do_pesquisa($maximo, $inicio) {
   $this->db->or_like('nometurma',$match);
   $this->db->or_like('nome',$match);
   $this->db->or_like('nomeserv',$match);
-   $this->db->limit(20);
+   
  $this->db->select('*');
 $this->db->from('inscricao');
 $this->db->join('turma', ' turma.codturma = inscricao.codturma');
@@ -226,7 +254,7 @@ $query2 = $this->db->get();
 }
 	
 	
-	
+		
 	
 	
 	

@@ -127,6 +127,17 @@ public function do_pesquisa() {
  return $query->result();
 }
 	
+	
+	
+	public function teste(){
+		 $this->db->order_by('nomeserv', 'ASC');
+		$this->db->limit(1);
+		$testeset = $this->db->get('servidor');
+		return $testeset;
+		}
+	
+	
+	
 }//endmodel
 
 

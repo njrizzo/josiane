@@ -57,19 +57,10 @@ $this->load->view('turma/turma_cad', $data);
                 }
                 else
                 {
-					//mudança necessária por causa dos checkboxs dos dias da semana foi preciso usar a função explode
-                  $teste= array(
-                  
-'nometurma' =>  $this->input->post('nometurma'),
-'diasemana' =>  implode('/',$this->input->post('diasemana')),
-'datainicio'  => $this->input->post('datainicio'),
-'datafim' => $this->input->post('datafim'),
-'horainicio' =>  $this->input->post('horainicio'),
-'horafim' => $this->input->post('horafim'),
-'codcurso' => $this->input->post('codcurso'),
-);
-                  $dados=elements(array('nometurma', 'diasemana', 'datainicio', 'datafim', 'horainicio', 'horafim', 'codcurso'), $teste);
-                  
+			
+					
+				            $dados=elements(array('nometurma', 'diasemana', 'datainicio', 'datafim', 'horainicio', 'horafim', 'codcurso'), $this->input->post());
+							$dados['diasemana'] = implode('/', $dados['diasemana'] );//checkboxs dos dias da semana foi preciso usar a função explode
                 
                     $this->turma_m->inserir($dados);
              
@@ -104,19 +95,9 @@ $this->load->view('turma/turma_cad', $data);
                 }
                 else
                 {
-                 	
-                  $teste= array(
-                  
-'nometurma' =>  $this->input->post('nometurma'),
-'diasemana' =>  implode('/',$this->input->post('diasemana')),
-'datainicio'  => $this->input->post('datainicio'),
-'datafim' => $this->input->post('datafim'),
-'horainicio' =>  $this->input->post('horainicio'),
-'horafim' => $this->input->post('horafim'),
-'codcurso' => $this->input->post('codcurso'),
-);
-                  $dados=elements(array('nometurma', 'diasemana', 'datainicio', 'datafim', 'horainicio', 'horafim', 'codcurso'), $teste);
-                  
+   
+                  $dados=elements(array('nometurma', 'diasemana', 'datainicio', 'datafim', 'horainicio', 'horafim', 'codcurso'), $this->input->post());
+                  $dados['diasemana'] = implode('/', $dados['diasemana'] );
                 
                 $this->turma_m->atualizar_do($dados,array('codturma' => $this->input->post('$idturma')));
              
