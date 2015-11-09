@@ -15,13 +15,13 @@
               <tr>
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('certificado','<font  size="-1" color="#FFFFFF">CERTIFICADO</font>')?> </th>
               </tr>
+              <tr>
+                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('administrador','<font  size="-1" color="#FFFFFF">ADMINISTRADOR</font>')?> </th>
+              </tr>
 				<tr>
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('relatorio','<font  size="-1" color="#FFFFFF">RELATÓRIO</font>')?></th>
               </tr>
-              
-              <tr>
-                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('inscricao','<font  size="-1" color="#FFFFFF">GRÁFICOS</font>')?> </th>
-              </tr>
+             
               <tr>
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('home','<font size="-1" color="#FFFFFF">IN&Iacute;CIO</font>')?> </th>
               </tr>

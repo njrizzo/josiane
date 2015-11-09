@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<base href="http://localhost/test/aplicacao/" />
+<base href="http://localhost:8080/test/aplicacao/" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="icon" type="image/gif" href="figuras/favicon.gif">
 <title>SICAP - CODEP - DP/DAA</title>
@@ -64,7 +64,7 @@ table#logon{
           <tr>
             <th scope="col" colspan="2"><?php echo anchor('servidor/listar','<img src="figuras/btnc.gif" name="curso" width="117" height="111" border="0" id="curso" />')?>
             Painel</th>
-            <th scope="col" colspan="2"><?php echo anchor('curso',' <img src="figuras/btnrr.gif" name="cadastro" width="117" height="111" border="0" id="cadastro" />')?>
+            <th scope="col" colspan="2"><?php echo anchor('administrador',' <img src="figuras/btnrr.gif" name="cadastro" width="117" height="111" border="0" id="cadastro" />')?>
             Administrador</th>
             <th width="58" colspan="2" scope="col"><?php echo anchor('home/creditos','<img src="figuras/btnca.gif" name="inscricao" width="117" height="111" border="0" id="inscricao" />')?>
             Créditos</th>

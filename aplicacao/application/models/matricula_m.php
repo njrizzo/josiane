@@ -126,7 +126,7 @@ public function deletar_do($condicao=NULL)
 		$this->db->delete('matricula',$condicao);
 		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
 		
-		redirect('matricula');
+		redirect('matricula/listar');
 		endif;
     }
 

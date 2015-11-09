@@ -29,7 +29,10 @@ echo form_open("matricula/deletar/$id");
     <td>Servidor:</td>
     <td>
 		
-       <?php  echo form_dropdown('codserv', $servs, set_value('codserv',$query->codserv), 'disabled="disabled"'); ?>
+     <select name="codserv" disabled>
+		 <option value="<?=$query->codserv?>" <?php echo set_select('codserv','$query->codserv'); ?>><?=$query->nomeserv?></option>
+
+</select>
      </td>
   </tr>
   <tr>

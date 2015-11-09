@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-	 <base href="http://localhost/test/aplicacao/" />
+	 <base href="http://localhost:8080/test/aplicacao/" />
   
    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="icon" type="image/gif" href='figuras/favicon.gif'>

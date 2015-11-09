@@ -114,7 +114,7 @@ public function deletar_do($condicao=NULL)
 		$this->db->delete('curso',$condicao);
 		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
 		
-		redirect('curso/pesquisar');
+		redirect('curso/listar');
 		else:
 		$this->session->set_flashdata('excluirfail','Registro tente excluir as dependncias');
 		redirect('curso/listar');

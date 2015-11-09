@@ -197,7 +197,7 @@ public function deletar_do($condicao=NULL)
 		$this->db->delete('inscricao',$condicao);
 		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
 		
-		redirect('inscricao');
+		redirect('inscricao/listar');
 		endif;
     }
 
