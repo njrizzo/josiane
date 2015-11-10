@@ -4,7 +4,7 @@ $this->load->view('template/menuadm');
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('administrador'); 
 $query = $this ->user->atualizar($id)->row();
-
+//echo validation_errors();
 
 echo form_open("administrador/editar/$id");
 
@@ -70,9 +70,9 @@ endif
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>
-      
-    </td>
+    
+      <td > <?php echo anchor("administrador/alterar_senha/$id","<input name='Alterar' type='button' class='input_bt' id='Alterar' value='Alterar Senha' />")?></td>
+   
     <td align="right"><input name="Alterar" type="submit" class="input_bt" id="Alterar" value="Alterar" /></td>
   </tr>
 </table>

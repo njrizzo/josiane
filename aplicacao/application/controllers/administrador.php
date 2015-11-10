@@ -39,8 +39,8 @@ class Administrador extends CI_Controller {
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('username','Login','trim|required|max_length[10]');
-	$this -> form_validation ->set_rules('password','Senha','trim|required|max_length[100]');
+	$this -> form_validation ->set_rules('username','Login','trim|required|max_length[20]');
+	$this -> form_validation ->set_rules('password','Senha','trim|required|max_length[20]');
 	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
 	$this -> form_validation ->set_rules('lembrasenha','Lemnrete de senha','trim|required|max_length[80]');
 	    if ($this->form_validation->run() == FALSE)
@@ -73,7 +73,7 @@ class Administrador extends CI_Controller {
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('username','Login','trim|required|max_length[10]');
+	$this -> form_validation ->set_rules('username','Login','trim|required|max_length[20]');
 	//$this -> form_validation ->set_rules('password','Senha','trim|required|max_length[100]');
 	//$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
 	//$this -> form_validation ->set_rules('lembrasenha','Lemnrete de senha','trim|required|max_length[80]');
@@ -97,7 +97,50 @@ class Administrador extends CI_Controller {
 		
 		
 		
+	public function alterar_senha()
+	{
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+	
+	$this -> form_validation ->set_rules('oldsenha','Senha Atual','trim|required|max_length[20]|callback_check_senha');
+	$this -> form_validation ->set_rules('password','Nova Senha','trim|required|max_length[20]');
+	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
+	$this -> form_validation ->set_rules('lembrasenha','Lembrete de senha','trim|required|max_length[80]');
+	    if ($this->form_validation->run() == FALSE)
+                {
+                        $this->load->view('admin/admin_sen');
+                }
+                else
+                {
+                  
+                  $dados=elements(array('password','lembrasenha'),$this->input->post());
+                   $dados['password'] = MD5($dados['password']);//coloca a senha em md5 no banco
+                
+                $this->user->atualizar_do($dados,array('id' => $this->input->post('$idadm')));
+             
+                
+		$this->load->view('admin/admin_sen');
 
+}
+		}
+		
+function check_senha($password)
+ {
+ 
+   $password = $this->input->post('oldsenha');
+ 
+  
+   $result = $this->user->confere_senha($password);
+ 
+   if($result)
+   {
+     $this->form_validation->set_message('check_senha', 'senha ok.');
+   }
+   else
+   {
+     $this->form_validation->set_message('check_senha', 'Senha não confere.');
+     return false;
+   }
+ }
 		
 		public function deletar()
 	{

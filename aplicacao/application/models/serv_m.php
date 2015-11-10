@@ -30,7 +30,7 @@ public function atualizar($codserv=NULL)
     {
       if($codserv!=NULL):
       $this->db->where('codserv',$codserv);
-      //$this->db->order_by('codcurso', 'ASC');
+     
       $this->db->limit(1);
       return $this->db->get('servidor');
       
@@ -67,34 +67,7 @@ public function deletar_do($condicao=NULL)
     }
 
 	
-	/*
-public function do_pesquisa() {
-  $match = $this->input->post('pesquisar');
-  //$this->db->order_by('codserv', 'ASC');
-  $this->db->like('nomeserv',$match);
-  $this->db->or_like('sexo',$match);
-  $this->db->or_like('siape',$match);
-  $this->db->or_like('email',$match);
-   $this->db->or_like('telcontato',$match);
-   $this->db->or_like('nomechefe',$match);
-   $this->db->or_like('emailchefe',$match);
-    $this->db->or_like('ensino',$match);
-    $this->db->or_like('setor',$match);
-   $this->db->or_like('cargo',$match);
-    $this->db->or_like('funcao',$match);
-   //$this->db->limit(5);
-   $query = $this->db->get('servidor');
-   if ($query->num_rows() > 0)
-        {
-            return $query2->result();
-        }
-        else
-        {
-            return false;
-        }
-}
-	
-	*/
+
 	function contaRegistros()
 {
  return $this->db->count_all_results('servidor');
@@ -129,7 +102,29 @@ public function do_pesquisa() {
 	
 	
 	
-	
+		public function confere_senha($senha=NULL)
+    {
+      if($senha!=NULL):
+      
+		$this -> db -> select('*');
+		$this -> db -> from('servidor');
+	 
+		$this -> db -> where('senha = ' . "'" . MD5($senha) . "'"); 
+		$this -> db -> limit(1);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+			echo $this->db->affected_rows();
+		}
+		else
+		{
+			return false;
+		}
+		endif;
+    }
 	
 	
 	

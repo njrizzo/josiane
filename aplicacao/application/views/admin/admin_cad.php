@@ -1,7 +1,7 @@
 <?php
 $this->load->view('template/cabecalho');  
 $this->load->view('template/menuadm'); 
-//echo validation_errors();
+
 echo form_open('administrador/cadastrar');
 
 

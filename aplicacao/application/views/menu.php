@@ -70,7 +70,7 @@ table#logon{
             Créditos</th>
           </tr>
           <tr>
-             <th scope="col" colspan="2"><?php echo anchor('curso','<img src="figuras/btni.gif" name="matricula" width="117" height="111" border="0" id="matricula" />')?>
+             <th scope="col" colspan="2"><?php echo anchor('certificado','<img src="figuras/btni.gif" name="matricula" width="117" height="111" border="0" id="matricula" />')?>
             Certificados</th>
             <th scope="col" colspan="2"><?php echo anchor('relatorio',' <img src="figuras/btnii.gif" name="relatorio" width="117" height="111" border="0" id="relatorio" />')?>
             Relatórios</th>

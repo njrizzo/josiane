@@ -149,7 +149,65 @@ redirect('servidor/listar');
 			}
 			
 			
+	public function alterar_senha()
+		{
+			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+			$this -> form_validation ->set_rules('oldsenha','Senha Atual','trim|required|max_length[20]|callback_check_senha');
+		$this -> form_validation ->set_rules('senha','Senha','required|max_length[10]|trim');
+		$this -> form_validation ->set_rules('senha2','Repita a Senha','required|max_length[10]|matches[senha]|trim');
+		$this -> form_validation ->set_rules('lembrasenha','Lembrete de Senha','required|max_length[100]|trim');
+		    if ($this->form_validation->run() == FALSE)
+	                {
+	                        $this->load->view('servidor/serv_sen');
+	                }
+	                else
+	                {
+	                  
+	                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
+	                     $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
+	                
+	                $this->serv_m->atualizar_do($dados,array('codserv' => $this->input->post('$idserv')));
+	             
+	                
+			$this->load->view('servidor/serv_sen');
 	
+	}
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			function check_senha($password)
+ {
+   
+   $password = $this->input->post('oldsenha');
+ 
+   
+   $result = $this->serv_m->confere_senha($password);
+ 
+   if($result)
+   {
+     $this->form_validation->set_message('check_senha', 'senha ok.');//$this->load->view('admin/admin_sen');
+      return true;
+   }
+   else
+   {
+     $this->form_validation->set_message('check_senha', 'Senha não confere.');
+     return false;
+   }
+ }
+			
+			
+			
+			
+			
+			
 			
 			public function deletar()
 		{

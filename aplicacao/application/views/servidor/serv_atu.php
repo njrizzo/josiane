@@ -292,10 +292,10 @@ endif
   </tr>
    <tr>
 	  
-    <td width="101" >Senha:</td>
+    <td width="101" >Lembrete de Senha:</td>
     <td width="361" >
-		<?php echo form_error('senha'); ?>
-        <input name="senha" type="password" value="<?php echo set_value('senha',$query->senha); ?>"  id="senha" size="10" disabled/>
+		<?php echo form_error('lembrasenha'); ?>
+        <input name="lembrasenha" type="text" value="<?php echo set_value('senha',$query->lembrasenha); ?>"  id="lembrasenha"  disabled/>
         
     </td>
      
@@ -308,7 +308,7 @@ endif
   </tr>
   <tr>
     <td>
-      
+       <td align="left"> <?php echo anchor("servidor/alterar_senha/$id","<input name='Alterar' type='button' class='input_bt' id='Alterar' value='Alterar Senha' />")?>
     </td>
     <td align="right"><input name="alterar" type="submit" class="input_bt" id="alterar" value="Alterar" /></td>
   </tr>

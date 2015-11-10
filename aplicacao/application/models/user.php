@@ -76,11 +76,36 @@ echo $this->db->affected_rows();
         }
 }
 	
-		
-public function atualizar($codcurso=NULL)
+	public function confere_senha($senha=NULL)
     {
-      if($codcurso!=NULL):
-      $this->db->where('id',$codcurso);
+      if($senha!=NULL):
+      
+		
+     
+      $this -> db -> select('*');
+		$this -> db -> from('users');
+	 
+		$this -> db -> where('password = ' . "'" . MD5($senha) . "'"); 
+		$this -> db -> limit(1);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+			echo $this->db->affected_rows();
+		}
+		else
+		{
+			return false;
+		}
+		endif;
+    }
+		
+public function atualizar($codadm=NULL)
+    {
+      if($codadm!=NULL):
+      $this->db->where('id',$codadm);
      
       $this->db->limit(1);
      
