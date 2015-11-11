@@ -10,7 +10,7 @@
                  <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('inscricao','<font size="-1" color="#FFFFFF">PRINCIPAL</font>')?> </th>
               </tr>
               <tr>
-                <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"> <?php echo anchor('inscricao/cadastrar','<font  size="-1" color="#FFFFFF">CADASTRAR</font>')?></th>
+                <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"> <?php echo anchor('inscricao/cadastrar','<font  size="-1" color="#FFFFFF">INSCREVER</font>')?></th>
               </tr>
               <tr>
                  <th width="113"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('certificado','<font  size="-1" color="#FFFFFF">CERTIFICADO</font>')?> </th>

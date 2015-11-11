@@ -23,8 +23,8 @@
 	        parent::__construct();
 	       
 	 $this->load->model('serv_m');
-	 $this->load->model('user','',TRUE);
-	 $this->user->logged();
+	 $this->load->model('admin_m','',TRUE);
+	 $this->admin_m->logged();
 	 
 	}
 	 

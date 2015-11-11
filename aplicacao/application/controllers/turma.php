@@ -22,8 +22,8 @@ class Turma extends CI_Controller {
 	public function __construct() {
         parent::__construct();
  $this->load->model('turma_m');
- $this->load->model('user','',TRUE);
- $this->user->logged();
+ $this->load->model('admin_m','',TRUE);
+ $this->admin_m->logged();
    
  
 }

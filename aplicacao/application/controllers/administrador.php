@@ -22,8 +22,8 @@ class Administrador extends CI_Controller {
 	public function __construct() {
         parent::__construct();
  
-  $this->load->model('user','',TRUE);
- $this->user->logged();
+  $this->load->model('admin_m','',TRUE);
+ $this->admin_m->logged();
  
 }
  
@@ -39,9 +39,10 @@ class Administrador extends CI_Controller {
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('username','Login','trim|required|max_length[20]');
-	$this -> form_validation ->set_rules('password','Senha','trim|required|max_length[20]');
-	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
+	$this -> form_validation ->set_rules('email','Email','trim|required|max_length[80]');
+	$this -> form_validation ->set_rules('usuario','Login','trim|required|max_length[20]');
+	$this -> form_validation ->set_rules('senha','Senha','trim|required|max_length[20]');
+	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[senha]');
 	$this -> form_validation ->set_rules('lembrasenha','Lemnrete de senha','trim|required|max_length[80]');
 	    if ($this->form_validation->run() == FALSE)
                 {
@@ -50,10 +51,10 @@ class Administrador extends CI_Controller {
                 else
                 {
                   
-                  $dados=elements(array('nome','password','username','lembrasenha'),$this->input->post());
-                  $dados['password'] = MD5($dados['password']);//coloca a senha em md5 no banco
+                  $dados=elements(array('nome','email','senha','usuario','lembrasenha'),$this->input->post());
+                  $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
                 
-                    $this->user->inserir($dados);
+                    $this->admin_m->inserir($dados);
              
                 
 		$this->load->view('admin/admin_cad');
@@ -73,7 +74,8 @@ class Administrador extends CI_Controller {
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
-	$this -> form_validation ->set_rules('username','Login','trim|required|max_length[20]');
+	$this -> form_validation ->set_rules('email','Email','trim|required|max_length[80]');
+	$this -> form_validation ->set_rules('usuario','Login','trim|required|max_length[20]');
 	//$this -> form_validation ->set_rules('password','Senha','trim|required|max_length[100]');
 	//$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
 	//$this -> form_validation ->set_rules('lembrasenha','Lemnrete de senha','trim|required|max_length[80]');
@@ -84,10 +86,10 @@ class Administrador extends CI_Controller {
                 else
                 {
                   
-                  $dados=elements(array('nome','username'),$this->input->post());
+                  $dados=elements(array('nome','email','usuario'),$this->input->post());
                   
                 
-                $this->user->atualizar_do($dados,array('id' => $this->input->post('$idadm')));
+                $this->admin_m->atualizar_do($dados,array('id' => $this->input->post('$idadm')));
              
                 
 		$this->load->view('admin/admin_atu');
@@ -102,8 +104,8 @@ class Administrador extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	
 	$this -> form_validation ->set_rules('oldsenha','Senha Atual','trim|required|max_length[20]|callback_check_senha');
-	$this -> form_validation ->set_rules('password','Nova Senha','trim|required|max_length[20]');
-	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
+	$this -> form_validation ->set_rules('senha','Nova Senha','trim|required|max_length[20]');
+	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[senha]');
 	$this -> form_validation ->set_rules('lembrasenha','Lembrete de senha','trim|required|max_length[80]');
 	    if ($this->form_validation->run() == FALSE)
                 {
@@ -112,10 +114,10 @@ class Administrador extends CI_Controller {
                 else
                 {
                   
-                  $dados=elements(array('password','lembrasenha'),$this->input->post());
-                   $dados['password'] = MD5($dados['password']);//coloca a senha em md5 no banco
+                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
+                   $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
                 
-                $this->user->atualizar_do($dados,array('id' => $this->input->post('$idadm')));
+                $this->admin_m->atualizar_do($dados,array('id' => $this->input->post('$idadm')));
              
                 
 		$this->load->view('admin/admin_sen');
@@ -129,7 +131,7 @@ function check_senha($password)
    $password = $this->input->post('oldsenha');
  
   
-   $result = $this->user->confere_senha($password);
+   $result = $this->admin_m->confere_senha($password);
  
    if($result)
    {
@@ -147,7 +149,7 @@ function check_senha($password)
 		 $this->load->view('admin/admin_del');
 		if($this->input->post('$idadm')>0):
 
-	 $this->user->deletar_do(array('id' => $this->input->post('$idadm')));
+	 $this->admin_m->deletar_do(array('id' => $this->input->post('$idadm')));
 	 	
 	 	
 	 endif;
@@ -164,7 +166,7 @@ public function listar(){
 			
 			
 			
-	$datas['query2'] = $this->user->do_pesquisa();
+	$datas['query2'] = $this->admin_m->do_pesquisa();
 					
 	$this->load->view('admin/admin_v', $datas);
 	

@@ -120,7 +120,7 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
 			  
 		$this->db->insert('inscricao',$dados);
 	
-		$this->session->set_flashdata('cadastrook','Cadastro efetuado com sucesso');
+		$this->session->set_flashdata('cadastrook','Inscrição efetuada com sucesso');
 		redirect('inscricao/send_mail');
 		//redirect('inscricao/cadastrar');
 		

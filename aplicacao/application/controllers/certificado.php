@@ -9,8 +9,8 @@ class Certificado extends CI_Controller {
   
     $this->load->model('matricula_m');
  $this->load->library('mpdf/mpdf');
-  $this->load->model('user','',TRUE);
-   $this->user->logged();
+  $this->load->model('admin_m','',TRUE);
+   $this->admin_m->logged();
    
 }
 

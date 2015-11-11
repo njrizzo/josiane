@@ -33,8 +33,8 @@ endif
     <td>Nova senha:</td>
     <td>
 		
-      <input name="password" type="password" value="<?php echo set_value('password'); ?>"  id="password"/>
-     <br> <?php echo form_error('password'); ?><br>
+      <input name="senha" type="password" value="<?php echo set_value('senha'); ?>"  id="senha"/>
+     <br> <?php echo form_error('senha'); ?><br>
       </td>
   </tr>
    <td>Repita a senha:</td>

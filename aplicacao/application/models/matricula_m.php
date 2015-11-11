@@ -71,7 +71,7 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
 			  
 		$this->db->insert('matricula',$dados);
 	
-		$this->session->set_flashdata('cadastrook','Cadastro efetuado com sucesso');
+		$this->session->set_flashdata('cadastrook','Matricula efetuada com sucesso');
 		redirect('matricula/cadastrar');
 		endif;
 		

@@ -27,21 +27,31 @@ endif
       <br>  <?php echo form_error('nome'); ?><br>
      
     </td>
+    <tr>
+	  
+    <td >Email: </td>
+    
+    <td >
+		
+        <input type="text" name="email"  value="<?php echo set_value('email'); ?>"  id="email" />
+      <br>  <?php echo form_error('email'); ?><br>
+     
+    </td>
   </tr>
   <tr>
     <td>Login:</td>
     <td>
 		
-      <input type="text" name="username"  value="<?php echo set_value('username'); ?>"  id="username" />
-      <br><?php echo form_error('username'); ?><br>
+      <input type="text" name="usuario"  value="<?php echo set_value('usuario'); ?>"  id="usuario" />
+      <br><?php echo form_error('usuario'); ?><br>
      </td>
   </tr>
   <tr>
     <td>Senha:</td>
     <td>
 		
-       <input type="password" name="password"  value="<?php echo set_value('password'); ?>"  id="password" />
-				<br><?php echo form_error('password'); ?><br>
+       <input type="password" name="senha"  value="<?php echo set_value('senha'); ?>"  id="senha" />
+				<br><?php echo form_error('senha'); ?><br>
       
       
   </tr>

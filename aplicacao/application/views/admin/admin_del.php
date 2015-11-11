@@ -24,28 +24,38 @@ echo form_open("administrador/deletar/$id");
       <br>  <?php echo form_error('nome'); ?><br>
      
     </td>
+    <tr>
+	  
+    <td >Email: </td>
+    
+    <td >
+		
+        <input type="text" name="email"  value="<?php echo set_value('email',$query->email); ?>"  id="email" disabled/>
+      <br>  <?php echo form_error('email'); ?><br>
+     
+    </td>
   </tr>
   <tr>
     <td>Login:</td>
     <td>
 		
-      <input type="text" name="username"  value="<?php echo set_value('username',$query->username); ?>"  id="username" disabled/>
-      <br><?php echo form_error('username'); ?><br>
+      <input type="text" name="usuario"  value="<?php echo set_value('usuario',$query->usuario); ?>"  id="usuario" disabled/>
+      <br><?php echo form_error('usuario'); ?><br>
      </td>
   </tr>
   <tr>
     <td>Senha:</td>
     <td>
 		
-       <input type="password" name="password"  value="<?php echo set_value('password',$query->password); ?>"  id="password" disabled/>
-				<br><?php echo form_error('password'); ?><br>
+       <input type="password" name="senha"  value="<?php echo set_value('senha',$query->senha); ?>"  id="senha" disabled/>
+				<br><?php echo form_error('senha'); ?><br>
       
       
   </tr>
    <td>Repita a senha:</td>
     <td>
 		
-       <input type="password" name="senha2"  value="<?php echo set_value('senha2',$query->password); ?>"  id="senha2" disabled/>
+       <input type="password" name="senha2"  value="<?php echo set_value('senha2',$query->senha); ?>"  id="senha2" disabled/>
 				<br><?php echo form_error('senha2'); ?><br>
       
       

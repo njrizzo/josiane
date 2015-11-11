@@ -55,6 +55,9 @@ endif;
             <th>
                 Nome
             </th>
+             <th>
+                Email
+            </th>
             
             <th>
             Login
@@ -82,7 +85,10 @@ endif;
                 <?=$linha->nome ?>
             </td>
             <td>
-                <?=$linha->username ?>
+                <?=$linha->email ?>
+            </td>
+            <td>
+                <?=$linha->usuario?>
             </td>
              <td>
                 <?=$linha->lembrasenha?>

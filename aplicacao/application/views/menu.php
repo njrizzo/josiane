@@ -55,7 +55,7 @@ table#logon{
       <tr>
         <th height="371" colspan="2" align="center" valign="middle" scope="row">
 		
-   <h2>Administrador: <?php echo $username; ?>!</h2>
+   <h2>Administrador: <?php echo $usuario; ?>!</h2>
    
   
 

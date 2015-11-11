@@ -9,8 +9,8 @@ class Relatorio extends CI_Controller {
   
    $this->load->model('relatorio_m');
 
-    $this->load->model('user','',TRUE);
-   $this->user->logged();
+    $this->load->model('admin_m','',TRUE);
+   $this->admin_m->logged();
 }
 
  

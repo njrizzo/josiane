@@ -23,8 +23,8 @@ class Matricula extends CI_Controller {
         parent::__construct();
  $this->load->model('matricula_m');
 
-  $this->load->model('user','',TRUE);
-   $this->user->logged();
+  $this->load->model('admin_m','',TRUE);
+   $this->admin_m->logged();
    
  
 }

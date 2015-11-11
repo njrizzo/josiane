@@ -24,7 +24,7 @@
             <td align="right" valign="bottom" scope="row">  Usu&aacute;rio:</td>
             <td align="center" valign="bottom"><span id="sprytextfield1">
               
-                <input name="username" type="text" class="input_text" id="username" />
+                <input name="usuario" type="text" class="input_text" id="usuario" />
             <br />
              
           </tr>
@@ -33,7 +33,7 @@
             <td align="right" valign="bottom" scope="row">Senha:</td>
             <td align="center" valign="bottom"><span id="sprypassword1">
               
-                <input name="password" type="password" class="input_text" id="password" />
+                <input name="senha" type="password" class="input_text" id="senha" />
               <br/>
              
           </tr>
