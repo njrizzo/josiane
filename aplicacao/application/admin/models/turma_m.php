@@ -19,7 +19,7 @@ public function retorna_curso()
            
            foreach($query->result() as $row)
            $arrDatos[htmlspecialchars($row->codcurso, ENT_QUOTES)] = 
-htmlspecialchars($row->nome, ENT_QUOTES);
+htmlspecialchars($row->modulo, ENT_QUOTES);
 
         $query->free_result();
         return $arrDatos;
@@ -47,7 +47,7 @@ public function retorna_curso_all()
            
            foreach($query->result() as $row)
            $arrDatos[htmlspecialchars($row->codcurso, ENT_QUOTES)] = 
-htmlspecialchars($row->nome, ENT_QUOTES);
+htmlspecialchars($row->modulo, ENT_QUOTES);
 
         $query->free_result();
         return $arrDatos;

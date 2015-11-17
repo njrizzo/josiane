@@ -1,6 +1,6 @@
 <?php
 $this->load->view('template/cabecalho');  
-$this->load->view('template/menuins'); 
+$this->load->view('template/menuser'); 
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('inscricao/index'); 
 $query = $this ->inscricao_m->atualizar($id)->row();
@@ -32,47 +32,36 @@ endif
     </td>
   </tr>
   <tr>
-    <td>Servidor:</td>
+    <td height="30">Nome:</td>
     <td>
 		<?php echo form_error('codserv'); ?>
-       <?php //echo form_error('codserv'); echo form_dropdown('codserv', $servs, set_value('codserv',$query->codserv));?>
-       <select name="codserv">
-		 <option value="<?=$query->codserv?>" <?php echo set_select('codserv','$query->codserv'); ?>><?=$query->nomeserv?></option>
-
-</select>
+		 <input name="codserv" type="text"  value=" <?php echo $query->nomeserv;?>"  readonly="readonly" />
+      
  
      </td>
   </tr>
   <tr>
-    <td>Turma:</td>
+    <td  height="30" >Turma:</td>
     <td>
 		<?php echo form_error('codturma'); ?>
-       <?php //echo form_error('codturma'); echo form_dropdown('codturma', $turmas, set_value('codturma',$query->codturma));?>
-       <select name="codturma">
-		 <option value="<?=$query->codturma?>" <?php echo set_select('codturma','$query->codturma'); ?>><?=$query->nometurma?></option>
-
-</select>
-      <br />
-      
+		 <input name="codturma" type="text"  value=" <?php echo $query->nometurma;?>"  readonly="readonly" />
+		 </td>
   </tr>
 <tr>
-    <td>Motiva&ccedil;&atilde;o:</td>
+    <td  height="30">Motiva&ccedil;&atilde;o:</td>
     <td>
+		
 		<?php echo form_error('motivo'); ?>
        <input type="text" name="motivo" value="<?php echo set_value('motivo',$query->motivo); ?>" cols="45" rows="5" id="motivo" />
-      <span>Descreva o que motivou voc&ecirc; a inscrever-se no curso de capacita&ccedil;&atilde;o</span>
+     </td>
       
   </tr>
   <tr>
-    <td>Estado:</td>
+    <td  height="30">Estado:</td>
     <td>
 		<?php echo form_error('situacao'); ?>
-      <select name="situacao" id="situacao" >
-		  
-           <option value="pendente"  <?= $query->situacao=='pendente'? 'selected':'';?><?php echo set_select('situacao','pendente'); ?>>Pendente</option>
-        <option value="autorizado" <?= $query->situacao=='autorizado'? 'selected':'';?>  <?php echo set_select('situacao','autorizado'); ?>>Autorizado</option>
-        <option value="negado" <?= $query->situacao=='negado'? 'selected':'';?><?php echo set_select('situacao','negado'); ?>>Negado</option>
-      </select><br />
+		 <input name="situacao" type="text"  value=" <?php echo $query->situacao;?>"  readonly="readonly" />
+     
       </td>
   </tr>
   <tr>

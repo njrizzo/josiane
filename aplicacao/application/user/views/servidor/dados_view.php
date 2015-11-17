@@ -1,8 +1,8 @@
 <?php
 $this->load->view('template/cabecalho');  
 $this->load->view('template/menuser'); 
-//$id = $this->uri->segment(3);
-if ($codserv==NULL) redirect('servidor/index'); 
+
+if ($codserv==NULL) redirect('home/index'); 
 $query = $this ->serv_m->atualizar($codserv)->row();
 //echo form_open("servidor/deletar/$id");
  // echo form_hidden('$idserv',$query->codserv);
@@ -215,9 +215,11 @@ $query = $this ->serv_m->atualizar($codserv)->row();
   </tr>
   <tr>
      <td>
-       <td align="left"> <?php echo anchor("","<input name='Alterar' type='button' class='input_bt' id='Alterar' value='Alterar Senha' />")?>
+		 <td></td>
+		 </td>
+     <td align="left"> <?php echo anchor("home/editar/$codserv","<input name='Editar' type='button' class='input_bt' id='Editar' value='Editar dados' />")?>
     </td>
-    <td align="right"><input name="Editar" type="submit" class="input_bt" id="Editar" value="Editar dados" /></td>
+    
   </tr>
 </table>
 
@@ -225,7 +227,7 @@ $query = $this ->serv_m->atualizar($codserv)->row();
 				</td>
            
           <?php
-         echo form_hidden('$idserv',$query->codserv);
-         echo form_close();
+       //  echo form_hidden('$idserv',$query->codserv);
+         //echo form_close();
 $this->load->view('template/rodape');
 ?>

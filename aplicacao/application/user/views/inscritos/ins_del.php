@@ -1,6 +1,6 @@
 <?php
 $this->load->view('template/cabecalho');  
-$this->load->view('template/menuins'); 
+$this->load->view('template/menuser'); 
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('inscricao/index'); 
 $query = $this ->inscricao_m->atualizar($id)->row();
@@ -11,7 +11,7 @@ echo form_open("inscricao/deletar/$id");
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 			
             
-            <h1 align="center" ><font color="#00009C">Deletar inscri&ccedil;&atilde;o</font>  </h1>
+            <h1 align="center" ><font color="#00009C">Cancelar inscri&ccedil;&atilde;o?</font>  </h1>
 
 
 <table width="472" border="0" id="logon">
@@ -21,46 +21,45 @@ echo form_open("inscricao/deletar/$id");
     <td width="361">
 		
 		<?php $dataHora = date("d/m/Y "); ?>
-       <input name="datains" type="text"  value=" <?php echo "$dataHora" ;?>"  readonly="readonly"  />
+       <input name="datains" type="text"  value=" <?php echo set_value('datamat',date('d/m/Y', strtotime($query->datains)));?>"  disabled />
         
     </td>
   </tr>
   <tr>
-    <td>Servidor:</td>
+    <td height="30">Nome:</td>
     <td>
 		
-       <?php  echo form_dropdown('codserv', $servs, set_value('codserv',$query->codserv), 'disabled="disabled"'); ?>
+		 <input name="codserv" type="text"  value=" <?php echo $query->nomeserv;?>"  disabled />
+      
+
+ 
      </td>
   </tr>
   <tr>
-    <td>Turma:</td>
+    <td height="30">Turma:</td>
     <td>
-
-       <?php echo form_dropdown('codturma', $turmas, set_value('codturma',$query->codturma), 'disabled="disabled"');?>
-      <br />
+		
+		 <input name="codturma" type="text"  value=" <?php echo $query->nometurma;?>" disabled />
+    </td>  
       
   </tr>
 <tr>
-    <td>Motiva&ccedil;&atilde;o:</td>
+    <td height="30">Motiva&ccedil;&atilde;o:</td>
     <td>
 		
-     <input type="text" name="motivo" value="<?php echo set_value('motivo',$query->motivo); ?>" cols="45" rows="5" id="motivo" disabled />
-      
+		
+       <input type="text" name="motivo" value="<?php echo set_value('motivo',$query->motivo); ?>" cols="45" rows="5" id="motivo" disabled />
+     
       
   </tr>
   <tr>
-    <td>Estado:</td>
+    <td  height="30">Estado:</td>
     <td>
 		
-      <select name="situacao" id="situacao" disabled>
-		   <option value="<?=$query->situacao?>" <?php echo set_select('situacao','$query->situacao'); ?>><?=$query->situacao?></option>
-           <option value="pendente" <?php echo set_select('situacao','pendente'); ?>>Pendente</option>
-        <option value="autorizado" <?php echo set_select('situacao','autorizado'); ?>>Autorizado</option>
-        <option value="negado" <?php echo set_select('situacao','negado'); ?>>Negado</option>
-      </select><br />
+		 <input name="situacao" type="text"  value=" <?php echo $query->situacao;?>"  disabled />
+     
       </td>
   </tr>
-  <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -68,7 +67,7 @@ echo form_open("inscricao/deletar/$id");
     <td>
       
     </td>
-    <td align="right"><input name="Deletar" type="submit" class="input_bt" id="Deletar" value="Deletar" /></td>
+    <td align="right"><input name="Confirmar" type="submit" class="input_bt" id="Confirmar" value="Confirmar" /></td>
   </tr>
 </table>
 

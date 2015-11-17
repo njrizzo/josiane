@@ -23,7 +23,7 @@ $this->load->view('servidor/serv_cad');
 public function cadastrar()
 		
 		{
-			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 		$this -> form_validation ->set_rules('nomeserv','NOME','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('sexo','sexo','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('dltnasc','Data de nascimento','required|trim');

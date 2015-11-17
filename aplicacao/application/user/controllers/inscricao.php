@@ -22,8 +22,8 @@ class Inscricao extends CI_Controller {
 	public function __construct() {
         parent::__construct();
  $this->load->model('inscricao_m');
- $this->load->model('admin_m','',TRUE);
- $this->admin_m->logged();
+ $this->load->model('serv_m','',TRUE);
+   $this->serv_m->logged();
    
  
 }
@@ -35,10 +35,14 @@ class Inscricao extends CI_Controller {
 	{
 	
 
-							//$datav['cursos'] =  $this->inscricao_m->retorna_curso();
-                        	
-                        	//$this->load->view('inscritos/ins_cad', $datav);
-redirect('inscricao/listar');
+	 $session_data = $this->session->userdata('logged_in');
+     $data['cpfl'] = $session_data['cpfl'];
+     $data['codserv'] = $session_data['codserv'];
+      $data['nomeserv'] = $session_data['nomeserv'];
+      $data['query2'] = $this->inscricao_m->do_pesquisa_teste($data['codserv']);
+     $this->load->view('inscritos/ins_v', $data);
+							
+//redirect('inscricao/listar');
 
 
 	}
@@ -47,19 +51,24 @@ redirect('inscricao/listar');
 	public function cadastrar()
 	
 	{
+		$session_data = $this->session->userdata('logged_in');
+     
+     //$datav['codserv'] =
+      //$session_data['codserv'];
+      $datav['nomeserv'] = $session_data['nomeserv'];
 	$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('datains','DATA','trim|required');
 	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 	$this -> form_validation ->set_rules('codserv','Servidor','trim|required');
 	$this -> form_validation ->set_rules('codturma','Turma','trim|required');
-	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
+	$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 { 			
 					
 							$datav['cursos'] =  $this->inscricao_m->retorna_curso();
 							$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
 							$datav['turmas'] = $this->inscricao_m->retorna_turma($essa);
-                        	$datav['servs'] = $this->inscricao_m->retorna_serv();
+                        	
                         	
                         	$this->load->view('inscritos/ins_cad', $datav);
                         	
@@ -70,8 +79,8 @@ redirect('inscricao/listar');
                 {
 					
                      $dados=elements(array('datains','codserv','situacao','codturma','motivo'), $this ->input->post());
-                  
-                
+					 $dados['codserv'] = $session_data['codserv'];
+						
                     $this->inscricao_m->inserir($dados);
              
                 
@@ -93,8 +102,7 @@ redirect('inscricao/listar');
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 $this -> form_validation ->set_rules('datains','DATA','trim|required');
-	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
-
+	$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 {
 							$datav['servs'] = $this->inscricao_m->retorna_serv();
@@ -104,7 +112,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
                 }
                 else
                 {
-             $dados=elements(array('datains','codserv','situacao','codturma','motivo'), $this ->input->post());
+             $dados=elements(array('motivo'), $this ->input->post());
                   
                   
                 
@@ -123,7 +131,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 		public function deletar()
 	{
 		$datav['servs'] = $this->inscricao_m->retorna_serv();
-                        	$datav['turmas'] = $this->inscricao_m->retorna_turma();
+                        	$datav['turmas'] = $this->inscricao_m->retorna_turma_del();
                         	$this->load->view('inscritos/ins_del', $datav);
 		
    
@@ -137,12 +145,18 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 
 public function listar(){
 			
-			
+
+	
+	 $session_data = $this->session->userdata('logged_in');
+  
+     $datas['codserv'] = $session_data['codserv'];
+
 			 $this->load->library('pagination');
-	$maximo = 5;
+			 
+	$maximo = 3;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('index.php/inscricao/listar');
-	$config['total_rows'] =$this->inscricao_m->contaRegistros();
+	$config['base_url'] = base_url('usuario.php/inscricao/listar');
+	$config['total_rows'] =$this->inscricao_m->contaRegistros($datas['codserv']);
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';
 	//$config['last_link'] = 'Último';
@@ -151,8 +165,10 @@ public function listar(){
 	$this->pagination->initialize($config);
 	
 	$datas['page'] = $this->pagination->create_links();
-	$datas['query2'] = $this->inscricao_m->do_pesquisa($maximo, $inicio);
-					
+	//$datas['query2'] = $this->inscricao_m->do_pesquisa($maximo, $inicio);
+		 
+  
+      $datas['query2'] = $this->inscricao_m->do_pesquisa($maximo, $inicio, $datas['codserv']);		
 	$this->load->view('inscritos/ins_v', $datas);
 	
 			
@@ -160,7 +176,10 @@ public function listar(){
 			}//fimfuncao
 
 public function send_mail() {
-		//$para = $this->input->post('txt_para', TRUE);
+		$session_data = $this->session->userdata('logged_in');
+    
+     $datav['codserv'] = $session_data['codserv'];
+      $datav['nomeserv'] = $session_data['nomeserv'];
 		$data = $this->inscricao_m->retorna_last_inscricao();
 		foreach ($data as $linha){
 			$nomeserv = $linha->nomeserv;
@@ -229,7 +248,8 @@ public function send_mail() {
     } else {
        $datav["message"] =  "Mensagem enviada com sucesso!";
     }
-    $this->load->view('inscritos/ins_cad',$datav);
+    //$this->load->view('inscritos/ins_v',$datav);
+    redirect('inscricao/cadastrar');
 }//fim foreach
 }//fimfuncao
 

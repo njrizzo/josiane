@@ -8,29 +8,7 @@ class Inscricao_m extends CI_Model {
               
         }
 
-//função que retorna os servidores
-public function retorna_serv()
-{
 
-$this->db->order_by('codserv', 'ASC');
-        $query = $this->db->get('servidor');
-        if ($query->num_rows() > 0)
-        {
-           
-           foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codserv, ENT_QUOTES)] = 
-htmlspecialchars($row->nomeserv, ENT_QUOTES);
-
-        $query->free_result();
-        return $arrDatos;
-           
-        }
-        else
-        {
-            return false;
-        }
-
-}
 public function retorna_curso()//retorna os cursos ativos
 {
 
@@ -42,7 +20,7 @@ public function retorna_curso()//retorna os cursos ativos
            
            foreach($query->result() as $row)
            $arrDatos[htmlspecialchars($row->codcurso, ENT_QUOTES)] = 
-htmlspecialchars($row->nome, ENT_QUOTES);
+htmlspecialchars($row->modulo, ENT_QUOTES);
 
         $query->free_result();
         return $arrDatos;
@@ -110,7 +88,29 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
 
 
 
+public function retorna_turma_del() //funcão usada na hora de deletar inscrições, retorna a turma da inscrição
+{
 
+ $this->db->order_by('codturma', 'ASC');
+        $query = $this->db->get('turma');
+       // $this->db->join('curso', ' curso.codcurso = turma.codcurso');
+        if ($query->num_rows() > 0)
+        {
+           
+           foreach($query->result() as $row)
+           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = 
+htmlspecialchars($row->nometurma, ENT_QUOTES);
+
+        $query->free_result();
+        return $arrDatos;
+           
+        }
+        else
+        {
+            return false;
+        }
+
+}
 
 
         public function inserir($dados=NULL)
@@ -195,15 +195,23 @@ public function deletar_do($condicao=NULL)
     {
       if($condicao!=NULL):
 		$this->db->delete('inscricao',$condicao);
-		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
+		$this->session->set_flashdata('excluirok','Inscriçaõ cancelada com sucesso');
 		
 		redirect('inscricao/listar');
 		endif;
     }
 
-			function contaRegistros()
+			function contaRegistros($serv)
 {
- return $this->db->count_all_results('inscricao');
+	
+	
+	$this->db->select('*');
+$this->db->from('inscricao');
+$this->db->join('turma', ' turma.codturma = inscricao.codturma');
+$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
+$this->db->join('curso', ' curso.codcurso = turma.codcurso');
+$this->db->where('inscricao.codserv',$serv);
+ return $this->db->count_all_results();
 }
 	
 	
@@ -211,36 +219,20 @@ public function deletar_do($condicao=NULL)
 	
 	
 	
-public function do_pesquisa($maximo, $inicio) {
-  $match = $this->input->post('pesquisar');
+public function do_pesquisa($maximo, $inicio, $codserv) {
+
   
-     
-     $this->db->order_by('datains', 'desc');
-  $this->db->or_like('setor',$match);
-  $this->db->or_like('unidade',$match);
-  $this->db->or_like('cargo',$match);
-  $this->db->or_like('ensino',$match);
-  $this->db->or_like('funcao',$match);
-  $this->db->or_like('siape',$match);
-  $this->db->or_like('nomechefe',$match);
-  $this->db->or_like('emailchefe',$match);
-  $this->db->or_like('ensino',$match);
-  $this->db->or_like('cidade',$match);
-  $this->db->or_like('servidor.estado',$match);
-  $this->db->or_like('cpfl',$match);
-  $this->db->or_like('rgl',$match);
-  $this->db->or_like('estcivil',$match);
-  $this->db->or_like('situacao',$match);
-  $this->db->or_like('nometurma',$match);
-  $this->db->or_like('nome',$match);
-  $this->db->or_like('nomeserv',$match);
+
    
  $this->db->select('*');
 $this->db->from('inscricao');
 $this->db->join('turma', ' turma.codturma = inscricao.codturma');
 $this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
 $this->db->join('curso', ' curso.codcurso = turma.codcurso');
+$this->db->where('servidor.codserv',$codserv);
+ $this->db->order_by('datains', 'desc');
 $this->db->limit($maximo,$inicio);
+
 $query2 = $this->db->get();
  
    if ($query2->num_rows() > 0)
@@ -254,11 +246,45 @@ $query2 = $this->db->get();
 }
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public function do_pesquisa_teste($serv=NULL) {
+		if($serv!=NULL):
+		 
+$this->db->select('*');
+$this->db->from('inscricao');
+$this->db->join('turma', ' turma.codturma = inscricao.codturma');
+$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
+$this->db->join('curso', ' curso.codcurso = turma.codcurso');
+$this->db->where('inscricao.codserv',$serv);
+$this->db->order_by('datains', 'desc');
+
+ $query2 = $this->db->get();
+ 
+   if ($query2->num_rows() > 0)
+        {
+            return $query2->result();
+        }
+        else
+        {
+            return false;
+        }
+        endif;
+}
+	
 		
 	
 	
 	
-}
+}//end
 
 
 

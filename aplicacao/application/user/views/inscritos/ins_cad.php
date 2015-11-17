@@ -1,6 +1,6 @@
 <?php
 $this->load->view('template/cabecalho');  
-$this->load->view('template/menuins'); 
+$this->load->view('template/menuser'); 
 //echo validation_errors();
 echo form_open('inscricao/cadastrar');
 
@@ -11,7 +11,7 @@ echo form_open('inscricao/cadastrar');
 	
 	function busca_turma(codigo){
      
-      document.location=('index.php/inscricao/cadastrar/'+codigo ); 
+      document.location=('usuario.php/inscricao/cadastrar/'+codigo ); 
  
 //alert(codigo);
 }
@@ -39,16 +39,24 @@ endif
         
     </td>
   </tr>
-   
+    <tr>
+    <td>Nome:</td>
+    <td>
+		
+		 <input name="codserv" type="text"  value=" <?php echo $nomeserv;?>"  readonly="readonly" />
+     </td>
+  </tr>
   <tr>
     <td>Curso:</td>
     <td>
-  <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())' onfocus="this.style.backgroundColor='#FFFFCC'; this.style.border='2px solid #FF9933'" onblur="this.style.backgroundColor='#CCCCCC'; this.style.border='2px solid #000000'">
-	   <option value=''  >----selecione----</option>
+		<?php echo form_dropdown('codcurso', $cursos);?>
+  <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())'  >
+	   <option value='' selected="selected" >----selecione----</option>
 <?php
  
 foreach ($cursos as $i => $nome)
-   echo '<option value="',$i,'"  >',$nome,'</option>';
+   echo '<option value="',$i,'" >',$nome,'</option>';
+   echo 'selected';
    
 ?>
 </select>
@@ -58,7 +66,7 @@ foreach ($cursos as $i => $nome)
     <td>Turma:</td>
     <td>
 		
-		     <select name="codturma" id="codturma" onfocus="this.style.backgroundColor='#FFFFCC'; this.style.border='2px solid #FF9933'" onblur="this.style.backgroundColor='#CCCCCC'; this.style.border='2px solid #000000'">
+		     <select name="codturma" id="codturma" >
 				 <option value=''>----selecione----</option>
 <?php
 foreach ($turmas as $i => $nome)
@@ -70,39 +78,22 @@ foreach ($turmas as $i => $nome)
       <br />
 
   </tr>
-  <tr>
-    <td>Servidor:</td>
-    <td>
-		
-		<select name="codserv" id="codserv" onfocus="this.style.backgroundColor='#FFFFCC'; this.style.border='2px solid #FF9933'" onblur="this.style.backgroundColor='#CCCCCC'; this.style.border='2px solid #000000'">
-				 <option value='' >----selecione----</option>
-<?php
-foreach ($servs as $i => $nome)
-   echo '<option value="',$i,'" >',$nome,'</option>';
-?>
-</select><?php echo form_error('codserv');  ?>
-       <?php //echo form_error('codserv'); echo form_dropdown('codserv', $servs);?>
-     </td>
-  </tr>
+ 
   
  <tr>
     <td>Motiva&ccedil;&atilde;o:</td>
     <td>
 		<?php echo form_error('motivo'); ?>
-      <textarea name="motivo" value="<?php echo set_value('motivo'); ?>" cols="45" rows="5" id="motivo" onfocus="this.style.backgroundColor='#FFFFCC'; this.style.border='2px solid #FF9933'" onblur="this.style.backgroundColor='#CCCCCC'; this.style.border='2px solid #000000'"></textarea>
-      <span>Descreva o que motivou voc&ecirc; a inscrever-se no curso de capacita&ccedil;&atilde;o</span>
+      <textarea name="motivo" value="<?php echo set_value('motivo'); ?>" cols="45" rows="5" id="motivo"  placeholder="Descreva o que motivou voc&ecirc; a inscrever-se no curso de capacita&ccedil;&atilde;o"></textarea>
+     
       
   </tr>
   <tr>
     <td>Estado:</td>
     <td>
+		<input name="situacao" type="text"  value="pendente"  readonly="readonly" />
 		
-      <select name="situacao" id="situacao" onfocus="this.style.backgroundColor='#FFFFCC'; this.style.border='2px solid #FF9933'" onblur="this.style.backgroundColor='#CCCCCC'; this.style.border='2px solid #000000'">
-		  <option value=''>---selecione---</option>
-           <option value="pendente" <?php echo set_select('situacao','pendente'); ?>>Pendente</option>
-        <option value="autorizado" <?php echo set_select('situacao','autorizado'); ?>>Autorizado</option>
-        <option value="negado" <?php echo set_select('situacao','negado'); ?>>Negado</option>
-      </select><?php echo form_error('situacao'); ?><br />
+      <?php echo form_error('situacao'); ?><br />
       </td>
   </tr>
   <tr>

@@ -157,8 +157,8 @@ redirect('servidor/listar');
 		{
 			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 			$this -> form_validation ->set_rules('oldsenha','Senha Atual','trim|required|max_length[20]|callback_check_senha');
-		$this -> form_validation ->set_rules('senha','Senha','required|max_length[10]|trim');
-		$this -> form_validation ->set_rules('senha2','Repita a Senha','required|max_length[10]|matches[senha]|trim');
+		$this -> form_validation ->set_rules('senha','Senha','required|max_length[10]|trim|min_length[6]');
+		$this -> form_validation ->set_rules('senha2','Repita a Senha','required|max_length[10]|matches[senha]|trim|min_length[6]');
 		$this -> form_validation ->set_rules('lembrasenha','Lembrete de Senha','required|max_length[100]|trim');
 		    if ($this->form_validation->run() == FALSE)
 	                {

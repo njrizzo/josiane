@@ -87,7 +87,7 @@ public function atualizar_do($dados=NULL,$condicao=NULL)
 		$this->db->update('servidor',$dados,$condicao);
 		
 		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
-		//redirect("curso/editar/$id");
+		
 		redirect(current_url());
 		endif;
     }

@@ -1,8 +1,8 @@
 <?php
 $this->load->view('template/cabecalho');  
 $this->load->view('template/menuser');  
-if ($codserv==NULL) redirect('home/index'); 
-//$query2 = $this->inscricao_m->do_pesquisa_teste($codserv);
+
+
 
 
 ?>
@@ -33,10 +33,19 @@ color:#FFFFFF
 <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 
           
-
- 
     
 
+<?=form_open('inscricao/listar');?>
+<?php $pesquisar = array('name'=>'pesquisar','id'=>'pesquisar','value'=>'' );?>
+<table align="right">
+
+<tr>
+	<td colspan="2" align="center"><font color="#00009C">Pesquisar </font> </td>
+<td><?=form_input($pesquisar);?></td>
+<td><input type=submit  value='Ir' /></td>
+</tr></table>
+
+<?=form_close();?>
   <?php	
             if($this->session->flashdata('excluirok')):
 echo'<p>'.$this->session->flashdata('excluirok').'</p>';
@@ -44,7 +53,6 @@ echo'<p>'.$this->session->flashdata('excluirok').'</p>';
 endif;
 
 ?>
-
 <br>
 <h2 align="center" ><font color="#00009C">Lista de inscri&ccedil;&otilde;es </font>  </h2>
 
@@ -59,6 +67,16 @@ endif;
             </th>
             <th>
                Data
+            </th>
+            
+            <th>
+            Servidor
+            </th>
+             <th>
+            E-mail
+            </th>
+             <th>
+            E-mail do chefe
             </th>
             <th>
                 Turma
@@ -90,7 +108,15 @@ endif;
             <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datains)) ?> 
             </td>
-            
+            <td>
+                <?=$linha->nomeserv ?>
+            </td>
+            <td>
+                <?=$linha->email ?>
+            </td>
+            <td>
+                <?=$linha->emailchefe ?>
+            </td>
              <td>
                 <?=$linha->nometurma?>
             </td>
@@ -127,9 +153,6 @@ endif;
 
 
 <?php
-
-
-//echo form_hidden('$idserv',$query2->codserv);
 echo $page;
 $this->load->view('template/rodape');
 ?>

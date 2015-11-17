@@ -3,13 +3,14 @@
 
 	<table width="670" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="117" height="527" valign="top"><table border="1" bgcolor="#FFFFFF"   cellpadding="0" cellspacing="0">
+            <td width="117" height="527" valign="top"><table border="1" bgcolor="#FFFFFF"   cellpadding="0" cellspacing="0"> 
             
             <tr>
-                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('servidor/listar','<font size="-1" color="#FFFFFF">PRINCIPAL</font>')?> </th>
+                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('inscricao/cadastrar','<font size="-1" color="#FFFFFF">PRINCIPAL</font>')?> </th>
               </tr>
               <tr>
-                <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"> <?php echo anchor('servidor/cadastrar','<font  size="-1" color="#FFFFFF">INSCRI&Ccedil;&Atilde;O</font>')?></th>
+
+                <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"> <?php echo anchor('inscricao/listar','<font  size="-1" color="#FFFFFF">INSCRI&Ccedil&Otilde;ES</font>')?></th>
               </tr>
               <tr>
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('certificado','<font  size="-1" color="#FFFFFF">MATR&Iacute;CULAS</font>')?> </th>

@@ -52,7 +52,7 @@ redirect('inscricao/listar');
 	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 	$this -> form_validation ->set_rules('codserv','Servidor','trim|required');
 	$this -> form_validation ->set_rules('codturma','Turma','trim|required');
-	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
+	$this -> form_validation ->set_rules('motivo','Motivação','trim||max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 { 			
 					
