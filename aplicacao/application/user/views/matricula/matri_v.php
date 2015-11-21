@@ -1,6 +1,6 @@
 <?php
 $this->load->view('template/cabecalho');  
-$this->load->view('template/menumatri');  
+$this->load->view('template/menuser');  
 
 
 
@@ -35,17 +35,6 @@ color:#FFFFFF
             
     
 
-<?=form_open('matricula/listar');?>
-<?php $pesquisar = array('name'=>'pesquisar','id'=>'pesquisar','value'=>'' );?>
-<table align="right">
-
-<tr>
-	<td colspan="2" align="center"><font color="#00009C">Pesquisar </font> </td>
-<td><?=form_input($pesquisar);?></td>
-<td><input type=submit  value='Ir' /></td>
-</tr></table>
-
-<?=form_close();?>
 
 <?php	
             if($this->session->flashdata('excluirok')):
@@ -70,9 +59,7 @@ endif;
                Data
             </th>
             
-            <th>
-            Servidor
-            </th>
+          
             <th>
                 Turma
             </th>
@@ -103,9 +90,7 @@ endif;
             <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datamat)) ?> 
             </td>
-            <td>
-                <?=  $linha->nomeserv ?>
-            </td>
+           
              <td>
                 <?=$linha->nometurma?>
             </td>
@@ -115,14 +100,11 @@ endif;
          
             
           
-             <td background="figuras/editar.jpeg" > 
-				 <?= anchor("matricula/editar/$linha->codmatricula",'<img src="figuras/editar.jpg" alt="editar" alt="Smiley face" />')?>
-               <td>    
+            
+               <td align="center">    
                 <?php echo anchor("matricula/deletar/$linha->codmatricula",'<img src="figuras/ex2.jpg" alt="editar" name="cadastro" />')?>
                   
-           <td>    
-                <?php if ($linha->situacao == 'aprovado'): echo anchor_popup("matricula/gerar_cert/$linha->codmatricula",'<img src="figuras/cert.png" alt="editar" name="cadastro" />'); endif ?>
-                  
+            
           
             
             

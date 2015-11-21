@@ -13,7 +13,7 @@
                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"> <?php echo anchor('inscricao/listar','<font  size="-1" color="#FFFFFF">INSCRI&Ccedil&Otilde;ES</font>')?></th>
               </tr>
               <tr>
-                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('certificado','<font  size="-1" color="#FFFFFF">MATR&Iacute;CULAS</font>')?> </th>
+                 <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('matricula','<font  size="-1" color="#FFFFFF">MATR&Iacute;CULAS</font>')?> </th>
               </tr>
               <tr>
                  <th width="106"   height="20" background="figuras/tmenu.gif" colspan="2" align="center" valign="middle"  scope="col"><?php echo anchor('administrador','<font  size="-1" color="#FFFFFF">CERTIFICADOS</font>')?> </th>

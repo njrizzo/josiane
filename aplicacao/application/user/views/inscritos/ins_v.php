@@ -2,7 +2,7 @@
 $this->load->view('template/cabecalho');  
 $this->load->view('template/menuser');  
 if ($codserv==NULL) redirect('home/index'); 
-//$query2 = $this->inscricao_m->do_pesquisa_teste($codserv);
+
 
 
 ?>
@@ -63,10 +63,13 @@ endif;
             <th>
                 Turma
             </th>
+              <th>
+             Justificativa
+            </th>
             <th>
                Situação
             </th>
-         
+       
              
             
             <th  colspan="2" >
@@ -93,6 +96,9 @@ endif;
             
              <td>
                 <?=$linha->nometurma?>
+            </td>
+              <td>
+                <?=$linha->motivo ?>
             </td>
            
              <td>

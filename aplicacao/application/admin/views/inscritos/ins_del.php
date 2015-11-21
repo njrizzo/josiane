@@ -17,31 +17,30 @@ echo form_open("inscricao/deletar/$id");
 <table width="472" border="0" id="logon">
   <tr>
 	  
-    <td width="101">Data</td>
+    <td width="101"  height="30">Data</td>
     <td width="361">
 		
-		<?php $dataHora = date("d/m/Y "); ?>
-       <input name="datains" type="text"  value=" <?php echo "$dataHora" ;?>"  readonly="readonly"  />
+		
+       <input name="datains" type="text"  value=" <?php echo date('d/m/Y', strtotime($query->datains));?>"  disabled   />
         
     </td>
   </tr>
   <tr>
-    <td>Servidor:</td>
+    <td  height="30">Servidor:</td>
     <td>
 		
-       <?php  echo form_dropdown('codserv', $servs, set_value('codserv',$query->codserv), 'disabled="disabled"'); ?>
+     <input name="codserv" type="text"  value=" <?php echo $query->nomeserv;?>"  disabled />
      </td>
   </tr>
   <tr>
-    <td>Turma:</td>
+    <td  height="30">Turma:</td>
     <td>
 
-       <?php echo form_dropdown('codturma', $turmas, set_value('codturma',$query->codturma), 'disabled="disabled"');?>
-      <br />
+    <input name="codturma" type="text"  value=" <?php echo $query->nometurma;?>" disabled />
       
   </tr>
 <tr>
-    <td>Motiva&ccedil;&atilde;o:</td>
+    <td  height="30">Motiva&ccedil;&atilde;o:</td>
     <td>
 		
      <input type="text" name="motivo" value="<?php echo set_value('motivo',$query->motivo); ?>" cols="45" rows="5" id="motivo" disabled />
@@ -49,15 +48,10 @@ echo form_open("inscricao/deletar/$id");
       
   </tr>
   <tr>
-    <td>Estado:</td>
+    <td  height="30">Estado:</td>
     <td>
 		
-      <select name="situacao" id="situacao" disabled>
-		   <option value="<?=$query->situacao?>" <?php echo set_select('situacao','$query->situacao'); ?>><?=$query->situacao?></option>
-           <option value="pendente" <?php echo set_select('situacao','pendente'); ?>>Pendente</option>
-        <option value="autorizado" <?php echo set_select('situacao','autorizado'); ?>>Autorizado</option>
-        <option value="negado" <?php echo set_select('situacao','negado'); ?>>Negado</option>
-      </select><br />
+     <input name="situacao" type="text"  value=" <?php echo $query->situacao;?>"  disabled />
       </td>
   </tr>
   <tr>

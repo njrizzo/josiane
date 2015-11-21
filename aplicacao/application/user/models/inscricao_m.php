@@ -229,7 +229,7 @@ $this->db->from('inscricao');
 $this->db->join('turma', ' turma.codturma = inscricao.codturma');
 $this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
 $this->db->join('curso', ' curso.codcurso = turma.codcurso');
-$this->db->where('servidor.codserv',$codserv);
+$this->db->where('inscricao.codserv',$codserv);
  $this->db->order_by('datains', 'desc');
 $this->db->limit($maximo,$inicio);
 

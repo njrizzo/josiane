@@ -184,8 +184,7 @@ public function do_pesquisa($maximo, $inicio) {
   $this->db->or_like('cpfl',$match);
   $this->db->or_like('rgl',$match);
   $this->db->or_like('estcivil',$match);
-  $this->db->limit(20);
- $this->db->select('*');
+$this->db->select('*');
 $this->db->from('matricula');
 $this->db->join('turma', ' turma.codturma = matricula.codturma');
 $this->db->join('servidor', ' servidor.codserv = matricula.codserv');

@@ -21,7 +21,7 @@ echo form_open("inscricao/deletar/$id");
     <td width="361">
 		
 		<?php $dataHora = date("d/m/Y "); ?>
-       <input name="datains" type="text"  value=" <?php echo set_value('datamat',date('d/m/Y', strtotime($query->datains)));?>"  disabled />
+       <input name="datains" type="text"  value=" <?php echo set_value('datains',date('d/m/Y', strtotime($query->datains)));?>"  disabled />
         
     </td>
   </tr>

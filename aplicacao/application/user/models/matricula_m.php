@@ -64,21 +64,7 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
 
 
 
-        public function inserir($dados=NULL)
-        {
-		if($dados!=NULL):
-		
-			  
-		$this->db->insert('matricula',$dados);
-	
-		$this->session->set_flashdata('cadastrook','Matricula efetuada com sucesso');
-		redirect('matricula/cadastrar');
-		endif;
-		
-echo $this->db->affected_rows();
-		
-		
-		}
+      
 
 
 
@@ -107,17 +93,6 @@ $this->db->join('curso', ' curso.codcurso = turma.codcurso');
 
 
 
-public function atualizar_do($dados=NULL,$condicao=NULL)
-    {
-      if($dados!=NULL && $condicao!=NULL):
-		
-		$this->db->update('matricula',$dados,$condicao);
-		
-		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
-		
-		redirect(current_url());
-		endif;
-    }
 
 
 public function deletar_do($condicao=NULL)
@@ -130,41 +105,27 @@ public function deletar_do($condicao=NULL)
 		endif;
     }
 
-				function contaRegistros()
+				function contaRegistros($serv)
 {
- return $this->db->count_all_results('matricula');
-}
-	
-public function do_pesquisa($maximo, $inicio) {
-  $match = $this->input->post('pesquisar');
-  
-     
-     $this->db->order_by('datamat', 'desc');
-  $this->db->or_like('situacao',$match);
-  $this->db->or_like('nometurma',$match);
-  $this->db->or_like('nome',$match);
-  $this->db->or_like('nomeserv',$match);
-  $this->db->or_like('setor',$match);
-  $this->db->or_like('unidade',$match);
-  $this->db->or_like('cargo',$match);
-  $this->db->or_like('ensino',$match);
-  $this->db->or_like('funcao',$match);
-  $this->db->or_like('siape',$match);
-  $this->db->or_like('bairro',$match);
-  $this->db->or_like('nomechefe',$match);
-  $this->db->or_like('emailchefe',$match);
-  $this->db->or_like('ensino',$match);
-  $this->db->or_like('cidade',$match);
-  $this->db->or_like('servidor.estado',$match);
-  $this->db->or_like('cpfl',$match);
-  $this->db->or_like('rgl',$match);
-  $this->db->or_like('estcivil',$match);
-  $this->db->limit(20);
+	 
  $this->db->select('*');
 $this->db->from('matricula');
 $this->db->join('turma', ' turma.codturma = matricula.codturma');
 $this->db->join('servidor', ' servidor.codserv = matricula.codserv');
 $this->db->join('curso', ' curso.codcurso = turma.codcurso');
+$this->db->where('matricula.codserv',$serv);
+ return $this->db->count_all_results();
+}
+	
+public function do_pesquisa($maximo, $inicio, $codserv) {
+  
+ $this->db->select('*');
+$this->db->from('matricula');
+$this->db->join('turma', ' turma.codturma = matricula.codturma');
+$this->db->join('servidor', ' servidor.codserv = matricula.codserv');
+$this->db->join('curso', ' curso.codcurso = turma.codcurso');
+$this->db->where('matricula.codserv',$codserv);
+$this->db->order_by('datamat', 'desc');
 $this->db->limit($maximo,$inicio);
 $query2 = $this->db->get();
  

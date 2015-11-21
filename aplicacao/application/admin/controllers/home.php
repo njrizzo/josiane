@@ -12,7 +12,7 @@ class Home extends CI_Controller {
  function index()
  {
 	
-	 $session_data = $this->session->userdata('logged_in');
+	 $session_data = $this->session->userdata('logged_adm');
      $data['usuario'] = $session_data['usuario'];
      $this->load->view('menu', $data);
 	
@@ -20,8 +20,9 @@ class Home extends CI_Controller {
 
  function logout()
  {
-   $this->session->unset_userdata('logged_in');
-   session_destroy();
+   $this->session->unset_userdata('logged_adm');
+  // $this->session->sess_destroy('logged_adm');
+   //session_destroy('logged_adm');
    redirect('login', 'refresh');
  }
  

@@ -33,7 +33,7 @@ Class Admin_m extends CI_Model
 	
 	
 	 function logged() {
-        $logged = $this->session->userdata('logged_in');
+        $logged = $this->session->userdata('logged_adm');
 
         if (!isset($logged) || $logged != true) {
             echo 'Voce nao tem permissao para entrar nessa pagina.';

@@ -49,7 +49,7 @@ endif
   <tr>
     <td>Curso:</td>
     <td>
-		<?php echo form_dropdown('codcurso', $cursos);?>
+		
   <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())'  >
 	   <option value='' selected="selected" >----selecione----</option>
 <?php

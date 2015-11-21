@@ -35,14 +35,8 @@ class Inscricao extends CI_Controller {
 	{
 	
 
-	 $session_data = $this->session->userdata('logged_in');
-     $data['cpfl'] = $session_data['cpfl'];
-     $data['codserv'] = $session_data['codserv'];
-      $data['nomeserv'] = $session_data['nomeserv'];
-      $data['query2'] = $this->inscricao_m->do_pesquisa_teste($data['codserv']);
-     $this->load->view('inscritos/ins_v', $data);
 							
-//redirect('inscricao/listar');
+redirect('inscricao/listar');
 
 
 	}
@@ -105,7 +99,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 	$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 {
-							$datav['servs'] = $this->inscricao_m->retorna_serv();
+							//$datav['servs'] = $this->inscricao_m->retorna_serv();
                         	$datav['turmas'] = $this->inscricao_m->retorna_turma_all();
                         	$this->load->view('inscritos/ins_atu', $datav);
 					
@@ -130,7 +124,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 		
 		public function deletar()
 	{
-		$datav['servs'] = $this->inscricao_m->retorna_serv();
+		//$datav['servs'] = $this->inscricao_m->retorna_serv();
                         	$datav['turmas'] = $this->inscricao_m->retorna_turma_del();
                         	$this->load->view('inscritos/ins_del', $datav);
 		
@@ -155,7 +149,7 @@ public function listar(){
 			 
 	$maximo = 3;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('usuario.php/inscricao/listar');
+	$config['base_url'] = base_url('inscricao/listar');
 	$config['total_rows'] =$this->inscricao_m->contaRegistros($datas['codserv']);
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';
@@ -174,6 +168,10 @@ public function listar(){
 			
 			
 			}//fimfuncao
+
+
+
+
 
 public function send_mail() {
 		$session_data = $this->session->userdata('logged_in');
