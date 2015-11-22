@@ -5,7 +5,7 @@ $this->load->view('template/menuser');
 echo form_open('inscricao/cadastrar');
 
 ?>
-    <head>
+   
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script > 
 	
@@ -19,7 +19,7 @@ echo form_open('inscricao/cadastrar');
 	
 	</script>
 
-</head>
+
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 		<?php	
             if($this->session->flashdata('cadastrook')):

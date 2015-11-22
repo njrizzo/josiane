@@ -13,7 +13,7 @@ $this->load->view('template/menuins');
 tbody > tr:nth-of-type(odd) {
   background-color: lightgray;
 }
-table, th, td {
+table{
   border: 1px solid black;
   
 }

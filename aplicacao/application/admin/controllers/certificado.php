@@ -44,7 +44,7 @@ public function listar(){
 			
 			
 			}//fimfuncao
-public function gerar_cert()
+public function gerar()
 	
 	{
 
@@ -58,6 +58,7 @@ $query = $this ->matricula_m->atualizar($id)->row();
 
    
  $nome = $query->nome;
+ $nmodulo = $query->modulo;
  $cargahr  =$query->cargahr; 
  $nomeserv = $query->nomeserv;  
 // $nomeserv = ucfirst($nomeserv);  
@@ -90,7 +91,7 @@ background-image: url("figuras/fundo.png");
      
        <tr   >
 <th  rowspan="4"   ></th>
-<td width="45"  lign="left"><img src="  '.base_url().'figuras/logor.png"   /></td>
+<td width="45"  lign="left"><img src="figuras/logor.png"   /></td>
 <td   width="745" lign="left"><P>
 	<b><h6><font color="#61380B"  >Universidade Federal Rural do Rio de Janeiro<br>
 	Decanato de Assuntos Administrativos<br>
@@ -99,7 +100,7 @@ background-image: url("figuras/fundo.png");
 </tr >
  
 <tr>
-<td  colspan="2" valign="top"  align="center"  ><font color="#61380B" size="7" ><i>Certificado</i></font><br><br><font color="#61380B" size="-1" ><p>Certifico que <strong>'.ucwords($nomeserv).'</strong> , participou do curso <strong>'.$nome.'</strong>, oferecido pela Coordenação de Desenvolviento de Pessoas -DP/DDA, no período de'.$datain.' a '.$datafim.' com carga horaria de '.$cargahr.' horas.<br ></p></font><br></td>
+<td  colspan="2" valign="top"  align="center"  ><font color="#61380B" size="7" ><i>Certificado</i></font><br><br><font color="#61380B" size="-1" ><p>Certifico que <strong>'.ucwords($nomeserv).'</strong> , participou do curso <strong>'.$nome.'</strong>,  módulo  <strong>'.$nmodulo.'</strong>, oferecido pela Coordenação de Desenvolviento de Pessoas -DP/DDA, no período de'.$datain.' a '.$datafim.' com carga horaria de '.$cargahr.' horas.<br ></p></font><br></td>
 </tr>
 <tr>
 
@@ -109,7 +110,7 @@ background-image: url("figuras/fundo.png");
 </tr>
 <tr>
 
-<td   width="745" colspan="2" align="center" valign="top" ><img src="  '.base_url().'figuras/base.png"   />  </td>
+<td   width="745" colspan="2" align="center" valign="top" ><img src="figuras/base.png"   />  </td>
 
 <br>
 </tr>

@@ -1,19 +1,9 @@
-<?php
-$this->load->view('template/cabecalho');  
-$this->load->view('template/menuser');  
-
-
-
-
-?>
-
-<head>
 <style type="text/css">
 	<!--
 tbody > tr:nth-of-type(odd) {
   background-color: lightgray;
 }
-table, th, td {
+table {
   border: 1px solid black;
   
 }
@@ -28,9 +18,16 @@ color:#FFFFFF
 -->
 </style>
 
+<?php
+$this->load->view('template/cabecalho');  
+$this->load->view('template/menuser');  
+?>
 
-</head>
+
 <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
+
+
+
 
             
     
@@ -70,7 +67,7 @@ endif;
              
             
             <th  colspan="3" >
-				 Ações
+				Cancelar
 				
 				
                

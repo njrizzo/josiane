@@ -62,6 +62,9 @@ color:#FFFFFF
         <th>
                 Curso
             </th>
+            <th>
+               Módulo
+            </th>
             
             <th>
               Período
@@ -97,6 +100,9 @@ color:#FFFFFF
                 <?=$linha->nome ?>
             </td>
             <td>
+                <?=$linha->modulo ?>
+            </td>
+            <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datainicio)) ?> a <?php echo  date('d/m/Y', strtotime($linha->datafim)) ?>
             </td>
            
@@ -110,7 +116,7 @@ color:#FFFFFF
             
           
                <td align="center">    
-                <?php  echo anchor_popup("matricula/gerar_cert/$linha->codmatricula",'<img src="figuras/cert.png" alt="editar" name="cadastro" />'); ?>
+                <?php  echo anchor_popup("certificado/gerar/$linha->codmatricula",'<img src="figuras/cert.png" alt="editar" name="cadastro" />'); ?>
                   
           
             

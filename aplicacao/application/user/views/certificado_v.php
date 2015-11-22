@@ -1,26 +1,23 @@
 <?php
 $this->load->view('template/cabecalho');  
-$this->load->view('template/menucert');  
+$this->load->view('template/menuser');  
 
 
 
 
 ?>
 
-<head>
+
 <style type="text/css">
 	<!--
 tbody > tr:nth-of-type(odd) {
   background-color: lightgray;
 }
-table, th, td {
+table {
   border: 1px solid black;
   
 }
-input{
 
-color:#00009C;
-}
 img {
 border:1px solid black;
 }
@@ -32,37 +29,25 @@ color:#FFFFFF
 </style>
 
 
-</head>
+
 <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 
-       
-<?=form_open('certificado/listar');?>
-<?php $pesquisar = array('name'=>'pesquisar','id'=>'pesquisar','value'=>'' );?>
-<table align="right">
+    
 
-<tr>
-	<td colspan="2" align="center"><font color="#00009C">Pesquisar </font> </td>
-<td><?=form_input($pesquisar);?></td>
-<td><input type=submit  value='Ir' /></td>
-</tr></table>
-
-<?=form_close();?>
-<br><br><br>     
-
-
-<br><br><br>
 <h2 align="center" ><font color="#00009C">Lista de  Certificados </font>  </h2>
 
-<table border="1" align="center" >
+<table border="1" color = "black" align="center"  width="472"  >
     <thead>
         <tr >
 			 <th>
-            Servidor
+            Nome
             </th>
-        <th>
+			<th>
                 Curso
             </th>
-            
+               <th>
+                Módulo
+            </th>
             <th>
               Período
             </th>
@@ -96,6 +81,9 @@ color:#FFFFFF
             <td>
                 <?=$linha->nome ?>
             </td>
+             <td>
+                <?=$linha->modulo?>
+            </td>
             <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datainicio)) ?> a <?php echo  date('d/m/Y', strtotime($linha->datafim)) ?>
             </td>
@@ -110,7 +98,7 @@ color:#FFFFFF
             
           
                <td align="center">    
-                <?php  echo anchor_popup("matricula/gerar_cert/$linha->codmatricula",'<img src="figuras/cert.png" alt="editar" name="cadastro" />'); ?>
+                <?php  echo anchor_popup("certificado/gerar/$linha->codmatricula",'<img src="figuras/cert.png" alt="editar" name="cadastro" />'); ?>
                   
           
             

@@ -9,8 +9,8 @@ class Certificado extends CI_Controller {
   
     $this->load->model('matricula_m');
  $this->load->library('mpdf/mpdf');
-  $this->load->model('admin_m','',TRUE);
-   $this->admin_m->logged();
+ $this->load->model('serv_m','',TRUE);
+   $this->serv_m->logged();
    
 }
 
@@ -23,12 +23,14 @@ class Certificado extends CI_Controller {
 }
 public function listar(){
 			
-			
+			$session_data = $this->session->userdata('logged_in');
+  
+     $datas['codserv'] = $session_data['codserv'];
 			 $this->load->library('pagination');
-	$maximo = 3;
+	$maximo = 1;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('index.php/certificado/listar');
-	$config['total_rows'] =$this->matricula_m->contaRegistros();
+	$config['base_url'] = base_url('certificado/listar');
+	$config['total_rows'] =$this->matricula_m->contaRegistros($datas['codserv']);
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';
 	//$config['last_link'] = 'Último';
@@ -37,14 +39,20 @@ public function listar(){
 	$this->pagination->initialize($config);
 	
 	$datas['page'] = $this->pagination->create_links();
-	$datas['query2'] = $this->matricula_m->do_pesquisa($maximo, $inicio);
+	$datas['query2'] = $this->matricula_m->do_pesquisa($maximo, $inicio, $datas['codserv']);
 					
 	$this->load->view('certificado_v', $datas);
 	
 			
 			
 			}//fimfuncao
-public function gerar_cert()
+			
+			
+			
+			
+			
+			
+public function gerar()
 	
 	{
 
@@ -58,6 +66,7 @@ $query = $this ->matricula_m->atualizar($id)->row();
 
    
  $nome = $query->nome;
+ $modulo = $query->modulo;
  $cargahr  =$query->cargahr; 
  $nomeserv = $query->nomeserv;  
 // $nomeserv = ucfirst($nomeserv);  
@@ -90,7 +99,7 @@ background-image: url("figuras/fundo.png");
      
        <tr   >
 <th  rowspan="4"   ></th>
-<td width="45"  lign="left"><img src="  '.base_url().'figuras/logor.png"   /></td>
+<td width="45"  lign="left"><img src="figuras/logor.png"   /></td>
 <td   width="745" lign="left"><P>
 	<b><h6><font color="#61380B"  >Universidade Federal Rural do Rio de Janeiro<br>
 	Decanato de Assuntos Administrativos<br>
@@ -99,7 +108,7 @@ background-image: url("figuras/fundo.png");
 </tr >
  
 <tr>
-<td  colspan="2" valign="top"  align="center"  ><font color="#61380B" size="7" ><i>Certificado</i></font><br><br><font color="#61380B" size="-1" ><p>Certifico que <strong>'.ucwords($nomeserv).'</strong> , participou do curso <strong>'.$nome.'</strong>, oferecido pela Coordenação de Desenvolviento de Pessoas -DP/DDA, no período de'.$datain.' a '.$datafim.' com carga horaria de '.$cargahr.' horas.<br ></p></font><br></td>
+<td  colspan="2" valign="top"  align="center"  ><font color="#61380B" size="7" ><i>Certificado</i></font><br><br><font color="#61380B" size="-1" ><p>Certifico que <strong>'.ucwords($nomeserv).'</strong> , participou do curso <strong>'.$nome.'</strong>, módulo  <strong>'.$modulo.'</strong>, oferecido pela Coordenação de Desenvolviento de Pessoas -DP/DDA, no período de'.$datain.' a '.$datafim.' com carga horaria de '.$cargahr.' horas.<br ></p></font><br></td>
 </tr>
 <tr>
 
@@ -109,7 +118,7 @@ background-image: url("figuras/fundo.png");
 </tr>
 <tr>
 
-<td   width="745" colspan="2" align="center" valign="top" ><img src="  '.base_url().'figuras/base.png"   />  </td>
+<td   width="745" colspan="2" align="center" valign="top" ><img src="figuras/base.png"   />  </td>
 
 <br>
 </tr>
