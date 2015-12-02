@@ -147,7 +147,7 @@ public function listar(){
 
 			 $this->load->library('pagination');
 			 
-	$maximo = 3;
+	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
 	$config['base_url'] = base_url('inscricao/listar');
 	$config['total_rows'] =$this->inscricao_m->contaRegistros($datas['codserv']);
@@ -174,13 +174,17 @@ public function listar(){
 
 
 public function send_mail() {
+			
+		
+		$this->load->library("My_PHPMailer");
 		$session_data = $this->session->userdata('logged_in');
-    
-     $datav['codserv'] = $session_data['codserv'];
-      $datav['nomeserv'] = $session_data['nomeserv'];
+		$datav['codserv'] = $session_data['codserv'];
+		$datav['nomeserv'] = $session_data['nomeserv'];
 		$data = $this->inscricao_m->retorna_last_inscricao();
 		foreach ($data as $linha){
+			$idins = $linha->codinscricao;
 			$nomeserv = $linha->nomeserv;
+			$matriculasiapeservidor = $linha->siape;
 			$nomecurso=$linha->nome;
 			$mmodulo=$linha->modulo;
 			$nturma=$linha->nometurma;
@@ -191,11 +195,11 @@ public function send_mail() {
 			$dataf=$linha->datafim;
 			$emailserv=$linha->email;
 			$chefemail=$linha->emailchefe;
+			$chefenome=$linha->nomechefe;
 		
 			
+
 		
-		
-		$this->load->library("My_PHPMailer");
     $mail = new PHPMailer();
     $mail->IsSMTP(); //Definimos que usaremos o protocolo SMTP para envio.
     $mail->SMTPAuth = true; //Habilitamos a autenticação do SMTP. (true ou false)
@@ -206,12 +210,12 @@ public function send_mail() {
     $mail->Password = "hillsong01"; //Senha do gMail
     $mail->SetFrom('josidim@gmail.com', 'CODEP'); //Quem está enviando o e-mail.
     //$mail->AddReplyTo("response@email.com","Nome Completo"); //Para que a resposta será enviada.
-    $mail->Subject = "CODEP - Confirmação da Inscrição"; //Assunto do e-mail.
+    $mail->Subject =  utf8_decode("CODEP - Confirmação da Inscrição"); //Assunto do e-mail.
     //$mail->Body = "Corpo do e-mail em HTML.<br />";
-    $mail->Body = '<p><h4>CODEP-DP/DAA - Inscrições </h4></p>
+    $mail->Body =  utf8_decode( "<p><h4>Inscrições - CODEP-DP/DAA  </h4></p>
            <p>&nbsp;</p>
 		   <p>&nbsp;</p>
-      <p>Olá, '.$nomeserv.', sua inscrição no curso '.$nomecurso.': módulo '.$mmodulo.', foi realizada com sucesso!!</p>
+      <p>Olá, $nomeserv, sua inscrição no curso $nomecurso: módulo $mmodulo, foi realizada com sucesso!!</p>
       <p>Certifique-se que seu chefe recebeu o e-mail de pedido de autorização da sua inscrição, pois a mesma se faz necessário para que possa concorrer a vaga do curso que selecionou.</p>
       <p>&nbsp;</p>
       <p>Você criou a sua senha de acompanhamento que servirá para verificar o estado da sua inscrição, e também possui as seguintes funcionalidades:</p>
@@ -225,29 +229,72 @@ public function send_mail() {
     <p>&nbsp;</p>
 
    
-    <p>Acesse o link para acompanhar o estado da sua inscrição: <a href="http://www.ufrrj.br/codep/acompanhamentologin.php">http://www.ufrrj.br/codep/acompanhamentologin.php</a></p>
+    <p>Acesse o link para acompanhar o estado da sua inscrição: <a href='http://www.ufrrj.br/codep/acompanhamentologin.php'>http://www.ufrrj.br/codep/acompanhamentologin.php</a></p>
 
     <p>&nbsp;</p>
 
     <p>OBS: A confirmação da inscrição não garante a vaga para o curso selecionado por você, a seleção dos inscritos é determinada a partir dos critérios regulamentados pela CODEP.</p>
     <p>&nbsp;</p>
-    <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>';
+    <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>");
 
     $mail->AltBody = "Corpo em texto puro.";
     //$destino = "josidim12342005@yahoo.com.br";
     $mail->AddAddress($emailserv, $nomeserv);
+    $mail->Send();
      
     /*Também é possível adicionar anexos.*/
     //$mail->AddAttachment("images/phpmailer.gif");
    // $mail->AddAttachment("images/phpmailer_mini.gif");
- 
+   $mail = new PHPMailer();
+    $mail->IsSMTP(); //Definimos que usaremos o protocolo SMTP para envio.
+    $mail->SMTPAuth = true; //Habilitamos a autenticação do SMTP. (true ou false)
+    $mail->SMTPSecure = "ssl"; //Estabelecemos qual protocolo de segurança será usado.
+    $mail->Host = "smtp.gmail.com"; //Podemos usar o servidor do gMail para enviar.
+    $mail->Port = 465; //Estabelecemos a porta utilizada pelo servidor do gMail.
+    $mail->Username = "josidim@gmail.com"; //Usuário do gMail
+    $mail->Password = "hillsong01"; //Senha do gMail
+    $mail->SetFrom('josidim@gmail.com', 'CODEP'); //Quem está enviando o e-mail.
+    //$mail->AddReplyTo("response@email.com","Nome Completo"); //Para que a resposta será enviada.
+    $mail->Subject =  utf8_decode("CODEP - Autorização para Curso de Capacitação"); //Assunto do e-mail.
+    //$mail->Body = "Corpo do e-mail em HTML.<br />";
+    $mail->Body =  utf8_decode( "<p><h4> Inscrições - CODEP-DP/DAA </h4></p>
+             <p>&nbsp;</p>
+             <p>Servidor:$nomeserv</p>
+             <p>Matrícula SIAPE:$matriculasiapeservidor</p>
+			 <p>Curso escolhido:$nomecurso</p>
+			 <p>Módulo:$mmodulo<p/>
+			 <p>Turma:$nturma - $tdias - Horário: ".substr($hrin,0,5)."h às ".substr($hrfim,0,5)."h</p>
+             <p>Início do Curso: ".  date('d/m/Y', strtotime($datain))." - Término do curso: ". date('d/m/Y', strtotime($dataf))." </p>
+			 <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+             <p>Senhor dirigente,</p>
+             <p>&nbsp;</p>
+          <p>Para efetivar a inscrição do servidor descrito acima é necessário a sua autorização. A não autorização deverá ser acompanhada de justificativa.</p>
+		  <p>Solicitamos sua atenção ao autorizar, pois o mesmo servidor poderá realizar até 5 inscrições em cursos e ou módulos diferentes ao mesmo tempo. </p>
+             <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+             <p>Clique abaixo a opção desejada:</p> 
+              <p>&nbsp;</p>
+			 <p>Clique no link para autorizar: Autorizo. Responsabilizo-me pela liberação do servidor no curso.<a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
+             <p>&nbsp;</p>
+             <p>Clique no link para não autorizar: Não autorizo. <a href='http://www.ufrrj.br/codep/negado.php?'>http://www.ufrrj.br/codep/negado.php</a></p>
+              <p>&nbsp;</p>
+            <p>Acesse o cronograma do Curso de Capacitação no Link abaixo:
+            <a href='http://www.ufrrj.br/codep/avisos/inscricoes.php'>http://www.ufrrj.br/codep/avisos/inscricoes.php</a></p>
+             <p>&nbsp;</p>
+			  <p>&nbsp;</p>
+            <p>Maiores informações pelo tel. (21) (21) 2681-4739/2681-4740 ou email codep@ufrrj.br</p>");
+
+    $mail->AltBody = "Corpo em texto puro.";
+    //$destino = "josidim12342005@yahoo.com.br";
+    $mail->AddAddress($chefemail, $chefenome);
     if(!$mail->Send()) {
        $datav["message"] = "ocorreu um erro durante o envio: " . $mail->ErrorInfo;
     } else {
        $datav["message"] =  "Mensagem enviada com sucesso!";
     }
-    //$this->load->view('inscritos/ins_v',$datav);
-    redirect('inscricao/cadastrar');
+    $this->load->view('inscritos/ins_cad',$datav);
+   // redirect('inscricao/cadastrar');
 }//fim foreach
 }//fimfuncao
 

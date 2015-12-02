@@ -8,7 +8,7 @@ class Cadastro extends CI_Controller {
    parent::__construct();
   
    $this->load->model('serv_m');
-
+ $this->load->model('inscricao_m');
    
 }
 
@@ -81,6 +81,113 @@ public function lembrar_senha(){
 	$this->load>view('servidor/lembrar_s_view');
 	
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public function conferir(){
+		
+ 
+   $this->form_validation->set_rules('chefesiape', 'SIAPE', 'trim|required|callback_check_database');
+   
+ 
+   if($this->form_validation->run() == FALSE)
+   {
+     //validação falhou redicionado para a página de login
+     $this->load->view('autorizar/autoz_login');
+   }
+   else
+   {
+     //Validação ok!
+   
+      $chefesiape = $this->input->post('chefesiape');
+      $siape=$this->uri->segment("3");
 
+	  //$siape = $this->input->post('siape');
+	  $this->serv_m->confereSiape($siape, $chefesiape);
+      
+      
+   }
+	
+	
+	
+	}
+	
+	
+	function check_database($siape)
+ {
+   //verificação no banco de dados
+   $siape=$this->uri->segment("3");
+
+//$siape = $this->input->post('siape');
+ $chefesiape = $this->input->post('chefesiape');
+   //consulta
+   $result = $this->serv_m->confereSiape($siape, $chefesiape);
+ 
+   if($result)
+   {
+    
+    	 $this->load->view("autorizar/autorizar_view");
+    
+    
+     return TRUE;
+   }
+   else
+   {
+     $this->form_validation->set_message('check_database', 'Siape não confere com o Servidor cadastrado.');
+     
+     return false;
+   }
+ }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public function autorizar($sip,$cod){
+		
+			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+		$this -> form_validation ->set_rules('situacao','Resposta','required|trim');
+		$this -> form_validation ->set_rules('motivo','Justificativa','trim|max_length[100]');
+		if ($this->form_validation->run() == FALSE)
+	                {
+	                        $this->load->view("autorizar/autorizar_view");
+	                     
+	                        
+	                }
+	                else
+	                {
+	                  
+                  
+	                   $dados=elements(array('situacao'), $this ->input->post());
+                  if($dados['situacao']=='negado'):
+                  
+                  $dados['motivo'] = $this ->input->post('motivo');
+                endif;
+                $this->inscricao_m->atualizar_do($dados,array('codinscricao' => $this->uri->segment(4)));
+	                
+			$this->load->view("autorizar/autorizar_view");
+	
+	}
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
  }//endcontroler
 
