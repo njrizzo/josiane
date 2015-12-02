@@ -51,7 +51,7 @@ $html = '';
      $html .= "<td width='122' bgcolor='#FFCC66'><span style='color:#000000'>CPF:</span></td>";
      $html .= "<td width='143' bgcolor='#FFCC66'><span style='color:#000000'>Nome da Unidade</span></td>";
      $html .= "<td width='125' bgcolor='#FFCC66'><span style='color:#000000'>Nome do Setor</span></td>";
-     $html .= "<td width='170' bgcolor='#FFCC66'><span style='color:#000000'>Nome do Curso</span></td>";
+     $html .= "<td width='170' bgcolor='#FFCC66'><span style='color:#000000'>Nome do Curso/M&oacute;dulo</span></td>";
      $html .= "<td width='75' bgcolor='#FFCC66'><span style='color:#000000'>Nome da Turma</span></td>";
      $html .= "<td width='110' bgcolor='#FFCC66'><span style='color:#000000'>Situa&ccedil;&atilde;o </span></td>";
      $html .= "<td width='172' bgcolor='#FFCC66'><span style='color:#000000'>M&oacute;dulo</span></td>";
@@ -68,7 +68,7 @@ $html = '';
             $html .=   		"<td> $linha->cpfl</td>";
 			$html .=    	"<td> $linha->unidade </td>";
 			$html .=		"<td> $linha->setor </td>";
-			$html .=    	"<td> $linha->nome</td>";
+			$html .=    	"<td> $linha->nome - $linha->modulo </td>";
 			$html .=    	"<td> $linha->nometurma</td>";
 			$html .=    	"<td> $linha->situacao</td>";
 			$html .=       	"<td> $linha->modulo</td>";
@@ -113,7 +113,7 @@ public function aprovados_curso(){
  
  
   $html .=   "<tr>";
-              $html .=  "<td>   $linha->nome </td>";
+              $html .=  "<td>   $linha->nome - $linha->modulo </td>";
 			  $html .=   "<td> $linha->nometurma</td>";
 			  $html .=   "<td> $linha->cargahr</td>";
 			  $html .=     "<td> $linha->datainicio a $linha->datafim </td>";
@@ -140,7 +140,8 @@ public function inscritos_curso(){
 	$html .= "<table width='1245' border='1' align='center' cellpadding='0'>";
 	$html .= "<caption><h2>Relat&oacute;rio dos Inscritos nos Cursos/M&oacute;dulos </h2></caption>";
 	$html .= "<tr>";
-	$html .= "<td  align='center' bgcolor='#999999'><strong>Curso/M&oacute;dulo</strong></td>";
+	$html .= "<td  align='center' bgcolor='#999999'><strong>Curso</strong></td>";
+	$html .= "<td  align='center' bgcolor='#999999'><strong>M&oacute;dulo</strong></td>";
     $html .="<td  align='center' bgcolor='#999999'><strong>Turma</strong></td>";
 	$html .= "<td  align='center' bgcolor='#999999'><strong>CH</strong></td>";
     $html .= "<td align='center' bgcolor='#999999'><strong>Per&iacute;odo</strong></td>";
@@ -152,7 +153,8 @@ public function inscritos_curso(){
  
  
   $html .=   "<tr>";
-              $html .=  "<td>   $linha->nome </td>";
+              $html .=  "<td>   $linha->nome  </td>";
+              $html .=  "<td>   $linha->modulo </td>";
 			  $html .=   "<td> $linha->nometurma</td>";
 			  $html .=   "<td> $linha->cargahr</td>";
 			  $html .=     "<td> $linha->datainicio a $linha->datafim </td>";

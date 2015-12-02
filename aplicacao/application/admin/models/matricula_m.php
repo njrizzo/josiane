@@ -168,6 +168,7 @@ public function do_pesquisa($maximo, $inicio) {
   $this->db->or_like('situacao',$match);
   $this->db->or_like('nometurma',$match);
   $this->db->or_like('nome',$match);
+  $this->db->or_like('modulo',$match);
   $this->db->or_like('nomeserv',$match);
   $this->db->or_like('setor',$match);
   $this->db->or_like('unidade',$match);
