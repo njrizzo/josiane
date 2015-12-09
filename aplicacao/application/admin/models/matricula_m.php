@@ -8,7 +8,7 @@ class Matricula_m extends CI_Model {
                 //$this->load->helper('date');
         }
 
-//função que retorna os servidore com inscricao cadastradas na hora de cadastrar nova matricula
+//função que retorna os servidores com inscricao autorizadas na hora de cadastrar nova matricula
 public function retorna_serv()
 {
 
@@ -19,8 +19,7 @@ public function retorna_serv()
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codserv, ENT_QUOTES)] = 
-htmlspecialchars($row->nomeserv, ENT_QUOTES);
+           $arrDatos[$row->codserv] = $row->nomeserv;
 
         $query->free_result();
         return $arrDatos;
@@ -33,18 +32,22 @@ htmlspecialchars($row->nomeserv, ENT_QUOTES);
 
 }
 
-public function retorna_turma()//funcão usada na hora de cadastrar matricula, retorna todas as turmas que ainda não começaram
+//função que retorna os servidores com inscricao autorizadas na hora de cadastrar nova matricula
+public function retorna_serv_turma($essa)
 {
+$this->db->select('*');
+$this->db->from('inscricao');
+$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
+$this->db->where('codturma', $essa);
+$this->db->where('situacao', 'autorizado');
 
- $this->db->order_by('codturma', 'ASC');
- $this->db->where('datainicio >=', 'now()'  );
-        $query = $this->db->get('turma');
-        if ($query->num_rows() > 0)
+       // $query = $this->db->query("select s.codserv, nomeserv  from servidor s, inscricao i where s.codserv=i.codserv and situacao ='autorizado'");
+              $query = $this->db->get();
+              if ($query->num_rows() > 0)
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = 
-htmlspecialchars($row->nometurma, ENT_QUOTES);
+           $arrDatos[$row->codserv] =$row->nomeserv;
 
         $query->free_result();
         return $arrDatos;
@@ -54,6 +57,18 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
         {
             return false;
         }
+
+
+}
+
+public function retorna_turma()//funcão usada na hora de cadastrar matricula, retorna todas as turmas que ainda não começaram
+{
+	$this->db->order_by('codturma', 'ASC');
+ $this->db->where('datainicio >=', 'now()'  );
+$consulta = $this->db->get("turma");
+		
+		return $consulta;
+
 
 }
 
@@ -67,8 +82,7 @@ public function retorna_turma_del()//funcão usada na hora de deletar,  retorna 
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = 
-htmlspecialchars($row->nometurma, ENT_QUOTES);
+           $arrDatos[$row->codturma] =$row->nometurma;
 
         $query->free_result();
         return $arrDatos;

@@ -66,21 +66,20 @@ endif;
                 Módulo
             </th>
             <th>
+                Turma
+            </th>
+            <th>
                Data
             </th>
             
             <th>
             Servidor
             </th>
-             <th>
-            E-mail
-            </th>
+            
              <th>
             E-mail do chefe
             </th>
-            <th>
-                Turma
-            </th>
+            
             <th>
                Situação
             </th>
@@ -106,20 +105,19 @@ endif;
                 <?=$linha->modulo ?>
             </td>
             <td>
+                <?=$linha->nometurma?>
+            </td>
+            <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datains)) ?> 
             </td>
             <td>
                 <?=$linha->nomeserv ?>
             </td>
-            <td>
-                <?=$linha->email ?>
-            </td>
+           
             <td>
                 <?=$linha->emailchefe ?>
             </td>
-             <td>
-                <?=$linha->nometurma?>
-            </td>
+             
            
              <td>
                 <?=$linha->situacao ?>

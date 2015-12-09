@@ -35,9 +35,6 @@ class Inscricao extends CI_Controller {
 	{
 	
 
-							//$datav['cursos'] =  $this->inscricao_m->retorna_curso();
-                        	
-                        	//$this->load->view('inscritos/ins_cad', $datav);
 redirect('inscricao/listar');
 
 
@@ -92,8 +89,8 @@ redirect('inscricao/listar');
 	public function editar()
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
-$this -> form_validation ->set_rules('datains','DATA','trim|required');
-	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
+		$this -> form_validation ->set_rules('datains','DATA','trim|required');
+		$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 
 	    if ($this->form_validation->run() == FALSE)
                 {
@@ -122,7 +119,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 		
 		public function deletar()
 	{
-		$datav['servs'] = $this->inscricao_m->retorna_serv();
+							$datav['servs'] = $this->inscricao_m->retorna_serv();
                         	$datav['turmas'] = $this->inscricao_m->retorna_turma_del();
                         	$this->load->view('inscritos/ins_del', $datav);
 		

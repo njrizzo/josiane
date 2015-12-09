@@ -106,7 +106,7 @@ redirect('servidor/listar');
 		$this -> form_validation ->set_rules('sexo','sexo','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('dltnasc','Data de nascimento','required');
 		$this -> form_validation ->set_rules('rgl','Identidade','required|max_length[15]|trim');
-		$this -> form_validation ->set_rules('cpfl','CPF','required|max_length[100]|trim');
+		$this -> form_validation ->set_rules('cpfl','CPF','required|max_length[100]|trim|is_unique[servidor.cpfl]');
 		$this -> form_validation ->set_rules('siape','SIAPE','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('nacilonalidade','Nacilonalidade ','required|trim');
 		$this -> form_validation ->set_rules('naturalidade','Naturalidade ','required|trim');

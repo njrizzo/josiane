@@ -51,12 +51,21 @@ redirect('matricula/listar');
 	$this -> form_validation ->set_rules('datamat','DATA','trim|required');
 	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 	$this -> form_validation ->set_rules('codserv','Servidor','trim|required');
-	$this -> form_validation ->set_rules('codturma','Turma','trim|required');
+	$this -> form_validation ->set_rules('codturma','Turma','trim');
 	
 	    if ($this->form_validation->run() == FALSE)
                 {
-                        	$datav['servs'] = $this->matricula_m->retorna_serv();
-                        	$datav['turmas'] = $this->matricula_m->retorna_turma();
+					        $turmas = $this->matricula_m->retorna_turma();
+							$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");	
+                        	$datav['servs'] = $this->matricula_m->retorna_serv_turma($essa);
+$option = "<option value=''></option>";
+	foreach($turmas -> result()  as $linha) {
+			$option .= "<option value='$linha->codturma'>$linha->nometurma</option>";			
+		}
+				$datav['options_departamentos'] = $option;
+
+		
+		
                         	$this->load->view('matricula/matri_cad', $datav);
                         	
 
@@ -66,8 +75,8 @@ redirect('matricula/listar');
                 {
 					
                      $dados=elements(array('datamat','codserv','situacao','codturma'), $this ->input->post());
-                  
-                
+                 // $dados['codturma'] = $this->uri->segment("3");	
+              
                     $this->matricula_m->inserir($dados);
              
                 
