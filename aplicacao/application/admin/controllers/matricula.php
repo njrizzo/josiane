@@ -51,18 +51,18 @@ redirect('matricula/listar');
 	$this -> form_validation ->set_rules('datamat','DATA','trim|required');
 	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 	$this -> form_validation ->set_rules('codserv','Servidor','trim|required');
-	$this -> form_validation ->set_rules('codturma','Turma','trim');
+	$this -> form_validation ->set_rules('codturma','Turma','trim|required');
 	
 	    if ($this->form_validation->run() == FALSE)
                 {
 					        $turmas = $this->matricula_m->retorna_turma();
-							$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");	
-                        	$datav['servs'] = $this->matricula_m->retorna_serv_turma($essa);
-$option = "<option value=''></option>";
+							
+                        	//$datav['servs'] = $this->matricula_m->retorna_serv_turma();
+	$option = "<option value=''></option>";
 	foreach($turmas -> result()  as $linha) {
-			$option .= "<option value='$linha->codturma'>$linha->nometurma</option>";			
+	$option .= "<option value='$linha->codturma' >$linha->nometurma</option>";			
 		}
-				$datav['options_departamentos'] = $option;
+				$datav['options_turmas'] = $option;
 
 		
 		
@@ -75,7 +75,7 @@ $option = "<option value=''></option>";
                 {
 					
                      $dados=elements(array('datamat','codserv','situacao','codturma'), $this ->input->post());
-                 // $dados['codturma'] = $this->uri->segment("3");	
+                  
               
                     $this->matricula_m->inserir($dados);
              
@@ -87,7 +87,19 @@ $option = "<option value=''></option>";
 	
 	}
 	
+	public function busca_servidores_inscritos($id){
+		
 	
+		
+		$servidores = $this->matricula_m->retorna_serv_turma();
+		
+		$option = "<option value=''></option>";
+		foreach($servidores -> result() as $linha) {
+			$option .= "<option value='$linha->codserv'>$linha->nomeserv</option>";			
+		}
+		
+		echo $option;
+	}
 	
 	
 
@@ -148,7 +160,7 @@ public function listar(){
 			 $this->load->library('pagination');
 	$maximo = 5;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/matricula/listar');
+	$config['base_url'] = base_url('administrador.php/matricula/listar');
 	$config['total_rows'] =$this->matricula_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';

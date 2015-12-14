@@ -2,9 +2,7 @@
 $this->load->view('template/cabecalho');  
 
 
-//echo form_open("login/verifylogin");
 
-//echo form_close();
 ?>
  <?php echo validation_errors('<h4 align="center">','</h4>'); ?>
 
@@ -50,7 +48,7 @@ $this->load->view('template/cabecalho');
           </center></td>
         </tr>
         <tr>
-          <th colspan="3" align="left" scope="col"><?php echo anchor('','Esqueceu a senha? clique aqui.');?> </th>
+          <th colspan="3" align="left" scope="col"><?php echo anchor('cadastro/recuperar','Esqueceu a senha? clique aqui.');?> </th>
         </tr>
         <tr>
           <th colspan="3" align="left" scope="col"><?php echo anchor('cadastro','Não Possui cadastro? clique aqui.');?></th>

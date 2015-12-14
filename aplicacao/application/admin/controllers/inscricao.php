@@ -49,15 +49,21 @@ redirect('inscricao/listar');
 	$this -> form_validation ->set_rules('situacao','Estado','trim|required');
 	$this -> form_validation ->set_rules('codserv','Servidor','trim|required');
 	$this -> form_validation ->set_rules('codturma','Turma','trim|required');
-	$this -> form_validation ->set_rules('motivo','Motivação','trim||max_length[100]');
+	$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 { 			
 					
-							$datav['cursos'] =  $this->inscricao_m->retorna_curso();
-							$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-							$datav['turmas'] = $this->inscricao_m->retorna_turma($essa);
+							$cursos =  $this->inscricao_m->retorna_curso();
+							//$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
+							//$datav['turmas'] = $this->inscricao_m->retorna_turma();
                         	$datav['servs'] = $this->inscricao_m->retorna_serv();
-                        	
+                        	$option = "<option value=''></option>";
+	foreach($cursos -> result()  as $linha) {
+	$option .= "<option value='$linha->codcurso'>$linha->modulo</option>";			
+		}
+				$datav['options_cursos'] = $option;
+
+		
                         	$this->load->view('inscritos/ins_cad', $datav);
                         	
 
@@ -80,7 +86,19 @@ redirect('inscricao/listar');
 	}
 	
 	
+	public function busca_cursos_turmas($id){
+		
 	
+		
+		$turma = $this->inscricao_m->retorna_turma();
+		
+		$option = "<option value=''></option>";
+		foreach($turma -> result() as $linha) {
+			$option .= "<option value='$linha->codturma'>$linha->nometurma</option>";			
+		}
+		
+		echo $option;
+	}
 	
 
 	
@@ -91,7 +109,7 @@ redirect('inscricao/listar');
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 		$this -> form_validation ->set_rules('datains','DATA','trim|required');
 		$this -> form_validation ->set_rules('situacao','Estado','trim|required');
-
+		$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 {
 							$datav['servs'] = $this->inscricao_m->retorna_serv();
@@ -138,7 +156,7 @@ public function listar(){
 			 $this->load->library('pagination');
 	$maximo = 5;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/inscricao/listar');
+	$config['base_url'] = base_url('administrador.php/inscricao/listar');
 	$config['total_rows'] =$this->inscricao_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';

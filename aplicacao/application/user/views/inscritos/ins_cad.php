@@ -8,12 +8,19 @@ echo form_open('inscricao/cadastrar');
    
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script > 
-	
-	function busca_turma(codigo){
+		function busca_turma(codigo){
      
-      document.location=('usuario.php/inscricao/cadastrar/'+codigo ); 
- 
-//alert(codigo);
+   var base_url = '<?php echo base_url() ?>';
+		
+
+			
+			$.post(base_url+"usuario.php/inscricao/busca_cursos_turmas", {
+				codigo : codigo
+			}, function(data){
+				$('#codturma').html(data);
+			});
+		
+	//	alert(codigo);
 }
 	
 	
@@ -26,7 +33,7 @@ echo form_open('inscricao/cadastrar');
 echo'<p>'.$this->session->flashdata('cadastrook').'</p>';
 endif
 ?>
-            <h1 align="center" ><font color="#00009C">Cadastrar nova Inscri&ccedil;&atilde;o</font>   </h1>
+            <h1 align="center" ><font color="#00009C">Realizar nova Inscri&ccedil;&atilde;o</font>   </h1>
 
 <table width="472" border="0" id="logon">
   <tr>
@@ -47,32 +54,22 @@ endif
      </td>
   </tr>
   <tr>
-    <td>Curso:</td>
+    <td height="25">Curso:</td>
     <td>
-		
-  <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())'  >
-	   <option value='' selected="selected" >----selecione----</option>
-<?php
- 
-foreach ($cursos as $i => $nome)
-   echo '<option value="',$i,'" >',$nome,'</option>';
-   echo 'selected';
-   
-?>
+  <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())' class="input_text">
+	  <?= $options_cursos; ?>
 </select>
   </td>
   </tr>
   <tr>
-    <td>Turma:</td>
+    <td height="25">Turma:</td>
     <td>
 		
-		     <select name="codturma" id="codturma" >
-				 <option value=''>----selecione----</option>
-<?php
-foreach ($turmas as $i => $nome)
-   echo '<option value="',$i,'" >',$nome,'</option>';
-?>
-</select><?php echo form_error('codturma');  ?>
+		     <select name="codturma" id="codturma" class="input_text" >
+				
+
+</select>
+<?php echo form_error('codturma');  ?>
        <?php //echo form_error('codturma'); echo form_dropdown('codturma',$turmas);?>
       
       <br />
@@ -104,7 +101,7 @@ foreach ($turmas as $i => $nome)
     <td>
       
     </td>
-    <td align="right"><input name="cadastrar" type="submit" class="input_bt" id="cadastrar" value="Cadastrar" /></td>
+    <td align="right"><input name="Confirmar" type="submit" class="input_bt" id="Confirmar" value="Confirmar" /></td>
   </tr>
 </table>
 

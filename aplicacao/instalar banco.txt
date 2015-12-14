@@ -1,0 +1,140 @@
+instal.md
+
+configurações, URLbae
+...\aplicacao\application\admin\config\config.php
+...\aplicacao\application\user\config\config.php
+linha 20
+
+
+Banco de dados
+...\aplicacao\application\admin\config\database.php
+...\aplicacao\application\user\config\database.php
+linhas 78 a 81
+
+
+Estilo
+...\aplicacao\application\admin\views\template\head.php
+linha 11
+...\aplicacao\application\user\views\template\cabecalho.php
+linha 10
+
+
+
+CREATE TABLE servidor (
+codserv serial PRIMARY KEY,
+nomeserv VARCHAR(100) NOT NULL,
+sexo VARCHAR(10) NOT NULL,
+dltnasc date,
+rgl VARCHAR (50) NOT NULL,
+cpfl VARCHAR (50) NOT NULL,
+siape VARCHAR(10)NOT NULL,
+ensino VARCHAR (50) NOT NULL,
+nacilonalidade VARCHAR(50) NOT NULL,
+naturalidade VARCHAR(50) NOT NULL,
+estcivil VARCHAR (50) NOT NULL,
+endereco VARCHAR (50) NOT NULL,
+numcasa VARCHAR(10) NOT NULL,
+bairro VARCHAR (50) NOT NULL,
+cidade VARCHAR (50) NOT NULL,
+complemento VARCHAR (50),
+estado VARCHAR(50) NOT NULL,
+cep VARCHAR(10)NOT NULL,
+email VARCHAR (50) NOT NULL,
+telcontato integer NOT NULL,
+telcontato2 integer NOT NULL,
+redesocial VARCHAR(50),
+unidade VARCHAR(50) NOT NULL,
+setor VARCHAR (50) NOT NULL,
+funcao VARCHAR (50) NOT NULL,
+cargo VARCHAR (50) NOT NULL,
+siapechefe VARCHAR(10)NOT NULL,
+nomechefe VARCHAR (50) NOT NULL,
+emailchefe VARCHAR (50) NOT NULL,
+telchefe VARCHAR (50) NOT NULL,
+senha VARCHAR (10) NOT NULL,
+lembrasenha  VARCHAR (100) NOT NULL
+);
+
+
+
+CREATE TABLE admin (
+ id  serial PRIMARY KEY,
+nome varchar(80) NOT NULL,
+email varchar(80) NOT NULL,
+ usuario varchar(10) NOT NULL,
+senha varchar(100) NOT NULL,
+lembrasenha varchar(100) NOT NULL
+ 
+);
+
+CREATE TABLE curso
+(
+ 
+ codcurso serial PRIMARY KEY,
+  nome character varying(100) NOT NULL,
+ 
+ modulo character varying(100) NOT NULL,
+ 
+ descricao character varying(100) NOT NULL,
+  
+cargahr float NOT NULL,
+ 
+ areatema character varying(100) NOT NULL,
+ 
+ competencia character varying(100) NOT NULL,
+  
+estado character varying(100) NOT NULL
+);
+
+CREATE TABLE turma(
+codturma serial PRIMARY KEY,
+
+nometurma VARCHAR (50) NOT NULL,
+diasemana VARCHAR (50) NOT NULL,
+datainicio date NOT NULL,
+datafim date NOT NULL,
+horainicio time NOT NULL,
+horafim time NOT NULL,
+codcurso integer NOT NULL references curso (codcurso)
+);
+ 
+
+
+
+
+CREATE TABLE inscricao(
+codinscricao serial PRIMARY KEY,
+datains date,
+situacao VARCHAR (15) NOT NULL,
+motivo VARCHAR (100),
+codserv integer NOT NULL references servidor (codserv),
+codturma integer NOT NULL references turma (codturma)
+);
+
+
+
+
+CREATE TABLE matricula(
+codmatricula serial 	PRIMARY KEY,
+datamat date,
+situacao VARCHAR (15) NOT NULL,
+codserv integer NOT NULL references servidor (codserv),
+codturma integer NOT NULL references turma (codturma)
+);
+
+
+
+
+
+
+
+insert into servidor (nomeserv, sexo, dltnasc, 
+rgl, cpfl, siape, ensino, nacilonalidade, naturalidade, estcivil, endereco, numcasa, bairro, cidade, complemento, 
+estado, cep, email, telcontato, telcontato2, redesocial, unidade, setor, funcao, cargo, siapechefe, nomechefe, emailchefe, telchefe, senha, lembrasenha) values 
+('teste', 'masculino', '2014-11-10', 257228353, 98765432112, 245510, 'mestrado', 'brasileira', 'rj', 'solteiro(a)', 'testerua', 24, 'teste',
+ 'teste', NULL, 'rj', 2894000, 'teste@teste.com', 25722, 997162471,'@teste', 'teste', 'teste', 'teste', 'teste', '123456', 'teste', 'chefe@chefe.com', 
+2344, md5('senha'), 'senha')
+
+insert into admin (nome, email, usuario, senha, lembrasenha) values ('admincodep','t3cederj@hotmail.com','teste', MD5('teste'),'testatndo');
+INSERT INTO curso (nome, modulo, descricao, cargahr, areatema, competencia, estado) VALUES ('testando','teste','esse e um teste','10','teste','teste','ativo')
+INSERT INTO turma (nometurma, diasemana, datainicio, datafim, horainicio, horafim, codcurso) VALUES ('t03', 'seg,qua e sex', '2011-10-11', '2011-11-12', '12:00', '14:00', 1);

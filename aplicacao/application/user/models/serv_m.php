@@ -165,6 +165,133 @@ public function deletar_do($condicao=NULL)
 	
 	
 	
+	
+	
+	
+	function confereSiape($siape, $chefesiape)
+	{
+		$this -> db -> select('*');
+		$this -> db -> from('servidor');
+		$this -> db -> where('siape = ' . "'" . $siape. "'"); 
+		$this -> db -> where('siapechefe = ' . "'" . $chefesiape. "'"); 
+		$this -> db -> limit(1);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+			echo $this->db->affected_rows();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	function confereEmail($email)
+	{
+		$this -> db -> select('*');
+		$this -> db -> from('servidor');
+		$this -> db -> or_like('email' ,$email); 
+		$this -> db -> limit(1);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+			echo $this->db->affected_rows();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	public function recuperar_inserir($dados=NULL)
+        {
+		if($dados!=NULL):
+		
+		$this->db->insert('recuperacao',$dados);
+		$this->session->set_flashdata('inserirok','Cadastro efetuado com sucesso');
+		redirect('cadastro/enviarEmail');
+		endif;
+		
+echo $this->db->affected_rows();
+		
+		
+		}
+	
+	function retorna_last_recuperacao()//funcao que retorna a ultima inserção na tabela recuperacao e envia email para o servidor com um link
+{
+	
+	$this->db->order_by('codrec', 'DESC'); 
+ $this->db->select('*');
+$this->db->from('recuperacao');
+$this->db->join('servidor','email = utilizador');
+
+	$this->db->limit(1);
+ //return $this->db->get();
+ $query2 = $this->db->get();
+ 
+   if ($query2->num_rows() > 0)
+        {
+            return $query2->result();
+        }
+        else
+        {
+            return false;
+        }
+}
+	
+	
+		function verificarChave($chave)//funcao que retorna a ultima inserção na tabela recuperacao e envia email para o servidor com um link
+{
+	
+	$this -> db -> select('*');
+		$this -> db -> from('recuperacao');
+		$this -> db -> where('confirmacao' ,$chave); 
+		$this -> db -> limit(1);
+		$query = $this->db->get();
+ 
+		if($query -> num_rows() == 1)
+		{
+			
+			$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
+			//$this->db->query('delete from recuperacao where confirmacao = "$chave" ');
+			return $query->result();
+			
+		}
+		else
+		{
+			return false;
+		}
+
+}
+	
+	
+	
+	
+	public function modificar($dados=NULL,$condicao=NULL)
+    {
+      if($dados!=NULL && $condicao!=NULL):
+		
+		$this->db->update('servidor',$dados,$condicao);
+		
+		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
+		
+		redirect(current_url());
+		endif;
+    }
+	
 }//endmodel
 
 

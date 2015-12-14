@@ -27,8 +27,8 @@ public function listar(){
 			 $this->load->library('pagination');
 	$maximo = 3;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/certificado/listar');
-	$config['total_rows'] =$this->matricula_m->contaRegistros();
+	$config['base_url'] = base_url('administrador.php/certificado/listar');
+	$config['total_rows'] =$this->matricula_m->contaRegistros_certificados();
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';
 	//$config['last_link'] = 'Último';
@@ -37,7 +37,7 @@ public function listar(){
 	$this->pagination->initialize($config);
 	
 	$datas['page'] = $this->pagination->create_links();
-	$datas['query2'] = $this->matricula_m->do_pesquisa($maximo, $inicio);
+	$datas['query2'] = $this->matricula_m->do_pesquisa_certificados($maximo, $inicio);
 					
 	$this->load->view('certificado_v', $datas);
 	

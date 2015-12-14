@@ -336,13 +336,14 @@ endif
     <td align="right"><input name="cadastrar" type="submit" class="input_bt" id="cadastrar" value="Cadastrar" /></td>
   </tr>
   <tr><td> &nbsp;</td> </tr>
-</table>
 
-				
-				</td>
 
            
           <?php
          echo form_close();
 $this->load->view('template/rodape');
 ?>
+</table>
+
+				
+				</td>

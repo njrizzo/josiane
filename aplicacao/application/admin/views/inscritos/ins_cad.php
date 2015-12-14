@@ -1,7 +1,7 @@
 <?php
 $this->load->view('template/cabecalho');  
 $this->load->view('template/menuins'); 
-//echo validation_errors();
+echo validation_errors();
 echo form_open('inscricao/cadastrar');
 
 ?>
@@ -11,9 +11,17 @@ echo form_open('inscricao/cadastrar');
 	
 	function busca_turma(codigo){
      
-   document.location=('administrador.php/inscricao/cadastrar/'+codigo ); 
- 
-//alert(codigo);
+   var base_url = '<?php echo base_url() ?>';
+		
+
+			
+			$.post(base_url+"administrador.php/inscricao/busca_cursos_turmas", {
+				codigo : codigo
+			}, function(data){
+				$('#codturma').html(data);
+			});
+		
+	//	alert(codigo);
 }
 	
 	
@@ -44,13 +52,7 @@ endif
     <td height="25">Curso:</td>
     <td>
   <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())' class="input_text">
-	   <option value=''  >----selecione----</option>
-<?php
- 
-foreach ($cursos as $i => $nome)
-   echo '<option value="',$i,'"  >',$nome,'</option>';
-   
-?>
+	  <?= $options_cursos; ?>
 </select>
   </td>
   </tr>
@@ -59,12 +61,10 @@ foreach ($cursos as $i => $nome)
     <td>
 		
 		     <select name="codturma" id="codturma" class="input_text" >
-				 <option value=''>----selecione----</option>
-<?php
-foreach ($turmas as $i => $nome)
-   echo '<option value="',$i,'" >',$nome,'</option>';
-?>
-</select><?php echo form_error('codturma');  ?>
+				
+
+</select>
+<?php echo form_error('codturma');  ?>
        <?php //echo form_error('codturma'); echo form_dropdown('codturma',$turmas);?>
       
       <br />

@@ -8,7 +8,7 @@ class Cadastro extends CI_Controller {
    parent::__construct();
   
    $this->load->model('serv_m');
- $this->load->model('inscricao_m');
+ 
    
 }
 
@@ -122,17 +122,27 @@ public function lembrar_senha(){
  {
    //verificação no banco de dados
    $siape=$this->uri->segment("3");
+   $id = $this->uri->segment(4);   
 
-//$siape = $this->input->post('siape');
  $chefesiape = $this->input->post('chefesiape');
    //consulta
    $result = $this->serv_m->confereSiape($siape, $chefesiape);
  
    if($result)
    {
-    
-    	 $this->load->view("autorizar/autorizar_view");
-    
+	   foreach($result as $row)
+     {
+       $sess_array = array(
+         
+         'siapechefe' => $row->siapechefe,
+         'nomechefe' => $row->nomechefe
+         
+       );
+       $this->session->set_userdata('loggedd', $sess_array);
+	   
+       redirect("autorizar/confirmar/$siape/$id", 'refresh');
+    	 //$this->load->view("autorizar/autorizar_view");
+    }
     
      return TRUE;
    }
@@ -149,45 +159,165 @@ public function lembrar_senha(){
 	
 	
 	
-	
-	
-	
-	
-	public function autorizar($sip,$cod){
+public function recuperar(){
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+		$this -> form_validation ->set_rules('email','Email','required|trim|valid_email');
+		$this -> form_validation ->set_rules('email2','Repita o email','required|matches[email]|trim|valid_email|callback_check_email');
 		
-			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
-		$this -> form_validation ->set_rules('situacao','Resposta','required|trim');
-		$this -> form_validation ->set_rules('motivo','Justificativa','trim|max_length[100]');
 		if ($this->form_validation->run() == FALSE)
 	                {
-	                        $this->load->view("autorizar/autorizar_view");
-	                     
-	                        
+	                        $this->load->view('servidor/recuperar_senha');
+	                }
+	                else
+	                {
+						$verificarEmail = $this->input->post('email');
+	                  $this->serv_m->confereEmail($verificarEmail);
+	                  
+	                
+			
+	
+	}
+	
+	
+	
+	
+	
+	
+	}
+	
+	
+	function check_email($verificarEmail)
+ {  
+
+ $verificarEmail = $this->input->post('email2');
+   //consulta
+   $result = $this->serv_m->confereEmail($verificarEmail);
+ 
+   if($result)
+   {
+	 
+	  $dados=array(
+	  'utilizador'=>$this->input->post('email2'),
+	  'confirmacao'=>$chave = sha1(uniqid( mt_rand(), true))
+	  );
+	                
+	                
+	                   $this->serv_m->recuperar_inserir($dados);
+	                  
+	                
+			$this->load->view('servidor/recuperar_senha'); 
+    // redirect(cadastro);
+     return TRUE;
+   }
+   else
+   {
+     $this->form_validation->set_message('check_email', 'Email não cadastrado.');
+     
+     return false;
+   }
+ }
+
+
+
+
+
+		function modificar()
+ { 
+		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+		$this -> form_validation ->set_rules('senha','Senha','required|max_length[10]|trim|min_length[6]');
+		$this -> form_validation ->set_rules('senha2','Repita a Senha','required|max_length[10]|matches[senha]|trim');
+		$this -> form_validation ->set_rules('lembrasenha','Lembrete de Senha','required|max_length[100]|trim');
+	 if ($this->form_validation->run() == FALSE)
+	                {
+	                        $this->load->view('servidor/modificar_senha');
 	                }
 	                else
 	                {
 	                  
-                  
-	                   $dados=elements(array('situacao'), $this ->input->post());
-                  if($dados['situacao']=='negado'):
-                  
-                  $dados['motivo'] = $this ->input->post('motivo');
-                endif;
-                $this->inscricao_m->atualizar_do($dados,array('codinscricao' => $this->uri->segment(4)));
+	                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
+	                     $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
 	                
-			$this->load->view("autorizar/autorizar_view");
+	                $this->serv_m->atualizar_do($dados,array(
+	                'codserv' => $this->input->post('$idserv')
+	                )
+	                
+	                
+	                );
+	             
+	                
+			$this->load->view('servidor/modificar_senha');
 	
 	}
+	 }
 	
-}
+
+	function enviarEmail()
+ {  
+	 
+	 
+		$this->load->library("My_PHPMailer");
+		$data = $this->serv_m->retorna_last_recuperacao();
+		foreach ($data as $linha){
+			$email = $linha->utilizador;
+			$chave = $linha->confirmacao;
+			$lembrete = $linha->lembrasenha;
+			$nome=$linha->nomeserv;
+			$id=$linha->codserv;
+			
+
+		
+    $mail = new PHPMailer();
+    $mail->IsSMTP(); //Definimos que usaremos o protocolo SMTP para envio.
+    $mail->SMTPAuth = true; //Habilitamos a autenticação do SMTP. (true ou false)
+    $mail->SMTPSecure = "ssl"; //Estabelecemos qual protocolo de segurança será usado.
+    $mail->Host = "smtp.gmail.com"; //Podemos usar o servidor do gMail para enviar.
+    $mail->Port = 465; //Estabelecemos a porta utilizada pelo servidor do gMail.
+    $mail->Username = "josidim@gmail.com"; //Usuário do gMail
+    $mail->Password = "hillsong01"; //Senha do gMail
+    $mail->SetFrom('josidim@gmail.com', 'CODEP'); //Quem está enviando o e-mail.
+    //$mail->AddReplyTo("response@email.com","Nome Completo"); //Para que a resposta será enviada.
+    $mail->Subject =  utf8_decode("CODEP - Recuperação de senha"); //Assunto do e-mail.
+    //$mail->Body = "Corpo do e-mail em HTML.<br />";
+    $mail->Body =  utf8_decode( "<p><h4>CODEP-DP/DAA  </h4></p>
+           <p>&nbsp;</p>
+		   <p>&nbsp;</p>
+      <p>Olá, $nome, Ocorreu uma tentativa de recuperação de senha para este email.</p>
+      
+      
+      
+      
+       
+      <p>Logo abaixo está a dica para ajudá-lo a lembrar sua senha.</p>
+     
+      <p>&nbsp;</p>
+      <p>Lembrete de senha: <strng> $lembrete </strng>.</p>
+<p>&nbsp;</p>
+ <p> Caso o lembrete não tenha sido suficiente, clique no link abaixo para cadastrar uma nova senha.</p>
+   
+
+   
+    <p> <a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/modificar/$id/$chave'>Clique aqui</a></p>
+
+    <p>&nbsp;</p>
+
+    <p>Caso não tenha feito essa solicitação desconsidere este email.</p>
+    <p>&nbsp;</p>
+    <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>");
+
+    $mail->AltBody = "Corpo em texto puro.";
+    //$destino = "josidim12342005@yahoo.com.br";
+    $mail->AddAddress($email, $nome);
+
+    if(!$mail->Send()) {
+       $datav["message"] = "ocorreu um erro durante o envio: " . $mail->ErrorInfo;
+    } else {
+       $datav["message"] =  "Mensagem enviada com sucesso!";
+    }
+    $this->load->view('servidor/recuperar_senha',$datav);
+	 
+}	
 	
-	
-	
-	
-	
-	
-	
-	
+}//endfuncao
 	
  }//endcontroler
 

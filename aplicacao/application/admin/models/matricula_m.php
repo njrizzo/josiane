@@ -8,42 +8,14 @@ class Matricula_m extends CI_Model {
                 //$this->load->helper('date');
         }
 
-//função que retorna os servidores com inscricao autorizadas na hora de cadastrar nova matricula
+
+//função que retorna os servidores
 public function retorna_serv()
 {
 
-
-        $query = $this->db->query("select s.codserv, nomeserv  from servidor s, inscricao i where s.codserv=i.codserv and situacao ='autorizado'");
-      
+$this->db->order_by('nomeserv', 'ASC');
+        $query = $this->db->get('servidor');
         if ($query->num_rows() > 0)
-        {
-           
-           foreach($query->result() as $row)
-           $arrDatos[$row->codserv] = $row->nomeserv;
-
-        $query->free_result();
-        return $arrDatos;
-           
-        }
-        else
-        {
-            return false;
-        }
-
-}
-
-//função que retorna os servidores com inscricao autorizadas na hora de cadastrar nova matricula
-public function retorna_serv_turma($essa)
-{
-$this->db->select('*');
-$this->db->from('inscricao');
-$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
-$this->db->where('codturma', $essa);
-$this->db->where('situacao', 'autorizado');
-
-       // $query = $this->db->query("select s.codserv, nomeserv  from servidor s, inscricao i where s.codserv=i.codserv and situacao ='autorizado'");
-              $query = $this->db->get();
-              if ($query->num_rows() > 0)
         {
            
            foreach($query->result() as $row)
@@ -58,14 +30,39 @@ $this->db->where('situacao', 'autorizado');
             return false;
         }
 
+}
+//função que retorna os servidores com inscricao autorizadas na hora de cadastrar nova matricula
+public function retorna_serv_turma()
+{
+			$codigo = $this->input->post("codigo");
+		
+		
+
+$this->db->select('*');
+$this->db->from('inscricao');
+$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
+$this->db->where('codturma', $codigo);
+$this->db->where('situacao', 'autorizado');
+
+       
+              
+            $consulta = $this->db->get();
+		
+		return $consulta;
+
 
 }
 
 public function retorna_turma()//funcão usada na hora de cadastrar matricula, retorna todas as turmas que ainda não começaram
 {
-	$this->db->order_by('codturma', 'ASC');
+	
+$this->db->select('*');
+$this->db->from('turma');
+$this->db->join('curso', ' turma.codcurso = curso.codcurso');
+	$this->db->where('estado', 'ativo'  );
  $this->db->where('datainicio >=', 'now()'  );
-$consulta = $this->db->get("turma");
+ $this->db->order_by('nometurma', 'ASC');
+$consulta = $this->db->get();
 		
 		return $consulta;
 
@@ -173,6 +170,12 @@ public function deletar_do($condicao=NULL)
 {
  return $this->db->count_all_results('matricula');
 }
+
+function contaRegistros_certificados()
+{
+	$this->db->where('situacao','aprovado');
+ return $this->db->count_all_results('matricula');
+}
 	
 public function do_pesquisa($maximo, $inicio) {
   $match = $this->input->post('pesquisar');
@@ -218,7 +221,49 @@ $query2 = $this->db->get();
 }
 	
 	
-	
+	public function do_pesquisa_certificados($maximo, $inicio) {
+  $match = $this->input->post('pesquisar');
+  
+     
+     $this->db->order_by('datamat', 'desc');
+  $this->db->or_like('situacao',$match);
+  $this->db->or_like('nometurma',$match);
+  $this->db->or_like('nome',$match);
+  $this->db->or_like('modulo',$match);
+  $this->db->or_like('nomeserv',$match);
+  $this->db->or_like('setor',$match);
+  $this->db->or_like('unidade',$match);
+  $this->db->or_like('cargo',$match);
+  $this->db->or_like('ensino',$match);
+  $this->db->or_like('funcao',$match);
+  $this->db->or_like('siape',$match);
+  $this->db->or_like('bairro',$match);
+  $this->db->or_like('nomechefe',$match);
+  $this->db->or_like('emailchefe',$match);
+  $this->db->or_like('ensino',$match);
+  $this->db->or_like('cidade',$match);
+  $this->db->or_like('servidor.estado',$match);
+  $this->db->or_like('cpfl',$match);
+  $this->db->or_like('rgl',$match);
+  $this->db->or_like('estcivil',$match);
+$this->db->select('*');
+$this->db->from('matricula');
+$this->db->join('turma', ' turma.codturma = matricula.codturma');
+$this->db->join('servidor', ' servidor.codserv = matricula.codserv');
+$this->db->join('curso', ' curso.codcurso = turma.codcurso');
+$this->db->where('situacao','aprovado');
+$this->db->limit($maximo,$inicio);
+$query2 = $this->db->get();
+ 
+   if ($query2->num_rows() > 0)
+        {
+            return $query2->result();
+        }
+        else
+        {
+            return false;
+        }
+}
 	
 	
 	

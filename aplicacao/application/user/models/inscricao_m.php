@@ -8,8 +8,38 @@ class Inscricao_m extends CI_Model {
               
         }
 
+	 function logged() {
+        $logged = $this->session->userdata('loggedd');
+
+        if (!isset($logged) || $logged != true) {
+            echo 'Voce nao tem permissao para entrar nessa pagina.';
+            echo anchor('cadastro/conferir', 'Efetuar Login');
+            die();
+        }
+    }
+
+
+
+
+
+
 
 public function retorna_curso()//retorna os cursos ativos
+{
+
+		
+
+
+ $this->db->order_by('codcurso', 'ASC');
+ $this->db->where('estado', 'ativo');
+       $consulta = $this->db->get('curso');
+        return $consulta;
+	}
+
+
+
+
+public function retorna_curso_apagar()//retorna os cursos ativos
 {
 
  $this->db->order_by('codcurso', 'ASC');
@@ -31,18 +61,44 @@ htmlspecialchars($row->modulo, ENT_QUOTES);
             return false;
         }
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+public function retorna_turma() //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
+{
 
-public function retorna_turma($essa) //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
+$codigo = $this->input->post("codigo");
+		
+            
+            
+ $this->db->order_by('codturma', 'ASC');
+ $this->db->where('datainicio >=', 'now()'  );
+ $this->db->where('codcurso', $codigo);
+ 
+$consulta = $this->db->get("turma");
+		
+		return $consulta; 
+
+}
+	
+	
+	
+	
+
+public function retorna_turma_apagar($essa) //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
 {
 
  $this->db->order_by('codturma', 'ASC');
- //$this->db->where('datainicio >=', 'now()'  );
-       
-      //  $this->db->select('*');
-//$this->db->from('turma');
-//$this->db->join('curso', 'curso.codcurso = turma.codcurso');
-       
-       $this->db->where("codcurso", $essa);
+ $this->db->where('datainicio >=', 'now()'  );
+ $this->db->where("codcurso", $essa);
+ 
+ 
         $query = $this->db->get('turma');
         if ($query->num_rows() > 0)
         {
@@ -185,8 +241,10 @@ public function atualizar_do($dados=NULL,$condicao=NULL)
 		$this->db->update('inscricao',$dados,$condicao);
 		
 		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
-		
+		 $this->session->set_flashdata('ok', 'Resposta salva com sucesso!');
+
 		redirect(current_url());
+
 		endif;
     }
 
@@ -254,31 +312,7 @@ $query2 = $this->db->get();
 	
 	
 	
-	
-	
-	public function do_pesquisa_teste($serv=NULL) {
-		if($serv!=NULL):
-		 
-$this->db->select('*');
-$this->db->from('inscricao');
-$this->db->join('turma', ' turma.codturma = inscricao.codturma');
-$this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
-$this->db->join('curso', ' curso.codcurso = turma.codcurso');
-$this->db->where('inscricao.codserv',$serv);
-$this->db->order_by('datains', 'desc');
 
- $query2 = $this->db->get();
- 
-   if ($query2->num_rows() > 0)
-        {
-            return $query2->result();
-        }
-        else
-        {
-            return false;
-        }
-        endif;
-}
 	
 		
 	

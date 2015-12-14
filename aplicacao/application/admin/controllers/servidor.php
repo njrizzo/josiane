@@ -231,7 +231,7 @@ redirect('servidor/listar');
 			 $this->load->library('pagination');
 	$maximo = 5;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/servidor/listar');
+	$config['base_url'] = base_url('administrador.php/servidor/listar');
 	$config['total_rows'] =$this->serv_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	$config['first_link'] = 'Primeiro';

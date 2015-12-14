@@ -12,7 +12,7 @@ class Inscricao_m extends CI_Model {
 public function retorna_serv()
 {
 
-$this->db->order_by('codserv', 'ASC');
+$this->db->order_by('nomeserv', 'ASC');
         $query = $this->db->get('servidor');
         if ($query->num_rows() > 0)
         {
@@ -33,49 +33,29 @@ $this->db->order_by('codserv', 'ASC');
 public function retorna_curso()//retorna os cursos ativos
 {
 
+		
+
+
  $this->db->order_by('codcurso', 'ASC');
  $this->db->where('estado', 'ativo');
-        $query = $this->db->get('curso');
-        if ($query->num_rows() > 0)
-        {
-           
-           foreach($query->result() as $row)
-           $arrDatos[$row->codcurso] = $row->modulo;
-
-        $query->free_result();
-        return $arrDatos;
-           
-        }
-        else
-        {
-            return false;
-        }
+       $consulta = $this->db->get('curso');
+        return $consulta;
 	}
 
-public function retorna_turma($essa) //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
+public function retorna_turma() //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
 {
 
+$codigo = $this->input->post("codigo");
+		
+            
+            
  $this->db->order_by('codturma', 'ASC');
  $this->db->where('datainicio >=', 'now()'  );
- $this->db->where("codcurso", $essa);
+ $this->db->where('codcurso', $codigo);
  
- 
- 
-        $query = $this->db->get('turma');
-        if ($query->num_rows() > 0)
-        {
-           
-           foreach($query->result() as $row)
-           $arrDatos[$row->codturma] = $row->nometurma;
-           
-        $query->free_result();
-        return $arrDatos;
-           
-        }
-        else
-        {
-            return false;
-        }
+$consulta = $this->db->get("turma");
+		
+		return $consulta; 
 
 }
 

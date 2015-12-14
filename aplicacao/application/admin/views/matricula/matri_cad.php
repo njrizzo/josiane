@@ -6,6 +6,29 @@ echo form_open('matricula/cadastrar');
 
 ?>
 
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script > 
+	function busca_turma(codigo){
+		var base_url = '<?php echo base_url() ?>';
+		
+
+			
+			$.post(base_url+"administrador.php/matricula/busca_servidores_inscritos", {
+				codigo : codigo
+			}, function(data){
+				$('#codserv').html(data);
+			});
+		
+		//alert(id_departamento);
+		}
+		
+	
+	
+	</script>
+
+</head>
+
 
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 	
@@ -27,33 +50,40 @@ endif
        
     </td>
   </tr>
-  <tr>
-    <td height="25">Servidor:</td>
-    <td>
-		<select name="codserv" id="codserv" class="input_text" >
-				 <option value='' >----selecione----</option>
-<?php
-foreach ($servs as $i => $nome)
-   echo '<option value="',$i,'" >',$nome,'</option>';
-?>
-</select><?php echo form_error('codserv');  ?>
-       <?php //echo form_error('codserv'); echo form_dropdown('codserv', $servs);?>
-     </td>
-  </tr>
-  <tr>
+  
+   <tr>
     <td height="25">Turma:</td>
     <td>
-		<select name="codturma" id="codturma" class="input_text">
-				 <option value=''>----selecione----</option>
-<?php
-foreach ($turmas as $i => $nome)
-   echo '<option value="',$i,'" >',$nome,'</option>';
-?>
-</select><?php echo form_error('codturma');  ?>
-       <?php //echo form_error('codturma'); echo form_dropdown('codturma', $turmas);?>
+		<select name="codturma" id="codturma" onchange='busca_turma($(this).val())' class="input_text" >
+							<?= $options_turmas; ?>
+							<?php echo set_value('codturma', $options_turmas );   ?>
+				
+	 
+
+
+</select>
+
+
+<?php echo form_error('codturma');  ?>
+      
       <br />
       
   </tr>
+  
+  <tr>
+    <td height="25">Servidores:</td>
+    <td>
+
+<select name="codserv" id="codserv" class="input_text">
+				
+</select>
+
+
+<?php echo form_error('codserv');  ?>
+       <?php  //echo form_dropdown('codserv', $servs, set_value('codserv'));?>
+     </td>
+  </tr>
+ 
 
   <tr>
     <td height="25">Estado:</td>
@@ -85,6 +115,7 @@ foreach ($turmas as $i => $nome)
 
            
           <?php
+           
          echo form_close();
 $this->load->view('template/rodape');
 ?>

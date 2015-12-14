@@ -1,15 +1,4 @@
-<?php
-//$this->load->view('template/cabecalho');  
-//$this->load->view('template/menucurso');  
-//<a href="home/logout">Logout</a>
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<base href="http://localhost:8080/test/aplicacao/administrador.php" />
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="icon" type="image/gif" href="figuras/favicon.gif">
-<title>SICAP - CODEP - DP/DAA</title>
+<?php  $this->load->view('template/head'); ?>
 <style type="text/css">
 <!--
 body {
