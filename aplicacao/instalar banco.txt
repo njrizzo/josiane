@@ -1,6 +1,6 @@
 instal.md
 
-configurações, URLbae
+configuraÃ§Ãµes, URLbae
 ...\aplicacao\application\admin\config\config.php
 ...\aplicacao\application\user\config\config.php
 linha 20
@@ -40,8 +40,8 @@ complemento VARCHAR (50),
 estado VARCHAR(50) NOT NULL,
 cep VARCHAR(10)NOT NULL,
 email VARCHAR (50) NOT NULL,
-telcontato integer NOT NULL,
-telcontato2 integer NOT NULL,
+telcontato VARCHAR (50) NOT NULL,
+telcontato2 VARCHAR (50) NOT NULL,
 redesocial VARCHAR(50),
 unidade VARCHAR(50) NOT NULL,
 setor VARCHAR (50) NOT NULL,
@@ -51,7 +51,7 @@ siapechefe VARCHAR(10)NOT NULL,
 nomechefe VARCHAR (50) NOT NULL,
 emailchefe VARCHAR (50) NOT NULL,
 telchefe VARCHAR (50) NOT NULL,
-senha VARCHAR (10) NOT NULL,
+senha VARCHAR (100) NOT NULL,
 lembrasenha  VARCHAR (100) NOT NULL
 );
 
