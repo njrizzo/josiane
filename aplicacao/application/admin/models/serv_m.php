@@ -81,7 +81,7 @@ public function deletar_do($condicao=NULL)
   $this->db->or_like('sexo',$match);
   $this->db->or_like('siape',$match);
   $this->db->or_like('email',$match);
-  $this->db->or_like('telcontato',$match);
+ // $this->db->or_like('telcontato',$match);
   $this->db->or_like('unidade',$match);
   $this->db->or_like('nomechefe',$match);
   $this->db->or_like('emailchefe',$match);

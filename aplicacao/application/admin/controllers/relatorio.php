@@ -7,9 +7,9 @@ class Relatorio extends CI_Controller {
  {
    parent::__construct();
   
-   $this->load->model('relatorio_m');
+   $this->load->model('Relatorio_m','relatorio_m');
 
-    $this->load->model('admin_m','',TRUE);
+       $this->load->model('Admin_m','admin_m',TRUE);
    $this->admin_m->logged();
 }
 

@@ -5,7 +5,7 @@ class Home extends CI_Controller {
  function __construct()
  {
    parent::__construct();
-   $this->load->model('admin_m','',TRUE);
+   $this->load->model('Admin_m','admin_m',TRUE);
    $this->admin_m->logged();
  }
  
@@ -23,7 +23,7 @@ class Home extends CI_Controller {
    $this->session->unset_userdata('logged_adm');
   // $this->session->sess_destroy('logged_adm');
    //session_destroy('logged_adm');
-   redirect('login', 'refresh');
+   Redirect('login', 'Refresh');
  }
  
 

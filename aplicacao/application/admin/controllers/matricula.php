@@ -21,9 +21,9 @@ class Matricula extends CI_Controller {
 	
 	public function __construct() {
         parent::__construct();
- $this->load->model('matricula_m');
+ $this->load->model('Matricula_m','matricula_m');
 
-  $this->load->model('admin_m','',TRUE);
+    $this->load->model('Admin_m','admin_m',TRUE);
    $this->admin_m->logged();
    
  
@@ -37,7 +37,7 @@ class Matricula extends CI_Controller {
 	
 
 
-redirect('matricula/listar');
+Redirect('matricula/listar');
 
 
 

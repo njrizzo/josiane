@@ -7,9 +7,9 @@ class Certificado extends CI_Controller {
  {
    parent::__construct();
   
-    $this->load->model('matricula_m');
- $this->load->library('mpdf/mpdf');
-  $this->load->model('admin_m','',TRUE);
+    $this->load->model('Matricula_m','matricula_m');
+ $this->load->library('mpdf/mPDF');
+    $this->load->model('Admin_m','admin_m',TRUE);
    $this->admin_m->logged();
    
 }
@@ -17,7 +17,7 @@ class Certificado extends CI_Controller {
  
  function index()
  {
-	 redirect('certificado/listar');
+	 Redirect('certificado/listar');
   
 
 }
@@ -52,7 +52,7 @@ public function gerar()
   
  
   $id = $this->uri->segment(3);
-if ($id==NULL) redirect('matricula/index'); 
+if ($id==NULL) Redirect('matricula/index'); 
 $query = $this ->matricula_m->atualizar($id)->row();
   
 

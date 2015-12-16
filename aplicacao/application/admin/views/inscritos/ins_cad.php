@@ -15,13 +15,13 @@ echo form_open('inscricao/cadastrar');
 		
 
 			
-			$.post(base_url+"administrador.php/inscricao/busca_cursos_turmas", {
+			$.post(base_url+"administrador.php/Inscricao/busca_cursos_turmas", {
 				codigo : codigo
 			}, function(data){
 				$('#codturma').html(data);
 			});
 		
-	//	alert(codigo);
+		//alert(codigo);
 }
 	
 	

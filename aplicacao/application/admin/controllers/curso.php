@@ -21,8 +21,8 @@ class Curso extends CI_Controller {
 	
 	public function __construct() {
         parent::__construct();
- $this->load->model('curso_m');
-  $this->load->model('admin_m','',TRUE);
+ $this->load->model('Curso_m','curso_m');
+     $this->load->model('Admin_m','admin_m',TRUE);
    $this->admin_m->logged();
  
 }
@@ -32,7 +32,7 @@ class Curso extends CI_Controller {
 	public function index()
 	
 	{
-	redirect('curso/listar');
+	Redirect('curso/listar');
 	}
 	public function cadastrar()
 	

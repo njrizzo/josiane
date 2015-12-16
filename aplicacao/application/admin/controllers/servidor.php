@@ -22,8 +22,8 @@
 		public function __construct() {
 	        parent::__construct();
 	       
-	 $this->load->model('serv_m');
-	 $this->load->model('admin_m','',TRUE);
+	 $this->load->model('Serv_m','serv_m');
+   $this->load->model('Admin_m','admin_m',TRUE);
 	 $this->admin_m->logged();
 	 
 	}
@@ -34,7 +34,7 @@
 		
 		{
 		
-redirect('servidor/listar');
+Redirect('servidor/listar');
 		
 	
 		}
@@ -106,7 +106,7 @@ redirect('servidor/listar');
 		$this -> form_validation ->set_rules('sexo','sexo','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('dltnasc','Data de nascimento','required');
 		$this -> form_validation ->set_rules('rgl','Identidade','required|max_length[15]|trim');
-		$this -> form_validation ->set_rules('cpfl','CPF','required|max_length[100]|trim|is_unique[servidor.cpfl]');
+		$this -> form_validation ->set_rules('cpfl','CPF','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('siape','SIAPE','required|max_length[100]|trim');
 		$this -> form_validation ->set_rules('nacilonalidade','Nacilonalidade ','required|trim');
 		$this -> form_validation ->set_rules('naturalidade','Naturalidade ','required|trim');
