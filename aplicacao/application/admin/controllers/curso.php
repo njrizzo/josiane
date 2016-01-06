@@ -21,8 +21,8 @@ class Curso extends CI_Controller {
 	
 	public function __construct() {
         parent::__construct();
- $this->load->model('curso_m');
-  $this->load->model('admin_m','',TRUE);
+ $this->load->model('Curso_m','curso_m');
+     $this->load->model('Admin_m','admin_m',TRUE);
    $this->admin_m->logged();
  
 }
@@ -32,7 +32,7 @@ class Curso extends CI_Controller {
 	public function index()
 	
 	{
-	redirect('curso/listar');
+	Redirect('curso/listar');
 	}
 	public function cadastrar()
 	
@@ -136,7 +136,7 @@ public function listar(){
 			 $this->load->library('pagination');
 	$maximo = 4;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/curso/listar');
+	$config['base_url'] = base_url('administrador.php/curso/listar');
 	$config['total_rows'] =$this->curso_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	$config['first_link'] = 'Primeiro';

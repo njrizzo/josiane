@@ -59,11 +59,15 @@ redirect('inscricao/listar');
 	    if ($this->form_validation->run() == FALSE)
                 { 			
 					
-							$datav['cursos'] =  $this->inscricao_m->retorna_curso();
-							$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-							$datav['turmas'] = $this->inscricao_m->retorna_turma($essa);
+							$cursos =  $this->inscricao_m->retorna_curso();
+							//$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
+							//$datav['turmas'] = $this->inscricao_m->retorna_turma($essa);
                         	
-                        	
+                        	$option = "<option value=''></option>";
+	foreach($cursos -> result()  as $linha) {
+	$option .= "<option value='$linha->codcurso'>$linha->modulo</option>";			
+		}
+				$datav['options_cursos'] = $option;
                         	$this->load->view('inscritos/ins_cad', $datav);
                         	
 
@@ -87,7 +91,19 @@ redirect('inscricao/listar');
 	
 	
 	
+	public function busca_cursos_turmas($id){
+		
 	
+		
+		$turma = $this->inscricao_m->retorna_turma();
+		
+		$option = "<option value=''></option>";
+		foreach($turma -> result() as $linha) {
+			$option .= "<option value='$linha->codturma'>$linha->nometurma</option>";			
+		}
+		
+		echo $option;
+	}
 
 	
 
@@ -229,8 +245,7 @@ public function send_mail() {
     <p>&nbsp;</p>
 
    
-    <p>Acesse o link para acompanhar o estado da sua inscrição: <a href='http://www.ufrrj.br/codep/acompanhamentologin.php'>http://www.ufrrj.br/codep/acompanhamentologin.php</a></p>
-
+   
     <p>&nbsp;</p>
 
     <p>OBS: A confirmação da inscrição não garante a vaga para o curso selecionado por você, a seleção dos inscritos é determinada a partir dos critérios regulamentados pela CODEP.</p>
@@ -272,12 +287,10 @@ public function send_mail() {
           <p>Para efetivar a inscrição do servidor descrito acima é necessário a sua autorização. A não autorização deverá ser acompanhada de justificativa.</p>
 		  <p>Solicitamos sua atenção ao autorizar, pois o mesmo servidor poderá realizar até 5 inscrições em cursos e ou módulos diferentes ao mesmo tempo. </p>
              <p>&nbsp;</p>
-			  <p>&nbsp;</p>
-             <p>Clique abaixo a opção desejada:</p> 
+			
               <p>&nbsp;</p>
-			 <p>Clique no link para autorizar: Autorizo. Responsabilizo-me pela liberação do servidor no curso.<a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
-             <p>&nbsp;</p>
-             <p>Clique no link para não autorizar: Não autorizo. <a href='http://www.ufrrj.br/codep/negado.php?'>http://www.ufrrj.br/codep/negado.php</a></p>
+			 <p>Para autorizar a insrição do servidor no curso.<a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
+             
               <p>&nbsp;</p>
             <p>Acesse o cronograma do Curso de Capacitação no Link abaixo:
             <a href='http://www.ufrrj.br/codep/avisos/inscricoes.php'>http://www.ufrrj.br/codep/avisos/inscricoes.php</a></p>

@@ -30,10 +30,10 @@ $query2 = $this->db->get();
 function r_aprovados_c()
     {
        
-        $query = $this->db->query("select nome, nometurma, cargahr, datainicio, datafim, count(*)
+        $query = $this->db->query("select nome, modulo, nometurma, cargahr, datainicio, datafim, count(*)
 from curso c, turma t, matricula i
 where c.codcurso = t.codcurso and t.codturma = i.codturma and i.situacao = 'aprovado'
-group by t.codturma, c.nome, t.nometurma, c.cargahr, t.datainicio, t.datafim
+group by t.codturma, c.nome, t.nometurma, c.cargahr, t.datainicio, t.datafim, modulo
 order by datafim asc");//ordenado pela data final das turmas
         if ($query->num_rows() > 0)
         {
@@ -51,10 +51,10 @@ order by datafim asc");//ordenado pela data final das turmas
 function r_inscritos_c()
     {
        
-        $query = $this->db->query("select nome, nometurma, cargahr, datainicio, datafim, count(*)
+        $query = $this->db->query("select nome, modulo, nometurma, cargahr, datainicio, datafim, count(*)
 from curso c, turma t, inscricao i
 where c.codcurso = t.codcurso and t.codturma = i.codturma 
-group by t.codturma, c.nome, t.nometurma, c.cargahr, t.datainicio, t.datafim
+group by t.codturma, c.nome, t.nometurma, c.cargahr, t.datainicio, t.datafim, modulo
 order by datafim asc");//ordenado pela data final das turmas
         if ($query->num_rows() > 0)
         {

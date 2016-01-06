@@ -22,7 +22,7 @@ class Administrador extends CI_Controller {
 	public function __construct() {
         parent::__construct();
  
-  $this->load->model('admin_m','',TRUE);
+     $this->load->model('Admin_m','admin_m',TRUE);
  $this->admin_m->logged();
  
 }
@@ -32,7 +32,7 @@ class Administrador extends CI_Controller {
 	public function index()
 	
 	{
-	redirect('administrador/listar');
+	Redirect('administrador/listar');
 	}
 	public function cadastrar()
 	

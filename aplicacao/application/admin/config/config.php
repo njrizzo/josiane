@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost:8080/test/aplicacao/administrador.php';
+$config['base_url'] = 'http://localhost/aplicacao/';
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ $config['base_url'] = 'http://localhost:8080/test/aplicacao/administrador.php';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'administrador.php';
 
 /*
 |--------------------------------------------------------------------------

@@ -6,14 +6,14 @@ class Login extends CI_Controller {
  {
    parent::__construct();
     
-     $this->load->model('admin_m');
+$this->load->model('Admin_m','admin_m',TRUE);
     
  }
  
  function index()
  {
    		 if($this->session->userdata('logged_adm')){
-   		  redirect('home', 'refresh');
+   		  Redirect('home', 'Refresh');
    		  }else{
 $this->load->view('login_view');
 }
@@ -69,7 +69,7 @@ $this->load->view('login_view');
          'usuario' => $row->usuario
        );
        $this->session->set_userdata('logged_adm', $sess_array);
-       redirect('home', 'refresh');
+       Redirect('home', 'Refresh');
      }
      return TRUE;
    }

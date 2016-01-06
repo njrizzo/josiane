@@ -22,8 +22,8 @@
 		public function __construct() {
 	        parent::__construct();
 	       
-	 $this->load->model('serv_m');
-	 $this->load->model('admin_m','',TRUE);
+	 $this->load->model('Serv_m','serv_m');
+   $this->load->model('Admin_m','admin_m',TRUE);
 	 $this->admin_m->logged();
 	 
 	}
@@ -34,7 +34,7 @@
 		
 		{
 		
-redirect('servidor/listar');
+Redirect('servidor/listar');
 		
 	
 		}
@@ -231,7 +231,7 @@ redirect('servidor/listar');
 			 $this->load->library('pagination');
 	$maximo = 5;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/servidor/listar');
+	$config['base_url'] = base_url('administrador.php/servidor/listar');
 	$config['total_rows'] =$this->serv_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	$config['first_link'] = 'Primeiro';

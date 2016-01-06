@@ -3,7 +3,7 @@ $this->load->view('template/cabecalho');
 $this->load->view('template/menuadm'); 
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('administrador'); 
-$query = $this ->user->atualizar($id)->row();
+$query = $this ->admin_m->atualizar($id)->row();
 //echo validation_errors();
 
 echo form_open("administrador/editar/$id");

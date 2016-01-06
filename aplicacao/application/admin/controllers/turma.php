@@ -21,8 +21,8 @@ class Turma extends CI_Controller {
 	
 	public function __construct() {
         parent::__construct();
- $this->load->model('turma_m');
- $this->load->model('admin_m','',TRUE);
+ $this->load->model('Turma_m','turma_m');
+   $this->load->model('Admin_m','admin_m',TRUE);
  $this->admin_m->logged();
    
  
@@ -35,7 +35,7 @@ class Turma extends CI_Controller {
 	{
 	
 
-redirect('turma/listar');
+Redirect('turma/listar');
 	}
 	public function cadastrar()
 	
@@ -135,7 +135,7 @@ $this->load->view('turma/turma_cad', $data);
 			 $this->load->library('pagination');
 	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('/turma/listar/'); //'http://localhost/test/aplicacao/index.php/turma/listar';
+	$config['base_url'] = base_url('administrador.php/turma/listar/'); //'http://localhost/test/aplicacao/index.php/turma/listar';
 	$config['total_rows'] =$this->turma_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	$config['first_link'] = 'Primeiro';

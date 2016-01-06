@@ -67,15 +67,16 @@ endif;
                 Módulo
             </th>
             <th>
+                Turma
+            </th>
+            <th>
                Data
             </th>
             
             <th>
             Servidor
             </th>
-            <th>
-                Turma
-            </th>
+            
             <th>
                Situação
             </th>
@@ -100,15 +101,16 @@ endif;
              <td>
                 <?=$linha->modulo ?>
             </td>
+             <td>
+                <?=$linha->nometurma?>
+            </td>
             <td>
                 <?php echo  date('d/m/Y', strtotime($linha->datamat)) ?> 
             </td>
             <td>
                 <?=  $linha->nomeserv ?>
             </td>
-             <td>
-                <?=$linha->nometurma?>
-            </td>
+            
              <td>
                 <?=$linha->situacao ?>
             </td>
@@ -120,8 +122,8 @@ endif;
                <td>    
                 <?php echo anchor("matricula/deletar/$linha->codmatricula",'<img src="figuras/ex2.jpg" alt="editar" name="cadastro" />')?>
                   
-           <td>    
-                <?php if ($linha->situacao == 'aprovado'): echo anchor_popup("matricula/gerar_cert/$linha->codmatricula",'<img src="figuras/cert.png" alt="editar" name="cadastro" />'); endif ?>
+           </td>    
+              
                   
           
             
