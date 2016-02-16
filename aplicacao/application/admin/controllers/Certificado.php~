@@ -25,7 +25,7 @@ public function listar(){
 			
 			
 			 $this->load->library('pagination');
-	$maximo = 8;
+	$maximo = 3;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
 	$config['base_url'] = base_url('administrador.php/certificado/listar');
 	$config['total_rows'] =$this->matricula_m->contaRegistros_certificados();

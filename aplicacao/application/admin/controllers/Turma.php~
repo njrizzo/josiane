@@ -121,7 +121,7 @@ $this->load->view('turma/turma_cad', $data);
 			 $this->load->library('pagination');
 	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('administrador.php/turma/listar/'); 
+	$config['base_url'] = base_url('administrador.php/turma/listar/'); //'http://localhost/test/aplicacao/index.php/turma/listar';
 	$config['total_rows'] =$this->turma_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	$config['first_link'] = 'Primeiro';

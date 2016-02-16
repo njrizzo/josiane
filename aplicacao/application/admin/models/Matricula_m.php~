@@ -166,20 +166,17 @@ public function deletar_do($condicao=NULL)
 		endif;
     }
 
-
-//funcao auxilir paginacao				
-function contaRegistros()
+				function contaRegistros()
 {
  return $this->db->count_all_results('matricula');
 }
-//funcao auxilir paginacao certificados
+
 function contaRegistros_certificados()
 {
 	$this->db->where('situacao','aprovado');
  return $this->db->count_all_results('matricula');
 }
-
-//funcao paginacao	
+	
 public function do_pesquisa($maximo, $inicio) {
   $match = $this->input->post('pesquisar');
   

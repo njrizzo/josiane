@@ -183,7 +183,7 @@ Redirect('servidor/listar');
  
    if($result)
    {
-     $this->form_validation->set_message('check_senha', 'senha ok.');
+     $this->form_validation->set_message('check_senha', 'senha ok.');//$this->load->view('admin/admin_sen');
       return true;
    }
    else
