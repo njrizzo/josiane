@@ -3,21 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inscricao extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+	
 	
 	public function __construct() {
         parent::__construct();
@@ -54,8 +40,7 @@ Redirect('inscricao/listar');
                 { 			
 					
 							$cursos =  $this->inscricao_m->retorna_curso();
-							//$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-							//$datav['turmas'] = $this->inscricao_m->retorna_turma();
+							
                         	$datav['servs'] = $this->inscricao_m->retorna_serv();
                         	$option = "<option value=''></option>";
 	foreach($cursos -> result()  as $linha) {
@@ -85,7 +70,7 @@ Redirect('inscricao/listar');
 	
 	}
 	
-	
+	//retorna as turmas de acordo com o curso escolhido
 	public function busca_cursos_turmas($id){
 		
 	
@@ -154,7 +139,7 @@ public function listar(){
 			
 			
 			 $this->load->library('pagination');
-	$maximo = 5;
+	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
 	$config['base_url'] = base_url('administrador.php/inscricao/listar');
 	$config['total_rows'] =$this->inscricao_m->contaRegistros();
@@ -173,7 +158,7 @@ public function listar(){
 			
 			
 			}//fimfuncao
-
+//envia email sobre a inscricao para o servidor e para o chefe autorizar
 public function send_mail() {
 		//$para = $this->input->post('txt_para', TRUE);
 		$data = $this->inscricao_m->retorna_last_inscricao();
@@ -192,7 +177,7 @@ public function send_mail() {
 			$emailserv=$linha->email;
 			$chefemail=$linha->emailchefe;
 			$chefenome=$linha->nomechefe;
-			
+			$baseurl =  base_url();
 		
 		
 		$this->load->library("My_PHPMailer");
@@ -206,9 +191,9 @@ public function send_mail() {
     $mail->Password = "hillsong01"; //Senha do gMail
     $mail->SetFrom('josidim@gmail.com', 'CODEP'); //Quem está enviando o e-mail.
     //$mail->AddReplyTo("response@email.com","Nome Completo"); //Para que a resposta será enviada.
-    $mail->Subject = "CODEP - Confirmação da Inscrição"; //Assunto do e-mail.
+    $mail->Subject = utf8_decode("CODEP - Confirmação da Inscrição"); //Assunto do e-mail.
     //$mail->Body = "Corpo do e-mail em HTML.<br />";
-    $mail->Body = '<p><h4>CODEP-DP/DAA - Inscrições </h4></p>
+    $mail->Body = utf8_decode('<p><h4>CODEP-DP/DAA - Inscrições </h4></p>
            <p>&nbsp;</p>
 		   <p>&nbsp;</p>
       <p>Olá, '.$nomeserv.', sua inscrição no curso '.$nomecurso.': módulo '.$mmodulo.', foi realizada com sucesso!!</p>
@@ -230,7 +215,7 @@ public function send_mail() {
 
     <p>OBS: A confirmação da inscrição não garante a vaga para o curso selecionado por você, a seleção dos inscritos é determinada a partir dos critérios regulamentados pela CODEP.</p>
     <p>&nbsp;</p>
-    <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>';
+    <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>');
 
     $mail->AltBody = "Corpo em texto puro.";
     //$destino = "josidim12342005@yahoo.com.br";
@@ -273,7 +258,7 @@ public function send_mail() {
              <p>&nbsp;</p>
 			
               <p>&nbsp;</p>
-			 <p>Para autorizar a insrição do servidor no curso.<a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
+			 <p>Para autorizar a insrição do servidor no curso.<a href='".$baseurl."usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
              
               <p>&nbsp;</p>
             <p>Acesse o cronograma do Curso de Capacitação no Link abaixo:
@@ -290,7 +275,10 @@ public function send_mail() {
     } else {
        $datav["message"] =  "Mensagem enviada com sucesso!";
     }
-    $this->load->view('inscritos/ins_cad',$datav);
+    $this->session->set_flashdata('cadastrook','Inscrição efetuada com sucesso');
+  
+
+Redirect('inscricao/cadastrar');
 }
 }//fimfuncao
 

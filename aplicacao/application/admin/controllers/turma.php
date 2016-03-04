@@ -3,21 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Turma extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+	
 	
 	public function __construct() {
         parent::__construct();
@@ -135,7 +121,7 @@ $this->load->view('turma/turma_cad', $data);
 			 $this->load->library('pagination');
 	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('administrador.php/turma/listar/'); //'http://localhost/test/aplicacao/index.php/turma/listar';
+	$config['base_url'] = base_url('administrador.php/turma/listar/'); 
 	$config['total_rows'] =$this->turma_m->contaRegistros();
 	$config['per_page'] =  $maximo;
 	$config['first_link'] = 'Primeiro';

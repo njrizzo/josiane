@@ -3,21 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Curso extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	
 	public function __construct() {
         parent::__construct();
@@ -69,15 +54,7 @@ class Curso extends CI_Controller {
 	
 
 	
-	public function consultar()
-	{
-		$data['cursos'] = $this->curso_m->selecionar();
 
-        $this->load->view('curso/curso_pes', $data);	
-
-
-	
-		}
 
 	public function editar()
 	{
@@ -117,8 +94,7 @@ class Curso extends CI_Controller {
 		if($this->input->post('$idcurso')>0):
 
 	 $this->curso_m->deletar_do(array('codcurso' => $this->input->post('$idcurso')));
-	 	// else:
-	 	 //$this->curso_m->deletar_do(array('codcurso' => $this->input->post('$idcurso')));
+	 	
 	 	
 	 endif;
 	  
@@ -134,7 +110,7 @@ public function listar(){
 			
 			
 			 $this->load->library('pagination');
-	$maximo = 4;
+	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
 	$config['base_url'] = base_url('administrador.php/curso/listar');
 	$config['total_rows'] =$this->curso_m->contaRegistros();

@@ -118,9 +118,9 @@ public function retorna_turma_del() //funcão usada na hora de deletar inscriç�
 			  
 		$this->db->insert('inscricao',$dados);
 	
-		$this->session->set_flashdata('cadastrook','Inscrição efetuada com sucesso');
+		
 		redirect('inscricao/send_mail');
-		//redirect('inscricao/cadastrar');
+		
 		
 		endif;
 		

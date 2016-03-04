@@ -3,21 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Matricula extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	
 	public function __construct() {
         parent::__construct();
@@ -57,7 +42,7 @@ Redirect('matricula/listar');
                 {
 					        $turmas = $this->matricula_m->retorna_turma();
 							
-                        	//$datav['servs'] = $this->matricula_m->retorna_serv_turma();
+                        	
 	$option = "<option value=''></option>";
 	foreach($turmas -> result()  as $linha) {
 	$option .= "<option value='$linha->codturma' >$linha->nometurma</option>";			
@@ -86,7 +71,7 @@ Redirect('matricula/listar');
 	
 	
 	}
-	
+	//retorna os servidores inscritos de acordo com a turma selecionada
 	public function busca_servidores_inscritos($id){
 		
 	
@@ -158,7 +143,7 @@ public function listar(){
 			
 			
 			 $this->load->library('pagination');
-	$maximo = 5;
+	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
 	$config['base_url'] = base_url('administrador.php/matricula/listar');
 	$config['total_rows'] =$this->matricula_m->contaRegistros();

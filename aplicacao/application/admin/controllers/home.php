@@ -27,7 +27,7 @@ class Home extends CI_Controller {
  }
  
 
-
+//pagina de creditos
 public function creditos(){
 	$this->load->view('creditos_view');
 	

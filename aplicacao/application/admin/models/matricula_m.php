@@ -53,7 +53,7 @@ $this->db->where('situacao', 'autorizado');
 
 }
 
-public function retorna_turma()//funcão usada na hora de cadastrar matricula, retorna todas as turmas que ainda não começaram
+public function retorna_turma()//funcão usada na hora de cadastrar matricula, retorna todas as turmas abertas
 {
 	
 $this->db->select('*');
@@ -99,7 +99,7 @@ public function retorna_turma_del()//funcão usada na hora de deletar,  retorna 
 
 
 
-
+//insere nova matricula no bd
         public function inserir($dados=NULL)
         {
 		if($dados!=NULL):
@@ -166,17 +166,20 @@ public function deletar_do($condicao=NULL)
 		endif;
     }
 
-				function contaRegistros()
+
+//funcao auxilir paginacao				
+function contaRegistros()
 {
  return $this->db->count_all_results('matricula');
 }
-
+//funcao auxilir paginacao certificados
 function contaRegistros_certificados()
 {
 	$this->db->where('situacao','aprovado');
  return $this->db->count_all_results('matricula');
 }
-	
+
+//funcao paginacao	
 public function do_pesquisa($maximo, $inicio) {
   $match = $this->input->post('pesquisar');
   
@@ -265,9 +268,23 @@ $query2 = $this->db->get();
         }
 }
 	
+
+//insere a chave no banco de dados para gerar certificados		
+public function chave_inserir($dados=NULL)
+        {
+		if($dados!=NULL):
+		
+		$this->db->insert('certificados',$dados);
+		//$this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
+		///Redirect('cadastro/enviarEmail');
+		endif;
+		
+echo $this->db->affected_rows();
+		
+		
+		}
 	
-	
-}
+}//fimmodel
 
 
 
