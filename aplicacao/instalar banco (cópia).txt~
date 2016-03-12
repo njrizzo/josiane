@@ -12,7 +12,11 @@ Banco de dados
 linhas 78 a 81
 
 
-
+Estilo
+...\aplicacao\application\admin\views\template\head.php
+linha 11
+...\aplicacao\application\user\views\template\cabecalho.php
+linha 10
 
 
 CREATE DATABASE producao;
@@ -64,6 +68,7 @@ lembrasenha  VARCHAR (100) NOT NULL
 
 
 
+
 CREATE TABLE curso
 (
  
@@ -92,7 +97,7 @@ datainicio date NOT NULL,
 datafim date NOT NULL,
 horainicio time NOT NULL,
 horafim time NOT NULL,
-codcurso integer NOT NULL references curso (codcurso)  ON DELETE CASCADE
+codcurso integer NOT NULL references curso (codcurso)
 );
  
 
@@ -100,48 +105,42 @@ codcurso integer NOT NULL references curso (codcurso)  ON DELETE CASCADE
 
 
 CREATE TABLE inscricao(
-codinscricao serial PRIMARY KEY,
+
 datains date,
 situacao VARCHAR (15) NOT NULL,
 motivo VARCHAR (100),
-codserv integer NOT NULL references servidor (codserv)  ON DELETE CASCADE,
-codturma integer NOT NULL references turma (codturma)  ON DELETE CASCADE,
-UNIQUE (codserv,codturma)
+codserv integer NOT NULL references servidor (codserv),
+codturma integer NOT NULL references turma (codturma),
+codinscricao PRIMARY KEY (codserv,codturma)
 );
 
 
 
 
 CREATE TABLE matricula(
-codmatricula serial 	PRIMARY KEY,
+
 datamat date,
 situacao VARCHAR (15) NOT NULL,
-codserv integer NOT NULL references servidor (codserv)  ON DELETE CASCADE,
-codturma integer NOT NULL references turma (codturma)  ON DELETE CASCADE,
-UNIQUE (codserv,codturma)
+codserv integer NOT NULL references servidor (codserv),
+codturma integer NOT NULL references turma (codturma),
+PRIMARY KEY (codserv,codturma)
 );
 
 
 
 create table recuperacao(
 codrec serial PRIMARY KEY,
-utilizador  VARCHAR(50) NOT NULL,
-confirmacao VARCHAR(40) NOT NULL,
+ utilizador  VARCHAR(255) NOT NULL,
+  confirmacao VARCHAR(40) NOT NULL,
 data date
 );
 
-
-create table certificados(
-codcert serial PRIMARY KEY,
-chave VARCHAR(40) NOT NULL,
-data date
-);
 
 
 insert into servidor (nomeserv, sexo, dltnasc, 
 rgl, cpfl, siape, ensino, nacilonalidade, naturalidade, estcivil, endereco, numcasa, bairro, cidade, complemento, 
 estado, cep, email, telcontato, telcontato2, redesocial, unidade, setor, funcao, cargo, siapechefe, nomechefe, emailchefe, telchefe, senha, lembrasenha) values
-('teste', 'masculino', '2014-11-10', 257228353, 11111111111, 245510, 'mestrado', 'brasileira', 'rj', 'solteiro(a)', 'testerua', 24, 'teste',
+('teste', 'masculino', '2014-11-10', 257228353, 98765432112, 245510, 'mestrado', 'brasileira', 'rj', 'solteiro(a)', 'testerua', 24, 'teste',
  'teste', NULL, 'rj', 2894000, 'teste@teste.com', 25722, 997162471,'@teste', 'teste', 'teste', 'teste', 'teste', '123456', 'teste', 'chefe@chefe.com', 
 2344, md5('senha'), 'senha');
 

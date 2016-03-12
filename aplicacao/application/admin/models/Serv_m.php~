@@ -72,7 +72,7 @@ public function deletar_do($condicao=NULL)
 {
  return $this->db->count_all_results('servidor');
 }
-	//funcao paginacao e campo de pesquisa
+	
 	function retornaServ($maximo, $inicio)
 {
 	 $match = $this->input->post('pesquisar');

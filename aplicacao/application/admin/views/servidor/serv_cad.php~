@@ -222,7 +222,7 @@ endif
 		    <td width="101" height="25"  >Rede social:</td>
     <td width="361">
 		<?php echo form_error('redesocial'); ?>
-        <input name="redesocial" type="text" value="<?php echo set_value('redesocial'); ?>"  id="redesocial"  placeholder="Ex.Facebook"/>
+        <input name="redesocial" type="text" value="<?php echo set_value('redesocial'); ?>"  id="redesocial"  placeholder="Facebook, Twitter, Skype"/>
         
     </td>
     

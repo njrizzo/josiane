@@ -23,7 +23,9 @@ echo '<h1 align="center"> Este  link já  expirou!!  Operação não autorizada.
 //$this->load->view('servidor/modificar_senha');
 
 }else{
-            
+     if($this->session->flashdata('recuperarok')):
+echo'<p>'.$this->session->flashdata('recuperarok').'</p>';
+endif       
 
 ///endif
 

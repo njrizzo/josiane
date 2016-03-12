@@ -1,9 +1,8 @@
 <?php
 $this->load->view('template/cabecalho');  
 
-
 //echo validation_errors();
-echo form_open("cadastro/recuperar");
+echo form_open("cadastro/autenticar");
 
 
 ?>
@@ -14,23 +13,23 @@ echo form_open("cadastro/recuperar");
 echo'<p>'.$this->session->flashdata('editarok').'</p>';
 endif
 ?>
-            <h1 align="center" ><font color="#00009C">Recuperar Senha<br> </font>   </h1>
+            <h1 align="center" ><font color="#00009C">Autenticar Certificado<br> </font>   </h1>
 
 <table width="472" border="0" id="logon">
  
    <tr>
-	 <td width="101" >Digite seu email:</td>
+	 <td width="101" >Digite a chave:</td>
     <td width="361" >
 		
-        <input name="email" type="text" value="<?php echo set_value('email'); ?>"  id="email" />
-        <br><?php echo form_error('email'); ?><br>
+        <input name="chave" type="text" value="<?php echo set_value('chave'); ?>"  id="chave" />
+        <br><?php echo form_error('chave'); ?><br>
     </td>
     
   </tr>
-   <td>Repita o email:</td>
+   <td>Digite a  data de  emisão:</td>
     <td>
-		        <input name="email2" type="text" value="<?php echo set_value('email2'); ?>"  id="email2" />
-        <br><?php echo form_error('email2'); ?><br>
+		        <input name="data" type="date" value="<?php echo set_value('data'); ?>"  id="data" />
+        <br><?php echo form_error('data'); ?><br>
     </td>
 
       

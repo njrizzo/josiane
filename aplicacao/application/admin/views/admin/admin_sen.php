@@ -3,7 +3,7 @@ $this->load->view('template/cabecalho');
 $this->load->view('template/menuadm'); 
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('administrador'); 
-$query = $this ->user->atualizar($id)->row();
+$query = $this ->admin_m->atualizar($id)->row();
 
 //echo validation_errors();
 echo form_open("administrador/alterar_senha/$id");
@@ -19,7 +19,14 @@ endif
             <h1 align="center" ><font color="#00009C">Alterar Senha de Administrador<br> <?php echo $query->nome ?></font>   </h1>
 
 <table width="472" border="0" id="logon">
-  
+  <tr>
+    <td>Login:</td>
+    <td>
+		
+      <input type="text" name="usuario"  value="<?php echo set_value('usuario',$query->usuario); ?>"  id="usuario" />
+      <br><?php echo form_error('usuario'); ?><br>
+     </td>
+  </tr>
   <tr>
     <td>Senha atual:</td>
     <td>

@@ -1,0 +1,65 @@
+
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+//session_start(); //we need to call PHP's session object to access it through CI
+class Teste extends CI_Controller {
+ 
+ function __construct()
+ {
+   parent::__construct();
+  
+    $this->load->model('Matricula_m','matricula_m');
+
+ //$this->load->model('Serv_m','serv_m',TRUE);
+  /// $this->serv_m->logged();
+   
+}
+
+ 
+ function index()
+ {
+	 Redirect('certificado/listar');
+  
+
+}
+
+			
+public function autenticar()
+	{
+
+	$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+		$this -> form_validation ->set_rules('chave','Chave','required|trim');
+		$this -> form_validation ->set_rules('data','Data da emissãao','required');
+		
+		if ($this->form_validation->run() == FALSE)
+	                {
+	                        $this->load->view('autenticar_chave');
+	                }
+	                else
+	                {
+						$chave=$this->input->post('chave');
+	                  $query=$this->matricula_m->verificarChave($chave);
+	                  if ($query){
+
+
+$this->session->set_flashdata('editarok','Certificado válido: '.$chave.'');
+Redirect(current_url());
+}else{
+ $this->session->set_flashdata('editarok','Certificado inválido!!');
+Redirect(current_url());
+}
+			
+	
+	}
+
+
+
+
+
+
+}
+
+
+
+
+ }//fimcontroler
+

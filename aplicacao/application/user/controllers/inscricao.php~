@@ -98,7 +98,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 	$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 {
-							
+							//$datav['servs'] = $this->inscricao_m->retorna_serv();
                         	$datav['turmas'] = $this->inscricao_m->retorna_turma_all();
                         	$this->load->view('inscritos/ins_atu', $datav);
 					
@@ -171,7 +171,7 @@ public function listar(){
 
 
 
-//envia email sobre a inscricao para o servidor e para o chefe autorizar
+
 public function send_mail() {
 			
 		

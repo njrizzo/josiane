@@ -5,7 +5,7 @@ class Home extends CI_Controller {
  function __construct()
  {
    parent::__construct();
-   $this->load->model('Serv_m','serv_m',TRUE);
+   $this->load->model('serv_m','',TRUE);
    $this->serv_m->logged();
    
 	 
@@ -22,16 +22,16 @@ class Home extends CI_Controller {
  }
  
  
-//deslogar do sistema
+
  function logout()
  {
    $this->session->unset_userdata('logged_in');
    session_destroy();
-   Redirect('login', 'Refresh');
+   Redirect('login', 'refresh');
  }
  
 
-//cadastro do servidor
+
 public function dados(){
 	 $session_data = $this->session->userdata('logged_in');
   
@@ -110,7 +110,7 @@ public function editar()
 	
 	
 	
-	//form pra alteracao de senha
+	
 	
 	public function alterar_senha()
 		{
@@ -148,7 +148,7 @@ public function editar()
 			
 			
 			
-				//confere senha antiga pra alteracao 	
+				
 			function check_senha($password)
  {
    

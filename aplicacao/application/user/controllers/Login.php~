@@ -6,14 +6,14 @@ class Login extends CI_Controller {
  {
    parent::__construct();
     
-     $this->load->model('serv_m','serv_m');
+     $this->load->model('serv_m');
      
  }
  
  function index()
  {
    		 if($this->session->userdata('logged_in')){
-   		  Redirect('home', 'Refresh');
+   		  Redirect('home', 'refresh');
    		  }else{
 $this->load->view('login_view');
 }
@@ -48,7 +48,7 @@ $this->load->view('login_view');
  }
  
  
-   //checando senha no BD 
+    
  
  function check_database($password)
  {
@@ -71,7 +71,7 @@ $this->load->view('login_view');
          
        );
        $this->session->set_userdata('logged_in', $sess_array);
-       Redirect('home', 'Refresh');
+       Redirect('home', 'refresh');
      }
      return TRUE;
    }

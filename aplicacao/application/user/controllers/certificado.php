@@ -1,15 +1,15 @@
 
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-//session_start(); //we need to call PHP's session object to access it through CI
+
 class Certificado extends CI_Controller {
  
  function __construct()
  {
    parent::__construct();
   
-    $this->load->model('matricula_m');
- $this->load->library('mpdf/mpdf');
- $this->load->model('serv_m','',TRUE);
+    $this->load->model('Matricula_m','matricula_m');
+
+ $this->load->model('Serv_m','serv_m',TRUE);
    $this->serv_m->logged();
    
 }
@@ -17,7 +17,7 @@ class Certificado extends CI_Controller {
  
  function index()
  {
-	 redirect('certificado/listar');
+	 Redirect('certificado/listar');
   
 
 }
@@ -27,9 +27,9 @@ public function listar(){
   
      $datas['codserv'] = $session_data['codserv'];
 			 $this->load->library('pagination');
-	$maximo = 1;
+	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('certificado/listar');
+	$config['base_url'] = base_url('usuario.php/certificado/listar');
 	$config['total_rows'] =$this->matricula_m->contaRegistros($datas['codserv']);
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';
@@ -56,11 +56,17 @@ public function gerar()
 	
 	{
 
-
+$dados=array(
+	'data' =>  $data = date('Y-m-d'),
+	'chave'=>$chave = sha1(uniqid( mt_rand(), true))
+	  );
+	      
+	                
+	                   $this->matricula_m->chave_inserir($dados);
   
- 
+  $this->load->library("mpdf/mPDF");
   $id = $this->uri->segment(3);
-if ($id==NULL) redirect('matricula/index'); 
+if ($id==NULL) Redirect('matricula/index'); 
 $query = $this ->matricula_m->atualizar($id)->row();
   
 
@@ -68,12 +74,15 @@ $query = $this ->matricula_m->atualizar($id)->row();
  $nome = $query->nome;
  $modulo = $query->modulo;
  $cargahr  =$query->cargahr; 
- $nomeserv = $query->nomeserv;  
+ $nomeserv = $query->nomeserv; 
+//$chave = sha1(uniqid( mt_rand(), true)); 
 // $nomeserv = ucfirst($nomeserv);  
+
+
  setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
 
 date_default_timezone_set( 'America/Sao_Paulo' );
-   $data = strftime( ' %d de %B de %Y', strtotime( date( 'Y-m-d' ) ) );
+   $dataEmitido = strftime( ' %d de %B de %Y', strtotime( date( 'Y-m-d' ) ) );
    $datafim =  strftime( ' %d de %B de %Y',  strtotime( date( 'Y-m-d',strtotime($query->datafim) ) ) );
     $datain =  strftime( '  %d de %B ',  strtotime( date( 'Y-m-d',strtotime($query->datainicio) ) ) );
   $html = '
@@ -112,13 +121,13 @@ background-image: url("figuras/fundo.png");
 </tr>
 <tr>
 
-<td  colspan="2" align="right" valign="top" ><font color="#61380B" size="1">UFRRJ,'.$data.'<br></font>  </td>
+<td  colspan="2" align="right" valign="top" ><font color="#61380B" size="1">UFRRJ,'.$dataEmitido.'<br></font>  </td>
 
 
 </tr>
 <tr>
 
-<td   width="745" colspan="2" align="center" valign="top" ><img src="figuras/base.png"   />  </td>
+<td   width="745" colspan="2" align="center" valign="top" ><img src="figuras/base.png"   /><font color="#61380B" size="1"> Código de Autenticação: '.$chave.'</font>  </td>
 
 <br>
 </tr>

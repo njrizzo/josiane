@@ -8,7 +8,7 @@ class Matricula_m extends CI_Model {
                
         }
 
-//função que retorna o nome do servidor
+//função que retorna os servidore com inscricao autorizadas na hora de cadastrar nova matricula
 public function retorna_serv()
 {
 

@@ -4,20 +4,14 @@ $this->load->view('template/menuadm');
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('administrador'); 
 $query = $this ->admin_m->atualizar($id)->row();
-//echo validation_errors();
-
-echo form_open("administrador/editar/$id");
-
+echo form_open("administrador/deletar/$id");
+  echo form_hidden('$idadm',$query->id);
 //echo form_close();
 ?>
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
 			
-            <?php	
-            if($this->session->flashdata('editarok')):
-echo'<p>'.$this->session->flashdata('editarok').'</p>';
-endif
-?>
-            <h1 align="center" ><font color="#00009C">Alterar Administrador</font>   </h1>
+            
+            <h1 align="center" ><font color="#00009C">Deletar Administrador </font>  </h1>
 
 <table width="472" border="0" id="logon">
   <tr>
@@ -26,18 +20,17 @@ endif
     
     <td >
 		
-        <input type="text" name="nome"  value="<?php echo set_value('nome',$query->nome); ?>"  id="nome" />
+        <input type="text" name="nome"  value="<?php echo set_value('nome',$query->nome); ?>"  id="nome" disabled/>
       <br>  <?php echo form_error('nome'); ?><br>
      
     </td>
-  </tr>
-  <tr>
+    <tr>
 	  
     <td >Email: </td>
     
     <td >
 		
-        <input type="text" name="email"  value="<?php echo set_value('email',$query->email); ?>"  id="email" />
+        <input type="text" name="email"  value="<?php echo set_value('email',$query->email); ?>"  id="email" disabled/>
       <br>  <?php echo form_error('email'); ?><br>
      
     </td>
@@ -81,10 +74,10 @@ endif
     <td>&nbsp;</td>
   </tr>
   <tr>
-    
-      <td > <?php echo anchor("administrador/alterar_senha/$id","<input name='Alterar' type='button' class='input_bt' id='Alterar' value='Alterar Senha' />")?></td>
-   
-    <td align="right"><input name="Alterar" type="submit" class="input_bt" id="Alterar" value="Alterar" /></td>
+    <td>
+      
+    </td>
+    <td align="right"><input name="Deletar" type="submit" class="input_bt" id="Deletar" value="Deletar" /></td>
   </tr>
 </table>
 
@@ -93,7 +86,7 @@ endif
 
            
           <?php
-          echo form_hidden('$idadm',$query->id);
+         echo form_hidden('$idadm',$query->id);
          echo form_close();
 $this->load->view('template/rodape');
 ?>

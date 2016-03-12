@@ -5,8 +5,6 @@ $siape=$this->uri->segment("3");
 $id = $this->uri->segment(4);
 if ($id==NULL) redirect('cadastro/conferir'); 
 $query = $this ->inscricao_m->atualizar($id)->row();
-
-//abre a caixa para a justificativa de negado
 ?>
 
 

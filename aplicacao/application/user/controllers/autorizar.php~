@@ -61,7 +61,7 @@ function logout()
                   $dados['motivo'] = $this ->input->post('motivo');
                 endif;
                 $this->inscricao_m->atualizar_do($dados,array('codinscricao' => $this->uri->segment(4)));
-	          
+	                //$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
 			$this->load->view('autorizar/autorizar_view',$session_data);
 	
 	}

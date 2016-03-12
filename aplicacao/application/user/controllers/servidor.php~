@@ -1,0 +1,130 @@
+	<?php
+	defined('BASEPATH') OR exit('No direct script access allowed');
+	
+	class Servidor extends CI_Controller {
+	
+		
+		
+		public function __construct() {
+	        parent::__construct();
+	       
+	 $this->load->model('Serv_m','serv_m');
+	 $this->load->model('Admin_m','admin_m',TRUE);
+	 $this->admin_m->logged();
+	 
+	}
+	 
+		
+		
+		public function index()
+		
+		{
+		
+Redirect('servidor/listar');
+		
+	
+		}
+
+		
+	
+			
+		//form pra alteracao de senha	
+	public function alterar_senha()
+		{
+			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+			$this -> form_validation ->set_rules('oldsenha','Senha Atual','trim|required|max_length[20]|callback_check_senha');
+		$this -> form_validation ->set_rules('senha','Senha','required|max_length[10]|trim');
+		$this -> form_validation ->set_rules('senha2','Repita a Senha','required|max_length[10]|matches[senha]|trim');
+		$this -> form_validation ->set_rules('lembrasenha','Lembrete de Senha','required|max_length[100]|trim');
+		    if ($this->form_validation->run() == FALSE)
+	                {
+	                        $this->load->view('servidor/serv_sen');
+	                }
+	                else
+	                {
+	                  
+	                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
+	                     $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
+	                
+	                $this->serv_m->atualizar_do($dados,array('codserv' => $this->input->post('$idserv')));
+	             
+	                
+			$this->load->view('servidor/serv_sen');
+	
+	}
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//confere senha antiga pra alteracao 
+			function check_senha($password)
+ {
+   
+   $password = $this->input->post('oldsenha');
+ 
+   
+   $result = $this->serv_m->confere_senha($password);
+ 
+   if($result)
+   {
+     $this->form_validation->set_message('check_senha', 'senha ok.');
+      return true;
+   }
+   else
+   {
+     $this->form_validation->set_message('check_senha', 'Senha não confere.');
+     return false;
+   }
+ }
+			
+			
+			
+			
+			
+			
+			
+			public function deletar()
+		{
+			 $this->load->view('servidor/serv_del');
+			if($this->input->post('$idserv')>0):
+	
+		 $this->serv_m->deletar_do(array('codserv' => $this->input->post('$idserv')));
+		 	
+		 endif;
+		  
+			}
+	
+	
+		public function listar(){
+			
+			
+			 $this->load->library('pagination');
+	$maximo = 5;
+	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
+	$config['base_url'] = base_url('index.php/servidor/listar');
+	$config['total_rows'] =$this->serv_m->contaRegistros();
+	$config['per_page'] =  $maximo;
+	$config['first_link'] = 'Primeiro';
+	$config['last_link'] = 'Último';
+	$config['next_link'] = 'Próximo';
+	$config['prev_link'] = 'Anterior';
+	$this->pagination->initialize($config);
+	
+	$datas['page'] = $this->pagination->create_links();
+	$datas['query2'] = $this->serv_m->retornaServ($maximo, $inicio);
+					
+	$this->load->view('servidor/serv_v', $datas);
+	
+			
+			
+			}//fimfuncao
+	
+	}//endcontroler
+	
+	

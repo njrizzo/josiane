@@ -2,7 +2,7 @@
 $this->load->view('template/cabecalho');  
 
 
-//echo validation_errors();
+echo validation_errors();
 echo form_open("cadastro/recuperar");
 
 

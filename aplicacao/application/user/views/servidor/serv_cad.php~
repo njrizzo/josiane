@@ -1,21 +1,24 @@
 <?php
 $this->load->view('template/cabecalho');  
-$this->load->view('template/menuserv'); 
+ 
 //echo validation_errors();
-echo form_open('servidor/cadastrar');
+echo form_open('cadastro/cadastrar');
 
 
 ?>
-            <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
+      </head>
+ <body>      
 		<?php	
             if($this->session->flashdata('cadservok')):
 echo'<p>'.$this->session->flashdata('cadservok').'</p>';
 endif
 ?>
-            <h1 align="center" ><font color="#00009C">Cadastrar novo Servidor </font>   </h1>
+            <h1 align="center" ><font color="#00009C">Por favor preencha os dados abaixo para se cadastrar no SICAP  </font>   </h1>
 
 <table width="472" border="0" id="logon">
-  <td  >Nome:</td>
+  <tr>
+	
+    <td  >Nome:</td>
     <td colspan="3">
 		<?php echo form_error('nomeserv'); ?>
         <input name="nomeserv" type="text" value="<?php echo set_value('nomeserv'); ?>"  id="nomeserv" size="55" placeholder="nome completo"/>
@@ -216,16 +219,16 @@ endif
      <td width="101" height="25"  ><font color="red"></font>Telefone para Recado:</td>
     <td width="361">
 		<?php echo form_error('telcontato2'); ?>
-        <input name="telcontato2" type="text" value="<?php echo set_value('telcontato2'); ?>"  id="telcontato2" size="10" placeholder="xx-xxxxxxxxx"/></td>
+        <input name="telcontato2" type="text" value="<?php echo set_value('telcontato2'); ?>"  id="telcontato2" size="10" placeholder="xx-xxxxxxxxx"/>
        </tr>
        <tr>
 		    <td width="101" height="25"  >Rede social:</td>
     <td width="361">
 		<?php echo form_error('redesocial'); ?>
-        <input name="redesocial" type="text" value="<?php echo set_value('redesocial'); ?>"  id="redesocial"  placeholder="Ex.Facebook"/>
+        <input name="redesocial" type="text" value="<?php echo set_value('redesocial'); ?>"  id="redesocial"  placeholder="Facebook, Twitter, Skype"/>
         
     </td>
-    
+    </td>
     <td width="101"  ><font color="red">*</font>SIAPE:</td>
     <td width="361">
 		<?php echo form_error('siape'); ?>
@@ -319,8 +322,8 @@ endif
         <input name="lembrasenha" type="text" value="<?php echo set_value('lembrasenha'); ?>"  id="lembrasenha"  placeholder="Palavra ou Frase "/>
         
     </td>
-     <td ><span><font color="red">*</font>Digite somente n&uacute;meros.</span> <br><span><font color="red">*</font>A senha deve conter de 6 a 10 dígitos.</span> </td>
-     <td>   </td>
+     <td ><span><font color="red">*</font>Digite somente n&uacute;meros.</span><br><span><font color="red">*</font>A senha deve conter de 6 a 10 dígitos.</span>   </td>
+     <td> </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -328,17 +331,19 @@ endif
   </tr>
   <tr>
     <td>
-      
+     <td align="left">  <?php echo anchor('login','<input name="inicio" type="button" class="input_bt" id="inicio" value="&nbsp;In&iacute;cio&nbsp;" />');?> </td>
     </td>
     <td align="right"><input name="cadastrar" type="submit" class="input_bt" id="cadastrar" value="Cadastrar" /></td>
   </tr>
-</table>
+  <tr><td> &nbsp;</td> </tr>
 
-				
-				</td>
 
            
           <?php
          echo form_close();
 $this->load->view('template/rodape');
 ?>
+</table>
+
+				
+				</td>
