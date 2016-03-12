@@ -5,10 +5,11 @@ $this->load->view('template/menuser');
 ?>
 
 
-<td>
+<td width="553" align="left" valign="top" bgcolor="#FFFFFF">
+	 <h2>Bem vindo ao SICAP <?php echo   $nomeserv; ?>!</h2>
 	<table> <tr>
 
-    <h2>Bem vindo <?php echo   $nomeserv; ?>!</h2>
+    
 	</tr></table>
  <?php
 $this->load->view('template/rodape');

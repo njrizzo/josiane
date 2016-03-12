@@ -104,6 +104,7 @@ codinscricao serial PRIMARY KEY,
 datains date,
 situacao VARCHAR (15) NOT NULL,
 motivo VARCHAR (100),
+justificativa(100),
 codserv integer NOT NULL references servidor (codserv)  ON DELETE CASCADE,
 codturma integer NOT NULL references turma (codturma)  ON DELETE CASCADE,
 UNIQUE (codserv,codturma)

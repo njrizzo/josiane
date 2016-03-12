@@ -171,7 +171,7 @@ function verificarChave	($chave)
 	{
 		$this -> db -> select('*');
 		$this -> db -> from('certificados');
-		$this -> db -> or_like('chave' ,$chave); 
+		$this -> db -> like('chave' ,$chave, 'none'); 
 		$this -> db -> limit(1);
 
 		$query = $this -> db -> get();

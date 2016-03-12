@@ -42,7 +42,7 @@ echo form_open("curso/deletar/$id");
     <td>Carga hor&aacute;ria:</td>
     <td>
 		
-    <input type="text" name="cargahr" value="<?php echo set_value('cargahr',$query->cargahr); ?>"  id="cargahr" size="5" disabled/>
+    <input type="text" name="cargahr" value="<?php echo set_value('cargahr',$query->cargahr); ?>" class="input_text" id="cargahr" size="5" disabled/>
     <br />
    
   </tr>
@@ -64,7 +64,7 @@ echo form_open("curso/deletar/$id");
     <td>Estado:</td>
     <td>
 		
-    <input type="text" name="estado" id="estado" value="<?php echo set_value('estado',$query->estado); ?>"  disabled />
+    <input type="text" name="estado" id="estado" class="input_text" value="<?php echo set_value('estado',$query->estado); ?>"  disabled />
        
       </td>
   </tr>

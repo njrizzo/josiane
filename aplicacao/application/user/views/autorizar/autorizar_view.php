@@ -47,7 +47,7 @@ $query = $this ->inscricao_m->atualizar($id)->row();
 <br>
 <div   id="salvenc2" style="display:none;">
     <label  for="texto" >Justfiativa
-         <textarea name="motivo" id="texto" ></textarea> </label>
+         <textarea name="justificativa" id="texto" ></textarea> </label>
 </div>
 <br>
 <input align="left"  name="Confirmar" type="submit" class="input_bt" id="Confirmar" value="Confirmar" />

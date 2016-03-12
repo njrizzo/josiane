@@ -56,7 +56,7 @@ endif
   <tr>
     <td height="25">Curso:</td>
     <td>
-  <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())' class="input_text">
+  <select name="codcurso" id="codcurso" onchange='busca_turma($(this).val())' >
 	  <?= $options_cursos; ?>
 </select>
   </td>
@@ -65,7 +65,7 @@ endif
     <td height="25">Turma:</td>
     <td>
 		
-		     <select name="codturma" id="codturma" class="input_text" >
+		     <select name="codturma" id="codturma"  >
 				
 
 </select>

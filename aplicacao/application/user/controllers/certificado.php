@@ -56,6 +56,11 @@ public function gerar()
 	
 	{
 
+ 
+
+date_default_timezone_set( 'America/Sao_Paulo' );
+//setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
+
 $dados=array(
 	'data' =>  $data = date('Y-m-d'),
 	'chave'=>$chave = sha1(uniqid( mt_rand(), true))
@@ -79,9 +84,6 @@ $query = $this ->matricula_m->atualizar($id)->row();
 // $nomeserv = ucfirst($nomeserv);  
 
 
- setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
-
-date_default_timezone_set( 'America/Sao_Paulo' );
    $dataEmitido = strftime( ' %d de %B de %Y', strtotime( date( 'Y-m-d' ) ) );
    $datafim =  strftime( ' %d de %B de %Y',  strtotime( date( 'Y-m-d',strtotime($query->datafim) ) ) );
     $datain =  strftime( '  %d de %B ',  strtotime( date( 'Y-m-d',strtotime($query->datainicio) ) ) );

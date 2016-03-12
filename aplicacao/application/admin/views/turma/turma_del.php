@@ -34,7 +34,7 @@ foreach ($cursos as $i => $linha)
     <td width="101">Nome:</td>
     <td width="361">
 		
-        <input name="nometurma" type="text" value="<?php echo set_value('nometurma',$query->nometurma); ?>" class="input_text" id="nometurma" disabled />
+        <input name="nometurma" type="text" value="<?php echo set_value('nometurma',$query->nometurma); ?>"  id="nometurma" disabled />
         
     </td>
   </tr>
@@ -43,7 +43,7 @@ foreach ($cursos as $i => $linha)
     <td>Dias da semana:</td>
     <td>
 		
-<input name="diasemana[]" type="text" value="<?php echo set_value('diasemana[]',$query->diasemana); ?>" class="input_text" id="diasemana" disabled />
+<input name="diasemana[]" type="text" value="<?php echo set_value('diasemana[]',$query->diasemana); ?>"  id="diasemana" disabled />
 
      </td>
   </tr>

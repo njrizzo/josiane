@@ -29,10 +29,7 @@ endif
 
    
 <?php
-/*
-foreach ($cursos as $i => $linha)
-   echo '<option values="',$i,'">',$linha,'</option>';
-   */
+
    echo form_dropdown('codcurso', $cursos, set_value('codcurso',$query->codcurso));
 ?>
 
@@ -44,7 +41,7 @@ foreach ($cursos as $i => $linha)
     <td width="101">Nome:</td>
     <td width="361">
 		<?php echo form_error('nometurma'); ?>
-        <input name="nometurma" type="text" value="<?php echo set_value('nometurma',$query->nometurma); ?>" class="input_text" id="nometurma" />
+        <input name="nometurma" type="text" value="<?php echo set_value('nometurma',$query->nometurma); ?>"  id="nometurma" />
         
     </td>
   </tr>

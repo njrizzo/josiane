@@ -40,7 +40,7 @@ function logout()
 		
 			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 		$this -> form_validation ->set_rules('situacao','Resposta','required|trim');
-		$this -> form_validation ->set_rules('motivo','Justificativa','trim|max_length[100]');
+		$this -> form_validation ->set_rules('justificativa','Justificativa','trim|max_length[100]');
 		if ($this->form_validation->run() == FALSE)
 	                {
 						
@@ -58,7 +58,7 @@ function logout()
 	                   $dados=elements(array('situacao'), $this ->input->post());
                   if($dados['situacao']=='negado')://se for negado apresentar justificativa
                   
-                  $dados['motivo'] = $this ->input->post('motivo');
+                  $dados['justificativa'] = $this ->input->post('justificativa');
                 endif;
                 $this->inscricao_m->atualizar_do($dados,array('codinscricao' => $this->uri->segment(4)));
 	          
