@@ -248,7 +248,7 @@ $this->db->join('servidor','email = utilizador');
 		if($query -> num_rows() == 1)
 		{
 			
-			$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
+			//$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
 			//$this->db->query('delete from recuperacao where confirmacao = "$chave" ');
 			return $query->result();
 			
@@ -263,20 +263,35 @@ $this->db->join('servidor','email = utilizador');
 	
 	
 	//insere a nova senha recuperada
-	public function modificar_do($dados=NULL,$condicao=NULL)
+	public function modificar_do($dados=NULL,$condicao=NULL,$chave)
     {
       if($dados!=NULL && $condicao!=NULL):
-		
+		$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
 		$this->db->update('servidor',$dados,$condicao);
+
+		 $this->session->set_flashdata('recuperarok','Nova senha cadastrada com sucesso!');
 		
-		 $this->session->set_flashdata('recuperarok','Nova senha cadastrada com sucesso');
-		
-		Redirect(Login);
+		Redirect(current_url());
 
 
 		endif;
     }
 
+
+
+
+function apagarChave($chave)//funcao que apaga a chave de recuperacao existente
+{
+	
+	
+			
+			$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
+			//$this->db->query('delete from recuperacao where confirmacao = "$chave" ');
+			//return $query->result();
+			
+		
+
+}
 	
 }//endmodel
 

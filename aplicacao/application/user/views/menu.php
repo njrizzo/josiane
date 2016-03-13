@@ -6,9 +6,11 @@ $this->load->view('template/menuser');
 
 
 <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
-	 <h2>Bem vindo ao SICAP <?php echo   $nomeserv; ?>!</h2>
-	<table> <tr>
-
+	 
+	<table border="0" align="center"> <tr>
+		<h2> <font color="#00009C">Bem vindo ao SICAP <?php echo   $nomeserv; ?>! </font> </h2>
+ <th ><img src="figuras/logocodep.jpg" name="codep"  border="0" id="codep" />
+      </th>
     
 	</tr></table>
  <?php

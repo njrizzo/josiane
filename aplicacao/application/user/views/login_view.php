@@ -10,9 +10,7 @@ $this->load->view('template/cabecalho');
    
    <?php
  echo form_open('login/verifylogin'); 
-if($this->session->flashdata('recuperarok')):
-echo'<p>'.$this->session->flashdata('recuperarok').'</p>';
-endif
+
 ?>
      <table width="302" height="160" border="0" align="center" cellpadding="0" cellspacing="0" id="logon">
 		 

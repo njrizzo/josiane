@@ -70,7 +70,7 @@ $query = $this ->matricula_m->atualizar($id)->row();
  $cargahr  =$query->cargahr; 
  $nomeserv = $query->nomeserv;  
 // $nomeserv = ucfirst($nomeserv);  
- setlocale( LC_ALL, 'pt_BR', 'pt_BR', 'pt_BR.utf-8', 'portuguese' );
+ //setlocale( LC_ALL, 'pt_BR', 'pt_BR', 'pt_BR.utf-8', 'portuguese' );
 
    $dataEmitido = strftime( ' %d de %B de %Y', strtotime( date( 'Y-m-d' ) ) );
    $datafim =  strftime( ' %d de %B de %Y',  strtotime( date( 'Y-m-d',strtotime($query->datafim) ) ) );
@@ -98,7 +98,7 @@ background-image: url("figuras/fundo.png");
      
        <tr   >
 <th  rowspan="4"   ></th>
-<td width="45"  lign="left"><img src="figuras/logor.png"   /></td>
+<td width="45"  align="left"><img src="figuras/logor.png"   /></td>
 <td   width="745" lign="left"><P>
 	<b><h6><font color="#61380B"  >Universidade Federal Rural do Rio de Janeiro<br>
 	Decanato de Assuntos Administrativos<br>

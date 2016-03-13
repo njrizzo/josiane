@@ -225,13 +225,15 @@ public function recuperar(){
 	                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
 	                     $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
 	                
-	                $this->serv_m->modificar_do($dados,array('codserv' => $this->input->post('$idserv'))
-	                );
+	                $this->serv_m->modificar_do($dados,array('codserv' => $this->input->post('$idserv')),$this->uri->segment(4));
+		
+	                
 	             
 	                
-			$this->load->view('servidor/modificar_senha');
-	
+			//$this->load->view('servidor/modificar_senha');
+	//$this->serv_m->apagarChave($this->uri->segment(4));
 	}
+
 	 }//fimif
 	
 
@@ -322,7 +324,7 @@ Redirect(current_url());
       <p>Logo abaixo está a dica para ajudá-lo a lembrar sua senha.</p>
      
       <p>&nbsp;</p>
-      <p>Lembrete de senha: <strng> $lembrete </strng>.</p>
+      <p>Lembrete de senha: <strng><u> $lembrete </u> </strng>.</p>
 <p>&nbsp;</p>
  <p> Caso o lembrete não tenha sido suficiente, clique no link abaixo para cadastrar uma nova senha.</p>
    
@@ -330,8 +332,9 @@ Redirect(current_url());
    
     <p> <a href=' ".$baseurl."usuario.php/cadastro/modificar/$id/$chave'>Clique aqui</a></p>
 
-    <p>&nbsp;</p>
-
+    
+<p>Este link será válido por 24 horas.</p>
+<p>&nbsp;</p>
     <p>Caso não tenha feito essa solicitação desconsidere este email.</p>
     <p>&nbsp;</p>
     <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>");

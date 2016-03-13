@@ -1,5 +1,5 @@
 <?php
-$this->load->view('template/cabecalho');  
+ 
 
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('cadastro/index');
@@ -15,16 +15,21 @@ echo form_open("cadastro/modificar/$id/$hash");
 
 ?>
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
-			
+	           <?php	
+if($this->session->flashdata('recuperarok')):
+echo'<h2 align="center">'.$this->session->flashdata('recuperarok').'</h2>';
+endif	?>	
             <?php	
-            if ($teste==false){
-echo '<h1 align="center"> Este  link já  expirou!!  Operação não autorizada.</h1>';
 
+            if ($teste==false){
+echo '<h1 align="center"> Este  link  expirou!!</h1>';
+echo anchor('', '<h2 align="center"> Login </h2>');
 //$this->load->view('servidor/modificar_senha');
 
 }else{
             
 
+$this->load->view('template/cabecalho'); 
 ///endif
 
 ?>
