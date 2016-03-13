@@ -5,6 +5,8 @@ $siape=$this->uri->segment("3");
 $id = $this->uri->segment(4);
 if ($id==NULL) redirect('cadastro/conferir'); 
 $query = $this ->inscricao_m->atualizar($id)->row();
+
+//abre a caixa para a justificativa de negado
 ?>
 
 
@@ -33,10 +35,10 @@ $query = $this ->inscricao_m->atualizar($id)->row();
    <h3> Autoriza o Servidor a participar do curso de Capacitação?  </h3>
    <label  for="negado">
    NÃO
-    <input type="radio"  name="situacao" id="negado" value="negado" onclick="manipulaDiv(true, 'salvenc2')"></label>
+    <input type="radio"  name="situacao" id="negado" value="negado" <?php echo set_radio('situacao', 'negado'); ?> onclick="manipulaDiv(true, 'salvenc2')"></label>
 <label  for="autorizado">
     SIM
-    <input type="radio"  name="situacao" id="autorizado" value="autorizado" onclick="manipulaDiv(false, 'salvenc2')"></label>
+    <input type="radio"  name="situacao" id="autorizado" value="autorizado" <?php echo set_radio('situacao', 'autorizado'); ?> onclick="manipulaDiv(false, 'salvenc2')"></label>
 
 <br>
 <br>
@@ -45,7 +47,7 @@ $query = $this ->inscricao_m->atualizar($id)->row();
 <br>
 <div   id="salvenc2" style="display:none;">
     <label  for="texto" >Justfiativa
-         <textarea name="motivo" id="texto" ></textarea> </label>
+         <textarea name="justificativa" id="texto" ></textarea> </label>
 </div>
 <br>
 <input align="left"  name="Confirmar" type="submit" class="input_bt" id="Confirmar" value="Confirmar" />

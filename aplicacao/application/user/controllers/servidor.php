@@ -22,8 +22,8 @@
 		public function __construct() {
 	        parent::__construct();
 	       
-	 $this->load->model('serv_m');
-	 $this->load->model('admin_m','',TRUE);
+	 $this->load->model('Serv_m','serv_m');
+	 $this->load->model('Admin_m','admin_m',TRUE);
 	 $this->admin_m->logged();
 	 
 	}
@@ -34,7 +34,7 @@
 		
 		{
 		
-redirect('servidor/listar');
+Redirect('servidor/listar');
 		
 	
 		}

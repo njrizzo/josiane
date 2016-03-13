@@ -5,10 +5,10 @@ class Matricula_m extends CI_Model {
         public function __construct()
         {
                 parent::__construct();
-                //$this->load->helper('date');
+               
         }
 
-//função que retorna os servidore com inscricao cadastradas na hora de cadastrar nova matricula
+//função que retorna o nome do servidor
 public function retorna_serv()
 {
 
@@ -19,8 +19,7 @@ public function retorna_serv()
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codserv, ENT_QUOTES)] = 
-htmlspecialchars($row->nomeserv, ENT_QUOTES);
+           $arrDatos[$row->codserv] = $row->nomeserv;
 
         $query->free_result();
         return $arrDatos;
@@ -33,6 +32,7 @@ htmlspecialchars($row->nomeserv, ENT_QUOTES);
 
 }
 
+//funcao que retorna turmas abertas 
 public function retorna_turma()
 {
 
@@ -43,8 +43,7 @@ public function retorna_turma()
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = 
-htmlspecialchars($row->nometurma, ENT_QUOTES);
+           $arrDatos[$row->codturma] = $row->nometurma;
 
         $query->free_result();
         return $arrDatos;
@@ -81,9 +80,9 @@ $this->db->from('matricula');
 $this->db->join('turma', ' turma.codturma = matricula.codturma');
 $this->db->join('servidor', ' servidor.codserv = matricula.codserv');
 $this->db->join('curso', ' curso.codcurso = turma.codcurso');
-//$query = $this->db->get();
+
      return $this->db->get();
-       //return $this->db->query('select * from curso c, turma t  ');
+       
       else:
       
       return FALSE;
@@ -105,6 +104,9 @@ public function deletar_do($condicao=NULL)
 		endif;
     }
 
+
+
+//funcao auxilir paginacao
 				function contaRegistros($serv)
 {
 	 
@@ -116,7 +118,12 @@ $this->db->join('curso', ' curso.codcurso = turma.codcurso');
 $this->db->where('matricula.codserv',$serv);
  return $this->db->count_all_results();
 }
-	
+
+
+
+
+
+//funcao paginacao	
 public function do_pesquisa($maximo, $inicio, $codserv) {
   
  $this->db->select('*');
@@ -140,11 +147,49 @@ $query2 = $this->db->get();
 }
 	
 	
+//insere a chave no banco de dados para gerar certificados	
+public function chave_inserir($dados=NULL)
+        {
+		if($dados!=NULL):
+		
+		$this->db->insert('certificados',$dados);
+		//$this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
+		///Redirect('cadastro/enviarEmail');
+		endif;
+		
+echo $this->db->affected_rows();
+		
+		
+		}
+
+
+
+
+
+//autenticar certificados
+function verificarChave	($chave)
+	{
+		$this -> db -> select('*');
+		$this -> db -> from('certificados');
+		$this -> db -> like('chave' ,$chave, 'none'); 
+		$this -> db -> limit(1);
+
+		$query = $this -> db -> get();
+
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	
 	
-	
-}
+}//endmoodel
 
 
 

@@ -46,7 +46,7 @@ endif
     <td>Login:</td>
     <td>
 		
-      <input type="text" name="usuario"  value="<?php echo set_value('usuario',$query->usuario); ?>"  id="usuario" />
+      <input type="text" name="usuario"  value="<?php echo set_value('usuario',$query->usuario); ?>"  id="usuario" disabled/>
       <br><?php echo form_error('usuario'); ?><br>
      </td>
   </tr>

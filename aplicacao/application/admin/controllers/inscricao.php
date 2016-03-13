@@ -199,13 +199,13 @@ public function send_mail() {
       <p>Olá, '.$nomeserv.', sua inscrição no curso '.$nomecurso.': módulo '.$mmodulo.', foi realizada com sucesso!!</p>
       <p>Certifique-se que seu chefe recebeu o e-mail de pedido de autorização da sua inscrição, pois a mesma se faz necessário para que possa concorrer a vaga do curso que selecionou.</p>
       <p>&nbsp;</p>
-      <p>Você criou a sua senha de acompanhamento que servirá para verificar o estado da sua inscrição, e também possui as seguintes funcionalidades:</p>
+      <p>A sua senha de acesso ao SICAP servirá para verificar o estado da sua inscrição, e também possui as seguintes funcionalidades:</p>
 <p>&nbsp;</p>
     <p>- Verificar se o seu chefe autorizou a sua inscrição;</p>
 
     <p>- Verificar a justificativa do chefe caso ele não autorize a sua inscrição e</p>
 
-    <p>- Verificar se você foi selecionado para o curso que se inscreveu</p>
+    <p>- Verificar se você foi matriculado no curso que se inscreveu</p>
 
     <p>&nbsp;</p>
 
@@ -254,7 +254,7 @@ public function send_mail() {
              <p>Senhor dirigente,</p>
              <p>&nbsp;</p>
           <p>Para efetivar a inscrição do servidor descrito acima é necessário a sua autorização. A não autorização deverá ser acompanhada de justificativa.</p>
-		  <p>Solicitamos sua atenção ao autorizar, pois o mesmo servidor poderá realizar até 5 inscrições em cursos e ou módulos diferentes ao mesmo tempo. </p>
+		  <p>Solicitamos sua atenção ao autorizar, pois o mesmo servidor poderá realizar inscrições em cursos e ou módulos diferentes ao mesmo tempo. </p>
              <p>&nbsp;</p>
 			
               <p>&nbsp;</p>

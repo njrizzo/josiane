@@ -1,5 +1,5 @@
 <?php
-$this->load->view('template/cabecalho');  
+ 
 
 $id = $this->uri->segment(3);
 if ($id==NULL) redirect('cadastro/index');
@@ -15,19 +15,26 @@ echo form_open("cadastro/modificar/$id/$hash");
 
 ?>
             <td width="553" align="left" valign="top" bgcolor="#FFFFFF">
-			
+	           <?php	
+if($this->session->flashdata('recuperarok')):
+echo'<h2 align="center">'.$this->session->flashdata('recuperarok').'</h2>';
+endif	?>	
             <?php	
-            if ($teste==false) { 
-echo '<h1 align="center"> Operação não autorizada.</h1>';
-//$this->load->view('servidor/modificar_senha');
-//die();
-}
-            if($this->session->flashdata('editarok')):
-echo'<p>'.$this->session->flashdata('editarok').'</p>';
 
-endif
+            if ($teste==false){
+echo '<h1 align="center"> Este  link  expirou!!</h1>';
+echo anchor('', '<h2 align="center"> Login </h2>');
+//$this->load->view('servidor/modificar_senha');
+
+}else{
+            
+
+$this->load->view('template/cabecalho'); 
+///endif
+
 ?>
-            <h1 align="center" ><font color="#00009C">Modificar Senha<br> </font>   </h1>
+  
+          <h1 align="center" ><font color="#00009C">Modificar Senha<br> </font>   </h1>
 
 <table width="472" border="0" id="logon">
  
@@ -71,12 +78,15 @@ endif
 				
 				</td>
 
-
+ 
            
           <?php
+
           echo form_hidden('$idserv',$query->codserv);
          echo form_close();
-         
+        
 $this->load->view('template/rodape');
+};//fim else
 ?>
-</table>
+
+

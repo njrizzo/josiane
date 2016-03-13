@@ -7,8 +7,9 @@ class Cadastro extends CI_Controller {
  {
    parent::__construct();
   
-   $this->load->model('serv_m');
- 
+   $this->load->model('Serv_m','serv_m');
+ $this->load->model('Matricula_m','matricula_m');
+
    
 }
 
@@ -76,19 +77,14 @@ public function cadastrar()
 		}
 		
 		
-public function lembrar_senha(){
-	
-	$this->load>view('servidor/lembrar_s_view');
-	
-	}
+
 	
 	
 	
 	
 	
 	
-	
-	
+	//verifica se o siape do chefe confere com o cadastro do servidor
 	public function conferir(){
 		
  
@@ -117,7 +113,7 @@ public function lembrar_senha(){
 	
 	}
 	
-	
+	//auxilia a conferir o siape do chefe
 	function check_database($siape)
  {
    //verificação no banco de dados
@@ -140,7 +136,7 @@ public function lembrar_senha(){
        );
        $this->session->set_userdata('loggedd', $sess_array);
 	   
-       redirect("autorizar/confirmar/$siape/$id", 'refresh');
+       Redirect("autorizar/confirmar/$siape/$id", 'Refresh');
     	 //$this->load->view("autorizar/autorizar_view");
     }
     
@@ -158,7 +154,7 @@ public function lembrar_senha(){
 	
 	
 	
-	
+//recuperacao de senha	
 public function recuperar(){
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 		$this -> form_validation ->set_rules('email','Email','required|trim|valid_email');
@@ -168,16 +164,8 @@ public function recuperar(){
 	                {
 	                        $this->load->view('servidor/recuperar_senha');
 	                }
-	                else
-	                {
-						$verificarEmail = $this->input->post('email');
-	                  $this->serv_m->confereEmail($verificarEmail);
-	                  
 	                
-			
-	
-	}
-	
+
 	
 	
 	
@@ -185,7 +173,7 @@ public function recuperar(){
 	
 	}
 	
-	
+	//verifica se o email informado para recuperar senha esta cadastrado no banco de dados
 	function check_email($verificarEmail)
  {  
 
@@ -200,13 +188,13 @@ public function recuperar(){
 	  'utilizador'=>$this->input->post('email2'),
 	  'confirmacao'=>$chave = sha1(uniqid( mt_rand(), true))
 	  );
-	                
+	       $dados['data'] = date('Y-m-d',strtotime('+1 day'));//define  um  dia para o codigo expirar         
 	                
 	                   $this->serv_m->recuperar_inserir($dados);
 	                  
 	                
 			$this->load->view('servidor/recuperar_senha'); 
-    // redirect(cadastro);
+    // Redirect(cadastro);
      return TRUE;
    }
    else
@@ -220,7 +208,7 @@ public function recuperar(){
 
 
 
-
+//cadastra nova senha
 		function modificar()
  { 
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
@@ -237,20 +225,65 @@ public function recuperar(){
 	                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
 	                     $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
 	                
-	                $this->serv_m->atualizar_do($dados,array(
-	                'codserv' => $this->input->post('$idserv')
-	                )
+	                $this->serv_m->modificar_do($dados,array('codserv' => $this->input->post('$idserv')),$this->uri->segment(4));
+		
 	                
-	                
-	                );
 	             
 	                
-			$this->load->view('servidor/modificar_senha');
-	
+			//$this->load->view('servidor/modificar_senha');
+	//$this->serv_m->apagarChave($this->uri->segment(4));
 	}
-	 }
+
+	 }//fimif
 	
 
+
+
+
+//verifica a validade dos certificados
+
+public function autenticar()
+	{
+
+	$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
+		$this -> form_validation ->set_rules('chave','Chave','required|trim');
+		$this -> form_validation ->set_rules('data','Data da emissãao','trim');
+		
+		if ($this->form_validation->run() == FALSE)
+	                {
+	                        $this->load->view('autenticar_chave');
+	                }
+	                else
+	                {
+						$chave=$this->input->post('chave');
+	                  $query=$this->matricula_m->verificarChave($chave);
+	                  if ($query){
+
+
+$this->session->set_flashdata('editarok','Certificado válido: '.$chave.'');
+Redirect(current_url());
+}else{
+ $this->session->set_flashdata('editarok','Certificado inválido!!');
+Redirect(current_url());
+}
+			
+	
+	}
+
+
+
+
+
+
+}//fimfucao
+
+
+
+
+
+
+
+//email de recuperacao de senha
 	function enviarEmail()
  {  
 	 
@@ -263,6 +296,7 @@ public function recuperar(){
 			$lembrete = $linha->lembrasenha;
 			$nome=$linha->nomeserv;
 			$id=$linha->codserv;
+			$baseurl =  base_url();
 			
 
 		
@@ -290,16 +324,17 @@ public function recuperar(){
       <p>Logo abaixo está a dica para ajudá-lo a lembrar sua senha.</p>
      
       <p>&nbsp;</p>
-      <p>Lembrete de senha: <strng> $lembrete </strng>.</p>
+      <p>Lembrete de senha: <strng><u> $lembrete </u> </strng>.</p>
 <p>&nbsp;</p>
  <p> Caso o lembrete não tenha sido suficiente, clique no link abaixo para cadastrar uma nova senha.</p>
    
 
    
-    <p> <a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/modificar/$id/$chave'>Clique aqui</a></p>
+    <p> <a href=' ".$baseurl."usuario.php/cadastro/modificar/$id/$chave'>Clique aqui</a></p>
 
-    <p>&nbsp;</p>
-
+    
+<p>Este link será válido por 24 horas.</p>
+<p>&nbsp;</p>
     <p>Caso não tenha feito essa solicitação desconsidere este email.</p>
     <p>&nbsp;</p>
     <p>Maiores informações pelo tel. 2681-4739 / 2681-4740 ou email codep@ufrrj.br</p>");
@@ -313,9 +348,10 @@ public function recuperar(){
     } else {
        $datav["message"] =  "Mensagem enviada com sucesso!";
     }
-    $this->load->view('servidor/recuperar_senha',$datav);
-	 
-}	
+    //$this->load->view('servidor/recuperar_senha',$datav);
+$this->session->set_flashdata('editarok','Foi enviado um e-mail, com instruções sobre a recuperação da senha.');
+	  Redirect('cadastro/recuperar');
+}//endif	
 	
 }//endfuncao
 	

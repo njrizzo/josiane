@@ -48,7 +48,7 @@ endif
     <td>Carga hor&aacute;ria:</td>
     <td>
 		<?php echo form_error('cargahr'); ?>
-    <input type="text" name="cargahr" value="<?php echo set_value('cargahr',$query->cargahr); ?>"  id="cargahr" size="5"/>
+    <input type="text" name="cargahr" value="<?php echo set_value('cargahr',$query->cargahr); ?>" class="input_text" id="cargahr" size="5"/>
     <br />
    <span>*Digite somente n&uacute;meros.</span></td>
   </tr>
@@ -70,7 +70,7 @@ endif
     <td>Estado:</td>
     <td>
 		<?php echo form_error('estado'); ?>
-		<select name="estado" id="estado" >
+		<select name="estado" id="estado" class="input_text" >
 			
        
         <option value="ativo" <?= $query->estado=='ativo'? 'selected':'';?> >ativo</option>

@@ -3,26 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Matricula extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	
 	public function __construct() {
         parent::__construct();
- $this->load->model('matricula_m');
- $this->load->model('serv_m','',TRUE);
+ $this->load->model('matricula_m','matricula_m');
+ $this->load->model('Serv_m','serv_m',TRUE);
    $this->serv_m->logged();
    
  
@@ -36,7 +21,7 @@ class Matricula extends CI_Controller {
 	
 
 
-redirect('matricula/listar');
+Redirect('matricula/listar');
 
 
 
@@ -81,9 +66,9 @@ public function listar(){
      $datas['codserv'] = $session_data['codserv'];
 
 			 $this->load->library('pagination');
-	$maximo = 2;
+	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('matricula/listar');
+	$config['base_url'] = base_url('usuario.php/matricula/listar');
 	$config['total_rows'] =$this->matricula_m->contaRegistros($datas['codserv']);
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';

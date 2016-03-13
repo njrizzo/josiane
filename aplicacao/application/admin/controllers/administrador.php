@@ -61,7 +61,7 @@ class Administrador extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('nome','NOME','trim|required|max_length[100]');
 	$this -> form_validation ->set_rules('email','Email','trim|required|max_length[80]');
-	$this -> form_validation ->set_rules('usuario','Login','trim|required|max_length[20]');
+	//$this -> form_validation ->set_rules('usuario','Login','trim|required|max_length[20]');
 	//$this -> form_validation ->set_rules('password','Senha','trim|required|max_length[100]');
 	//$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[password]');
 	//$this -> form_validation ->set_rules('lembrasenha','Lemnrete de senha','trim|required|max_length[80]');
@@ -72,7 +72,7 @@ class Administrador extends CI_Controller {
                 else
                 {
                   
-                  $dados=elements(array('nome','email','usuario'),$this->input->post());
+                  $dados=elements(array('nome','email'),$this->input->post());
                   
                 
                 $this->admin_m->atualizar_do($dados,array('id' => $this->input->post('$idadm')));
@@ -88,7 +88,7 @@ class Administrador extends CI_Controller {
 	public function alterar_senha()
 	{
 		$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
-	
+	$this -> form_validation ->set_rules('usuario','Login','trim|required|max_length[20]');
 	$this -> form_validation ->set_rules('oldsenha','Senha Atual','trim|required|max_length[20]|callback_check_senha');
 	$this -> form_validation ->set_rules('senha','Nova Senha','trim|required|max_length[20]');
 	$this -> form_validation ->set_rules('senha2','Repita a senha','trim|required|matches[senha]');
@@ -100,7 +100,7 @@ class Administrador extends CI_Controller {
                 else
                 {
                   
-                  $dados=elements(array('senha','lembrasenha'),$this->input->post());
+                  $dados=elements(array('senha','lembrasenha','usuario'),$this->input->post());
                    $dados['senha'] = MD5($dados['senha']);//coloca a senha em md5 no banco
                 
                 $this->admin_m->atualizar_do($dados,array('id' => $this->input->post('$idadm')));

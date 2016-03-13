@@ -7,7 +7,7 @@ class Autorizar extends CI_Controller {
  {
    parent::__construct();
   
- $this->load->model('inscricao_m','',TRUE);
+ $this->load->model('Inscricao_m','inscricao_m',TRUE);
  $this->inscricao_m->logged();
  
 }
@@ -27,19 +27,20 @@ function logout()
  {
    $this->session->unset_userdata('loggedd');
    session_destroy();
-   redirect('cadastro/conferir', 'refresh');
+ 
+   Redirect('login', 'Refresh');
  }	
 	
 	
 	
 	
 	
-	
+	//autorizacao do chefe, inscricao no curso 
 	public function confirmar($sip,$cod){
 		
 			$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 		$this -> form_validation ->set_rules('situacao','Resposta','required|trim');
-		$this -> form_validation ->set_rules('motivo','Justificativa','trim|max_length[100]');
+		$this -> form_validation ->set_rules('justificativa','Justificativa','trim|max_length[100]');
 		if ($this->form_validation->run() == FALSE)
 	                {
 						
@@ -55,12 +56,12 @@ function logout()
 	                  
                   
 	                   $dados=elements(array('situacao'), $this ->input->post());
-                  if($dados['situacao']=='negado'):
+                  if($dados['situacao']=='negado')://se for negado apresentar justificativa
                   
-                  $dados['motivo'] = $this ->input->post('motivo');
+                  $dados['justificativa'] = $this ->input->post('justificativa');
                 endif;
                 $this->inscricao_m->atualizar_do($dados,array('codinscricao' => $this->uri->segment(4)));
-	                $this->session->set_flashdata('excluirok','Registro excluído com sucesso');
+	          
 			$this->load->view('autorizar/autorizar_view',$session_data);
 	
 	}

@@ -7,7 +7,7 @@ class Serv_m extends CI_Model {
                 parent::__construct();
         }
 
-
+//confere senha para acesso ao sistema
 function login($username, $password)
 	{
 		$this -> db -> select('*');
@@ -33,7 +33,7 @@ function login($username, $password)
 	
 	
 	
-	
+	//usuario logado
 	 function logged() {
         $logged = $this->session->userdata('logged_in');
 
@@ -54,7 +54,7 @@ function login($username, $password)
 		
 		$this->db->insert('servidor',$dadoserv);
 		$this->session->set_flashdata('cadservok','Cadastro efetuado com sucesso');
-		redirect('cadastro/cadastrar');
+		Redirect('cadastro/cadastrar');
 		endif;
 		
 echo $this->db->affected_rows();
@@ -88,56 +88,27 @@ public function atualizar_do($dados=NULL,$condicao=NULL)
 		
 		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
 		
-		redirect(current_url());
+		Redirect(current_url());
 		endif;
     }
 
 
+
+
+/*
 public function deletar_do($condicao=NULL)
     {
       if($condicao!=NULL):
 		$this->db->delete('servidor',$condicao);
 		$this->session->set_flashdata('excluirok','Registro excluído com sucesso');
 		
-		redirect('servidor/listar');
+		Redirect('servidor/listar');
 		endif;
     }
 
-	
+*/
 
-	function contaRegistros()
-{
- return $this->db->count_all_results('servidor');
-}
-	
-	function retornaServ($maximo, $inicio)
-{
-	 $match = $this->input->post('pesquisar');
-  $this->db->order_by('nomeserv', 'ASC');
-  $this->db->like('nomeserv',$match);
-  $this->db->or_like('sexo',$match);
-  $this->db->or_like('siape',$match);
-  $this->db->or_like('email',$match);
-  $this->db->or_like('telcontato',$match);
-  $this->db->or_like('unidade',$match);
-  $this->db->or_like('nomechefe',$match);
-  $this->db->or_like('emailchefe',$match);
-  $this->db->or_like('ensino',$match);
-  $this->db->or_like('cidade',$match);
-  $this->db->or_like('estado',$match);
-  $this->db->or_like('bairro',$match);
-  $this->db->or_like('cpfl',$match);
-  $this->db->or_like('rgl',$match);
-  $this->db->or_like('estcivil',$match);
-  $this->db->or_like('setor',$match);
-  $this->db->or_like('cargo',$match);
-  $this->db->or_like('funcao',$match);
-  // $this->db->limit($maximo);
- $query = $this->db->get('servidor', $maximo, $inicio);
- return $query->result();
-}
-	
-	
+//confere a senha antiga para fazer a alteraçao
 	
 		public function confere_senha($senha=NULL)
     {
@@ -167,7 +138,7 @@ public function deletar_do($condicao=NULL)
 	
 	
 	
-	
+	//confere o siape do chefe para fazer autorizacao de inscricao
 	function confereSiape($siape, $chefesiape)
 	{
 		$this -> db -> select('*');
@@ -194,7 +165,7 @@ public function deletar_do($condicao=NULL)
 	
 	
 	
-	
+	//confere se email esta cadastrado no sistema e envia recuperacao de senha
 	function confereEmail($email)
 	{
 		$this -> db -> select('*');
@@ -208,6 +179,7 @@ public function deletar_do($condicao=NULL)
 		{
 			return $query->result();
 			echo $this->db->affected_rows();
+
 		}
 		else
 		{
@@ -216,13 +188,18 @@ public function deletar_do($condicao=NULL)
 	}
 	
 	
-	public function recuperar_inserir($dados=NULL)
+	
+
+
+
+//insere a chave de conferencia no bd
+public function recuperar_inserir($dados=NULL)
         {
 		if($dados!=NULL):
 		
 		$this->db->insert('recuperacao',$dados);
-		$this->session->set_flashdata('inserirok','Cadastro efetuado com sucesso');
-		redirect('cadastro/enviarEmail');
+		
+		Redirect('cadastro/enviarEmail');
 		endif;
 		
 echo $this->db->affected_rows();
@@ -230,7 +207,12 @@ echo $this->db->affected_rows();
 		
 		}
 	
-	function retorna_last_recuperacao()//funcao que retorna a ultima inserção na tabela recuperacao e envia email para o servidor com um link
+	
+
+
+
+
+function retorna_last_recuperacao()//funcao que retorna a ultima inserção na tabela recuperacao e envia email para o servidor com um link
 {
 	
 	$this->db->order_by('codrec', 'DESC'); 
@@ -253,19 +235,20 @@ $this->db->join('servidor','email = utilizador');
 }
 	
 	
-		function verificarChave($chave)//funcao que retorna a ultima inserção na tabela recuperacao e envia email para o servidor com um link
+		function verificarChave($chave)//funcao que confere se a chave de recuperacao existe
 {
 	
 	$this -> db -> select('*');
 		$this -> db -> from('recuperacao');
 		$this -> db -> where('confirmacao' ,$chave); 
+		$this -> db -> where('data  >' , 'now()'); 
 		$this -> db -> limit(1);
 		$query = $this->db->get();
  
 		if($query -> num_rows() == 1)
 		{
 			
-			$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
+			//$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
 			//$this->db->query('delete from recuperacao where confirmacao = "$chave" ');
 			return $query->result();
 			
@@ -279,18 +262,36 @@ $this->db->join('servidor','email = utilizador');
 	
 	
 	
-	
-	public function modificar($dados=NULL,$condicao=NULL)
+	//insere a nova senha recuperada
+	public function modificar_do($dados=NULL,$condicao=NULL,$chave)
     {
       if($dados!=NULL && $condicao!=NULL):
-		
+		$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
 		$this->db->update('servidor',$dados,$condicao);
+
+		 $this->session->set_flashdata('recuperarok','Nova senha cadastrada com sucesso!');
 		
-		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
-		
-		redirect(current_url());
+		Redirect(current_url());
+
+
 		endif;
     }
+
+
+
+
+function apagarChave($chave)//funcao que apaga a chave de recuperacao existente
+{
+	
+	
+			
+			$this->db->delete('recuperacao',' confirmacao = ' . "'" . $chave. "'");
+			//$this->db->query('delete from recuperacao where confirmacao = "$chave" ');
+			//return $query->result();
+			
+		
+
+}
 	
 }//endmodel
 

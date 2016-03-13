@@ -63,13 +63,16 @@ endif;
             <th>
                 Turma
             </th>
+            
               <th>
-             Justificativa
+             Motivação
             </th>
             <th>
                Situação
             </th>
-       
+        <th>
+             Justificativa
+            </th>
              
             
             <th  colspan="2" >
@@ -104,7 +107,9 @@ endif;
              <td>
                 <?=$linha->situacao ?>
             </td>
-         
+         <td>
+                <?=$linha->justificativa ?>
+            </td>
             
           
              <td background="figuras/editar.jpeg" > 

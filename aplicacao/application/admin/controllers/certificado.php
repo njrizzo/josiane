@@ -48,6 +48,8 @@ public function gerar()
 	
 	{
 
+date_default_timezone_set( 'America/Sao_Paulo' );
+
 $dados=array(
 	'data' =>  $data = date('Y-m-d'),
 	'chave'=>$chave = sha1(uniqid( mt_rand(), true))
@@ -68,9 +70,8 @@ $query = $this ->matricula_m->atualizar($id)->row();
  $cargahr  =$query->cargahr; 
  $nomeserv = $query->nomeserv;  
 // $nomeserv = ucfirst($nomeserv);  
- setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
+ //setlocale( LC_ALL, 'pt_BR', 'pt_BR', 'pt_BR.utf-8', 'portuguese' );
 
-date_default_timezone_set( 'America/Sao_Paulo' );
    $dataEmitido = strftime( ' %d de %B de %Y', strtotime( date( 'Y-m-d' ) ) );
    $datafim =  strftime( ' %d de %B de %Y',  strtotime( date( 'Y-m-d',strtotime($query->datafim) ) ) );
     $datain =  strftime( '  %d de %B ',  strtotime( date( 'Y-m-d',strtotime($query->datainicio) ) ) );
@@ -97,7 +98,7 @@ background-image: url("figuras/fundo.png");
      
        <tr   >
 <th  rowspan="4"   ></th>
-<td width="45"  lign="left"><img src="figuras/logor.png"   /></td>
+<td width="45"  align="left"><img src="figuras/logor.png"   /></td>
 <td   width="745" lign="left"><P>
 	<b><h6><font color="#61380B"  >Universidade Federal Rural do Rio de Janeiro<br>
 	Decanato de Assuntos Administrativos<br>
@@ -116,7 +117,7 @@ background-image: url("figuras/fundo.png");
 </tr>
 <tr>
 
-<td   width="745" colspan="2" align="center" valign="top" ><img src="figuras/base.png"   />  Código de Autenticação: '.$chave.' </td>
+<td   width="745" colspan="2" align="center" valign="top" ><img src="figuras/base.png"   /><font color="#61380B" size="1">  Código de Autenticação: '.$chave.' </font></td>
 
 <br>
 </tr>

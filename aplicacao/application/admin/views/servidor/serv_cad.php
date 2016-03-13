@@ -73,7 +73,7 @@ endif
     <td  >Naturalidade:</td>
     <td>
 		<?php echo form_error('naturalidade'); ?>
-		 <input  name="naturalidade" type="text" value="<?php echo set_value('naturalidade'); ?>" id="naturalidade" placeholder="cidade, estado"  >
+		 <input  name="naturalidade" type="text" value="<?php echo set_value('naturalidade'); ?>" id="naturalidade" placeholder="cidade"  >
      </td>
   </tr>
    <tr>
@@ -222,7 +222,7 @@ endif
 		    <td width="101" height="25"  >Rede social:</td>
     <td width="361">
 		<?php echo form_error('redesocial'); ?>
-        <input name="redesocial" type="text" value="<?php echo set_value('redesocial'); ?>"  id="redesocial"  placeholder="Facebook, Twitter, Skype"/>
+        <input name="redesocial" type="text" value="<?php echo set_value('redesocial'); ?>"  id="redesocial"  placeholder="Ex.Facebook"/>
         
     </td>
     

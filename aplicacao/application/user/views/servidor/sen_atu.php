@@ -5,7 +5,7 @@ $this->load->view('template/menuser');
 if ($codserv==NULL) redirect('home/index'); 
 $query = $this ->serv_m->atualizar($codserv)->row();
 
-echo validation_errors();
+//echo validation_errors();
 echo form_open("home/alterar_senha/$codserv");
 
 

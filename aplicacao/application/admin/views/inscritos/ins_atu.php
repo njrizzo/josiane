@@ -60,7 +60,7 @@ endif
     <td>
 		<?php echo form_error('motivo'); ?>
        <input type="text" name="motivo" value="<?php echo set_value('motivo',$query->motivo); ?>" cols="45" rows="5" id="motivo" />
-      <span>Descreva o que motivou voc&ecirc; a inscrever-se no curso de capacita&ccedil;&atilde;o</span>
+      <span>Descreva o que o motivou a inscrever-se no curso de capacita&ccedil;&atilde;o</span>
       
   </tr>
   <tr>

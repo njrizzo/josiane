@@ -3,26 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inscricao extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	
 	public function __construct() {
         parent::__construct();
- $this->load->model('inscricao_m');
- $this->load->model('serv_m','',TRUE);
+ $this->load->model('Inscricao_m','inscricao_m');
+ $this->load->model('Serv_m','serv_m',TRUE);
    $this->serv_m->logged();
    
  
@@ -36,7 +21,7 @@ class Inscricao extends CI_Controller {
 	
 
 							
-redirect('inscricao/listar');
+Redirect('inscricao/listar');
 
 
 	}
@@ -47,8 +32,7 @@ redirect('inscricao/listar');
 	{
 		$session_data = $this->session->userdata('logged_in');
      
-     //$datav['codserv'] =
-      //$session_data['codserv'];
+     
       $datav['nomeserv'] = $session_data['nomeserv'];
 	$this->form_validation->set_error_delimiters('<span style="color:red">', '</span>');
 	$this -> form_validation ->set_rules('datains','DATA','trim|required');
@@ -60,8 +44,7 @@ redirect('inscricao/listar');
                 { 			
 					
 							$cursos =  $this->inscricao_m->retorna_curso();
-							//$essa = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-							//$datav['turmas'] = $this->inscricao_m->retorna_turma($essa);
+							
                         	
                         	$option = "<option value=''></option>";
 	foreach($cursos -> result()  as $linha) {
@@ -90,7 +73,7 @@ redirect('inscricao/listar');
 	}
 	
 	
-	
+	//retorna as turmas de acordo com o curso escolhido
 	public function busca_cursos_turmas($id){
 		
 	
@@ -115,7 +98,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 	$this -> form_validation ->set_rules('motivo','Motivação','trim|max_length[100]');
 	    if ($this->form_validation->run() == FALSE)
                 {
-							//$datav['servs'] = $this->inscricao_m->retorna_serv();
+							
                         	$datav['turmas'] = $this->inscricao_m->retorna_turma_all();
                         	$this->load->view('inscritos/ins_atu', $datav);
 					
@@ -140,7 +123,7 @@ $this -> form_validation ->set_rules('datains','DATA','trim|required');
 		
 		public function deletar()
 	{
-		//$datav['servs'] = $this->inscricao_m->retorna_serv();
+		
                         	$datav['turmas'] = $this->inscricao_m->retorna_turma_del();
                         	$this->load->view('inscritos/ins_del', $datav);
 		
@@ -165,7 +148,7 @@ public function listar(){
 			 
 	$maximo = 8;
 	$inicio = (!$this->uri->segment("3")) ? 0 : $this->uri->segment("3");
-	$config['base_url'] = base_url('inscricao/listar');
+	$config['base_url'] = base_url('usuario.php/inscricao/listar');
 	$config['total_rows'] =$this->inscricao_m->contaRegistros($datas['codserv']);
 	$config['per_page'] =  $maximo;
 	//$config['first_link'] = 'Primeiro';
@@ -188,7 +171,7 @@ public function listar(){
 
 
 
-
+//envia email sobre a inscricao para o servidor e para o chefe autorizar
 public function send_mail() {
 			
 		
@@ -212,7 +195,7 @@ public function send_mail() {
 			$emailserv=$linha->email;
 			$chefemail=$linha->emailchefe;
 			$chefenome=$linha->nomechefe;
-		
+			$baseurl =  base_url();
 			
 
 		
@@ -234,13 +217,13 @@ public function send_mail() {
       <p>Olá, $nomeserv, sua inscrição no curso $nomecurso: módulo $mmodulo, foi realizada com sucesso!!</p>
       <p>Certifique-se que seu chefe recebeu o e-mail de pedido de autorização da sua inscrição, pois a mesma se faz necessário para que possa concorrer a vaga do curso que selecionou.</p>
       <p>&nbsp;</p>
-      <p>Você criou a sua senha de acompanhamento que servirá para verificar o estado da sua inscrição, e também possui as seguintes funcionalidades:</p>
+      <p>A sua senha de acesso ao SICAP servirá para verificar o estado da sua inscrição, e também possui as seguintes funcionalidades:</p>
 <p>&nbsp;</p>
     <p>- Verificar se o seu chefe autorizou a sua inscrição;</p>
 
     <p>- Verificar a justificativa do chefe caso ele não autorize a sua inscrição e</p>
 
-    <p>- Verificar se você foi selecionado para o curso que se inscreveu</p>
+    <p>- Verificar se você foi matriculado no curso que se inscreveu</p>
 
     <p>&nbsp;</p>
 
@@ -285,11 +268,11 @@ public function send_mail() {
              <p>Senhor dirigente,</p>
              <p>&nbsp;</p>
           <p>Para efetivar a inscrição do servidor descrito acima é necessário a sua autorização. A não autorização deverá ser acompanhada de justificativa.</p>
-		  <p>Solicitamos sua atenção ao autorizar, pois o mesmo servidor poderá realizar até 5 inscrições em cursos e ou módulos diferentes ao mesmo tempo. </p>
+		  <p>Solicitamos sua atenção ao autorizar, pois o mesmo servidor poderá realizar inscrições em cursos e ou módulos diferentes ao mesmo tempo. </p>
              <p>&nbsp;</p>
 			
               <p>&nbsp;</p>
-			 <p>Para autorizar a insrição do servidor no curso.<a href='http://localhost:8080/test/aplicacao/usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
+			 <p>Para autorizar a insrição do servidor no curso.<a href=' ".$baseurl."usuario.php/cadastro/conferir/".trim($matriculasiapeservidor)."/$idins'>Clique Aqui</a></p>
              
               <p>&nbsp;</p>
             <p>Acesse o cronograma do Curso de Capacitação no Link abaixo:
@@ -306,8 +289,10 @@ public function send_mail() {
     } else {
        $datav["message"] =  "Mensagem enviada com sucesso!";
     }
-    $this->load->view('inscritos/ins_cad',$datav);
-   // redirect('inscricao/cadastrar');
+$this->session->set_flashdata('cadastrook','Inscrição efetuada com sucesso');
+  
+
+Redirect('inscricao/cadastrar');
 }//fim foreach
 }//fimfuncao
 

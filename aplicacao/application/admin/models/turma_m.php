@@ -18,8 +18,7 @@ public function retorna_curso()
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codcurso, ENT_QUOTES)] = 
-htmlspecialchars($row->modulo, ENT_QUOTES);
+           $arrDatos[$row->codcurso] = $row->modulo;
 
         $query->free_result();
         return $arrDatos;
@@ -46,8 +45,7 @@ public function retorna_curso_all()
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codcurso, ENT_QUOTES)] = 
-htmlspecialchars($row->modulo, ENT_QUOTES);
+           $arrDatos[$row->codcurso] = $row->modulo;
 
         $query->free_result();
         return $arrDatos;
@@ -88,9 +86,9 @@ public function atualizar($codturma=NULL)
       $this->db->select('*');
 $this->db->from('turma');
 $this->db->join('curso', 'curso.codcurso = turma.codcurso');
-//$query = $this->db->get();
+
      return $this->db->get();
-       //return $this->db->query('select * from curso c, turma t  ');
+
       else:
       
       return FALSE;
@@ -122,12 +120,12 @@ public function deletar_do($condicao=NULL)
 		redirect('turma/listar');
 		endif;
     }
-
+//funcao auxilir paginacao
 		function contaRegistros()
 {
  return $this->db->count_all_results('turma');
 }
-	
+//funcao paginacao	
 public function do_pesquisa($maximo, $inicio) {
   $match = $this->input->post('pesquisar');
   

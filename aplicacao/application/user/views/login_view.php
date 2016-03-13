@@ -8,7 +8,10 @@ $this->load->view('template/cabecalho');
 
    
    
-   <?php echo form_open('login/verifylogin'); ?>
+   <?php
+ echo form_open('login/verifylogin'); 
+
+?>
      <table width="302" height="160" border="0" align="center" cellpadding="0" cellspacing="0" id="logon">
 		 
       <tr>
@@ -52,6 +55,9 @@ $this->load->view('template/cabecalho');
         </tr>
         <tr>
           <th colspan="3" align="left" scope="col"><?php echo anchor('cadastro','Não Possui cadastro? clique aqui.');?></th>
+        </tr>
+     <tr>
+          <th colspan="3" align="left" scope="col"><?php echo anchor('cadastro/autenticar','Autenticar Certificado? clique aqui.');?></th>
         </tr>
      
 

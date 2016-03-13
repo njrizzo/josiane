@@ -50,7 +50,7 @@ public function atualizar_do($dados=NULL,$condicao=NULL)
 		$this->db->update('servidor',$dados,$condicao);
 		
 		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
-		//redirect("curso/editar/$id");
+		
 		redirect(current_url());
 		endif;
     }
@@ -67,12 +67,12 @@ public function deletar_do($condicao=NULL)
     }
 
 	
-
+//funcao auxilir paginacao
 	function contaRegistros()
 {
  return $this->db->count_all_results('servidor');
 }
-	
+	//funcao paginacao e campo de pesquisa
 	function retornaServ($maximo, $inicio)
 {
 	 $match = $this->input->post('pesquisar');
@@ -81,7 +81,6 @@ public function deletar_do($condicao=NULL)
   $this->db->or_like('sexo',$match);
   $this->db->or_like('siape',$match);
   $this->db->or_like('email',$match);
- // $this->db->or_like('telcontato',$match);
   $this->db->or_like('unidade',$match);
   $this->db->or_like('nomechefe',$match);
   $this->db->or_like('emailchefe',$match);
@@ -95,13 +94,13 @@ public function deletar_do($condicao=NULL)
   $this->db->or_like('setor',$match);
   $this->db->or_like('cargo',$match);
   $this->db->or_like('funcao',$match);
-  // $this->db->limit($maximo);
+ 
  $query = $this->db->get('servidor', $maximo, $inicio);
  return $query->result();
 }
 	
 	
-	
+	//confere a senha antiga para fazer a alteraçao
 		public function confere_senha($senha=NULL)
     {
       if($senha!=NULL):

@@ -7,13 +7,13 @@ class Inscricao_m extends CI_Model {
                 parent::__construct();
               
         }
-
+//não permite acesso direto ao link de autorizacao de inscricoes
 	 function logged() {
         $logged = $this->session->userdata('loggedd');
 
         if (!isset($logged) || $logged != true) {
             echo 'Voce nao tem permissao para entrar nessa pagina.';
-            echo anchor('cadastro/conferir', 'Efetuar Login');
+          // Redirect('login', 'Refresh');
             die();
         }
     }
@@ -39,28 +39,6 @@ public function retorna_curso()//retorna os cursos ativos
 
 
 
-public function retorna_curso_apagar()//retorna os cursos ativos
-{
-
- $this->db->order_by('codcurso', 'ASC');
- $this->db->where('estado', 'ativo');
-        $query = $this->db->get('curso');
-        if ($query->num_rows() > 0)
-        {
-           
-           foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codcurso, ENT_QUOTES)] = 
-htmlspecialchars($row->modulo, ENT_QUOTES);
-
-        $query->free_result();
-        return $arrDatos;
-           
-        }
-        else
-        {
-            return false;
-        }
-	}
 	
 	
 	
@@ -91,31 +69,6 @@ $consulta = $this->db->get("turma");
 	
 	
 
-public function retorna_turma_apagar($essa) //funcão usada na hora da inscrição para retornar as turmas abertas de acordo com o curso escolhido
-{
-
- $this->db->order_by('codturma', 'ASC');
- $this->db->where('datainicio >=', 'now()'  );
- $this->db->where("codcurso", $essa);
- 
- 
-        $query = $this->db->get('turma');
-        if ($query->num_rows() > 0)
-        {
-           
-           foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = htmlspecialchars($row->nometurma, ENT_QUOTES);
-           
-        $query->free_result();
-        return $arrDatos;
-           
-        }
-        else
-        {
-            return false;
-        }
-
-}
 
 public function retorna_turma_all() //funcão usada na hora de editar turmas, retorna todas as turmas que ainda não encerraram
 {
@@ -123,13 +76,12 @@ public function retorna_turma_all() //funcão usada na hora de editar turmas, re
  $this->db->order_by('codturma', 'ASC');
 $this->db->where('datafim >=', 'now()'  );
         $query = $this->db->get('turma');
-       // $this->db->join('curso', ' curso.codcurso = turma.codcurso');
+      
         if ($query->num_rows() > 0)
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = 
-htmlspecialchars($row->nometurma, ENT_QUOTES);
+           $arrDatos[$row->codturma] =$row->nometurma;
 
         $query->free_result();
         return $arrDatos;
@@ -149,13 +101,12 @@ public function retorna_turma_del() //funcão usada na hora de deletar inscriç�
 
  $this->db->order_by('codturma', 'ASC');
         $query = $this->db->get('turma');
-       // $this->db->join('curso', ' curso.codcurso = turma.codcurso');
+       
         if ($query->num_rows() > 0)
         {
            
            foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->codturma, ENT_QUOTES)] = 
-htmlspecialchars($row->nometurma, ENT_QUOTES);
+           $arrDatos[$row->codturma] =$row->nometurma;
 
         $query->free_result();
         return $arrDatos;
@@ -176,9 +127,8 @@ htmlspecialchars($row->nometurma, ENT_QUOTES);
 			  
 		$this->db->insert('inscricao',$dados);
 	
-		$this->session->set_flashdata('cadastrook','Inscrição efetuada com sucesso');
-		redirect('inscricao/send_mail');
-		//redirect('inscricao/cadastrar');
+		
+		Redirect('inscricao/send_mail');
 		
 		endif;
 		
@@ -197,7 +147,7 @@ $this->db->join('turma', ' turma.codturma = inscricao.codturma');
 $this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
 $this->db->join('curso', ' curso.codcurso = turma.codcurso');
 	$this->db->limit(1);
- //return $this->db->get();
+
  $query2 = $this->db->get();
  
    if ($query2->num_rows() > 0)
@@ -222,9 +172,9 @@ public function atualizar($codinscricao=NULL)
 $this->db->from('inscricao');
 $this->db->join('turma', ' turma.codturma = inscricao.codturma');
 $this->db->join('servidor', ' servidor.codserv = inscricao.codserv');
-//$query = $this->db->get();
+
      return $this->db->get();
-       //return $this->db->query('select * from curso c, turma t  ');
+      
       else:
       
       return FALSE;
@@ -243,7 +193,7 @@ public function atualizar_do($dados=NULL,$condicao=NULL)
 		 $this->session->set_flashdata('editarok','Alteração efetuada com sucesso');
 		 $this->session->set_flashdata('ok', 'Resposta salva com sucesso!');
 
-		redirect(current_url());
+		Redirect(current_url());
 
 		endif;
     }
@@ -255,10 +205,10 @@ public function deletar_do($condicao=NULL)
 		$this->db->delete('inscricao',$condicao);
 		$this->session->set_flashdata('excluirok','Inscriçaõ cancelada com sucesso');
 		
-		redirect('inscricao/listar');
+		Redirect('inscricao/listar');
 		endif;
     }
-
+//funcao que retorna a ultima inscricao e envia email para o servidor e para o chefe
 			function contaRegistros($serv)
 {
 	
@@ -276,7 +226,7 @@ $this->db->where('inscricao.codserv',$serv);
 	
 	
 	
-	
+//paginacao	
 public function do_pesquisa($maximo, $inicio, $codserv) {
 
   
